@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bbylaa Store - APK Premium, Joki Tugas & Top Up Game</title>
+    <link rel="icon" type="image/png" href="logobyla.jpeg">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cute: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f9a8d4',
+                            400: '#f472b6',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                            950: '#500724',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .soft-card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(244, 114, 182, 0.12), 0 8px 10px -6px rgba(244, 114, 182, 0.08);
+        }
+        .soft-card-shadow:hover {
+            box-shadow: 0 20px 30px -10px rgba(236, 72, 153, 0.22);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fdf2f8; }
+        ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-[#fff2f7] via-[#fff9fb] to-[#fff2f7] text-slate-800 min-h-screen flex flex-col font-sans antialiased selection:bg-pink-400 selection:text-white"
+      x-data="storeApp()" x-init="initStore()" x-cloak>
+
+    <!-- Top Soft Glow Accent -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-pink-200/40 via-rose-100/20 to-transparent pointer-events-none blur-3xl z-0"></div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-pink-200/70 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3 sm:gap-4">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl overflow-hidden border-2 border-pink-300 shadow-md shadow-pink-400/20 group-hover:scale-105 transition-transform bg-pink-50 flex items-center justify-center shrink-0">
+                    <img src="logobyla.jpeg" 
+                         alt="Logo Bbylaa Store" 
+                         onerror="this.onerror=null; this.src='logobyla.jpeg'; this.src='logobyla.jpg';"
+                         class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="text-lg sm:text-xl font-black tracking-tight text-slate-900 block leading-none">BBYLAA <span class="text-pink-600">STORE</span></span>
+                    <span class="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-pink-500">APK, Joki & Top Up</span>
+                </div>
+            </a>
+
+            <!-- Search Bar Desktop -->
+            <div class="hidden lg:flex flex-1 max-w-sm relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-pink-400">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                </div>
+                <input type="text"
+                       x-model="searchQuery"
+                       placeholder="Cari di BbylaaStore (Roblox, Canva, ChatGPT)..."
+                       class="w-full pl-9 pr-4 py-2 bg-pink-50/70 hover:bg-pink-50 border border-pink-200 rounded-xl text-sm placeholder-pink-300/80 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-slate-800">
+                <button x-show="searchQuery" @click="searchQuery = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-pink-400 hover:text-pink-600">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div class="flex items-center gap-2">
+                <!-- Testimoni Telegram -->
+                <a :href="testiTelegramUrl" 
+                   target="_blank"
+                   class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 border border-sky-200 text-xs font-bold text-sky-700 transition-all shadow-sm">
+                    <i data-lucide="star" class="w-3.5 h-3.5 text-amber-500 fill-amber-400"></i>
+                    <span>3.000+ Testi</span>
+                </a>
+
+                <!-- Saluran WA -->
+                <a :href="waChannelUrl" 
+                   target="_blank"
+                   class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-pink-50 hover:bg-pink-100 border border-pink-200 text-xs font-bold text-pink-700 transition-all shadow-sm">
+                    <i data-lucide="bell" class="w-3.5 h-3.5 text-pink-500"></i>
+                    <span>Saluran WA</span>
+                </a>
+
+                <!-- Tombol Keranjang Belanja -->
+                <button @click="openCartModal()" 
+                        class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-pink-100 hover:bg-pink-200 border border-pink-300 text-xs font-bold text-pink-700 transition-all shadow-sm cursor-pointer">
+                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Keranjang</span>
+                    <span x-show="cartTotalCount > 0" 
+                          x-text="cartTotalCount"
+                          class="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-black text-white bg-pink-600 rounded-full shadow-sm animate-pulse">
+                    </span>
+                </button>
+
+                <!-- Chat CS WhatsApp -->
+                <a :href="'https://wa.me/' + adminWhatsapp + '?text=' + encodeURIComponent('Halo Admin Bbylaa Store, saya mau konsultasi / order produk dong!')" 
+                   target="_blank"
+                   class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-xs sm:text-sm font-bold text-white shadow-md shadow-pink-500/30 transition-all">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    <span>Chat CS</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar -->
+        <div class="p-3 lg:hidden border-t border-pink-100 bg-white/95">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-pink-400">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                </div>
+                <input type="text"
+                       x-model="searchQuery"
+                       placeholder="Cari di BbylaaStore..."
+                       class="w-full pl-10 pr-4 py-2 bg-pink-50/70 border border-pink-200 rounded-xl text-sm placeholder-pink-300 focus:outline-none focus:border-pink-500 text-slate-800">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10">
+
+        <!-- Banner Promosi Bbylaa Store -->
+        <div class="max-w-4xl mx-auto mb-8 sm:mb-10">
+            <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-pink-200 soft-card-shadow group bg-white shadow-xl">
+                <div class="relative w-full">
+                    <img src="baner_byla.jpeg" 
+                         alt="Bbylaa Store Banner" 
+                         class="w-full h-auto block object-contain transition-transform duration-500 group-hover:scale-[1.01]">
+                    
+                    <div class="absolute inset-x-0 bottom-0 h-14 sm:h-20 bg-gradient-to-t from-black/40 via-black/10 to-transparent pointer-events-none"></div>
+                    
+                    <!-- Badge Info -->
+                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-3.5 sm:left-3.5 flex flex-wrap items-center gap-1.5 sm:gap-2">
+                        <span class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-pink-500/90 text-white text-[10px] sm:text-xs font-bold shadow-md backdrop-blur-sm">
+                            <i data-lucide="heart" class="w-3.5 h-3.5 fill-white"></i>
+                            Official Store
+                        </span>
+                        <a :href="testiTelegramUrl" target="_blank" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-sky-500/90 hover:bg-sky-500 text-white text-[10px] sm:text-xs font-bold shadow-md backdrop-blur-sm transition-all">
+                            <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-300 text-amber-300"></i>
+                            3.000+ Testimoni
+                        </a>
+                        <span class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-white/90 border border-pink-200 text-slate-800 text-[10px] sm:text-xs font-semibold backdrop-blur-sm shadow-sm">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-pink-500"></i>
+                            Full Garansi SnK
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Categories Tabs (Hierarki Utama: Semua, APK, Game, Joki, Hand Made) -->
+        <div class="mb-8 space-y-3">
+            <!-- Level 1: Kategori Utama -->
+            <div class="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-none">
+                <!-- Semua Layanan -->
+                <button @click="setMainCategory('all')"
+                        :class="mainCategory === 'all' ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold shadow-md shadow-pink-400/30' : 'bg-white text-slate-700 hover:text-pink-600 border border-pink-200'"
+                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-sm">
+                    <i data-lucide="grid" class="w-4 h-4"></i>
+                    <span>Semua Layanan</span>
+                </button>
+
+                <!-- APK Premium (Parent Category) -->
+                <button @click="setMainCategory('apk')"
+                        :class="mainCategory === 'apk' ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold shadow-md shadow-pink-400/30' : 'bg-white text-slate-700 hover:text-pink-600 border border-pink-200'"
+                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-sm">
+                    <i data-lucide="crown" class="w-4 h-4"></i>
+                    <span>APK Premium</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 text-current font-bold" x-show="mainCategory === 'apk'">Pilihan</span>
+                </button>
+
+                <!-- Top Up Game -->
+                <button @click="if (isCategoryOpen('game')) setMainCategory('game')"
+                        :disabled="!isCategoryOpen('game')"
+                        :class="{
+                            'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold shadow-md shadow-pink-400/30 cursor-pointer': mainCategory === 'game' && isCategoryOpen('game'),
+                            'bg-white text-slate-700 hover:text-pink-600 border border-pink-200 cursor-pointer': mainCategory !== 'game' && isCategoryOpen('game'),
+                            'bg-slate-100 text-slate-400 border border-slate-200 opacity-60 cursor-not-allowed': !isCategoryOpen('game')
+                        }"
+                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 shadow-sm">
+                    <i data-lucide="gamepad-2" class="w-4 h-4"></i>
+                    <span>Top Up Game</span>
+                    <span x-show="!isCategoryOpen('game')" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-600 border border-rose-200">Close</span>
+                </button>
+
+                <!-- Joki Tugas -->
+                <button @click="if (isCategoryOpen('joki')) setMainCategory('joki')"
+                        :disabled="!isCategoryOpen('joki')"
+                        :class="{
+                            'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold shadow-md shadow-pink-400/30 cursor-pointer': mainCategory === 'joki' && isCategoryOpen('joki'),
+                            'bg-white text-slate-700 hover:text-pink-600 border border-pink-200 cursor-pointer': mainCategory !== 'joki' && isCategoryOpen('joki'),
+                            'bg-slate-100 text-slate-400 border border-slate-200 opacity-60 cursor-not-allowed': !isCategoryOpen('joki')
+                        }"
+                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 shadow-sm">
+                    <i data-lucide="file-edit" class="w-4 h-4"></i>
+                    <span>Joki Tugas</span>
+                    <span x-show="!isCategoryOpen('joki')" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-600 border border-rose-200">Close</span>
+                </button>
+
+                <!-- Hand Made (Kategori Baru) -->
+                <button @click="if (isCategoryOpen('handmade')) setMainCategory('handmade')"
+                        :disabled="!isCategoryOpen('handmade')"
+                        :class="{
+                            'bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-md shadow-purple-300/40 cursor-pointer': mainCategory === 'handmade' && isCategoryOpen('handmade'),
+                            'bg-white text-slate-700 hover:text-purple-600 border border-purple-200 cursor-pointer': mainCategory !== 'handmade' && isCategoryOpen('handmade'),
+                            'bg-slate-100 text-slate-400 border border-slate-200 opacity-60 cursor-not-allowed': !isCategoryOpen('handmade')
+                        }"
+                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 shadow-sm cursor-pointer">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span>Hand Made</span>
+                    <span x-show="!isCategoryOpen('handmade')" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-600 border border-rose-200">Close</span>
+                </button>
+            </div>
+
+            <!-- Level 2: Sub-Klasifikasi Khusus APK Premium -->
+            <div x-show="mainCategory === 'apk'" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 -translate-y-1"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 class="p-2.5 bg-pink-50/70 border border-pink-200 rounded-2xl flex items-center gap-2 overflow-x-auto scrollbar-none">
+                <span class="text-[11px] font-extrabold text-pink-600 px-2 shrink-0 flex items-center gap-1">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                    Pilih Jenis APK:
+                </span>
+                <template x-for="sub in apkSubCategories" :key="sub.id">
+                    <button @click="selectedApkSub = sub.id"
+                            :class="selectedApkSub === sub.id ? 'bg-pink-600 text-white font-bold shadow-sm' : 'bg-white text-slate-600 hover:text-pink-600 border border-pink-200/80'"
+                            class="px-3.5 py-1.5 rounded-xl text-xs whitespace-nowrap transition-all duration-150 flex items-center gap-1.5 cursor-pointer">
+                        <span x-text="sub.name"></span>
+                    </button>
+                </template>
+            </div>
+        </div>
+
+        <!-- Banner Keterangan Khusus Joki Tugas (Muncul saat tab Joki Tugas aktif) -->
+        <div x-show="mainCategory === 'joki'" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="mb-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-pink-50 via-rose-50 to-amber-50/50 border border-pink-200/90 shadow-sm flex items-start gap-3.5">
+            <div class="w-9 h-9 rounded-xl bg-pink-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-pink-300">
+                <i data-lucide="info" class="w-5 h-5"></i>
+            </div>
+            <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <h4 class="font-bold text-slate-900 mb-0.5 flex items-center gap-1.5">
+                    Ketentuan Biaya Joki Tugas
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 font-extrabold">Penting</span>
+                </h4>
+                <p class="text-slate-600 text-xs sm:text-[13px]">
+                    Harga yang tertera pada katalog merupakan <strong>estimasi awal</strong>. Biaya pengerjaan akhir <strong>menyesuaikan tingkat kesulitan materi, jumlah halaman/slide, dan batas waktu (deadline)</strong>, serta <strong>ditentukan dan disepakati bersama antara buyer dan admin</strong> via chat WhatsApp sebelum pengerjaan dimulai.
+                </p>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div x-show="filteredProducts.length === 0" class="text-center py-20 bg-white/80 rounded-2xl border-2 border-dashed border-pink-200">
+            <i data-lucide="package-search" class="w-12 h-12 text-pink-300 mx-auto mb-3"></i>
+            <h3 class="text-base font-bold text-slate-700">Layanan Tidak Ditemukan</h3>
+            <p class="text-slate-400 text-sm mt-1">Coba gunakan kata kunci lain atau pilih Semua Layanan.</p>
+            <button @click="searchQuery = ''; selectedCategory = 'all'" class="mt-4 px-4 py-2 bg-pink-100 hover:bg-pink-200 text-xs font-bold text-pink-700 rounded-xl transition-colors cursor-pointer">
+                Reset Pencarian
+            </button>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" x-show="filteredProducts.length > 0">
+            <template x-for="product in filteredProducts" :key="product.id">
+                <div class="bg-white border rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 soft-card-shadow group relative"
+                     :class="isCategoryOpen(product.category) ? 'border-pink-200/80 hover:border-pink-400' : 'border-slate-200 opacity-70 bg-slate-50/50'">
+                    
+                    <!-- Badge Tag & Status -->
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-pink-50 text-pink-600 border border-pink-200" x-text="product.categoryName"></span>
+                        <div>
+                            <span x-show="!isCategoryOpen(product.category)" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-600 border border-rose-200">Layanan Tutup</span>
+                            <span x-show="isCategoryOpen(product.category)" class="text-[11px] font-bold px-2.5 py-1 rounded-md"
+                                  :class="product.badgeColor"
+                                  x-text="product.badge"></span>
+                        </div>
+                    </div>
+
+                    <!-- App/Service Info -->
+                    <div>
+                        <div class="flex items-center gap-3.5 mb-3">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl text-white shadow-md relative overflow-hidden"
+                                 :class="product.iconBg">
+                                <span x-text="product.iconText"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-base leading-snug group-hover:text-pink-600 transition-colors" x-text="product.name"></h3>
+                                <p class="text-xs text-slate-500 mt-0.5 line-clamp-1" x-text="product.subtext"></p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-600 text-xs leading-relaxed mb-4" x-text="product.description"></p>
+
+                        <!-- Key Features Checklist -->
+                        <ul class="space-y-1.5 mb-5 text-xs text-slate-600">
+                            <template x-for="(feat, idx) in product.features" :key="idx">
+                                <li class="flex items-center gap-2">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0"></i>
+                                    <span class="truncate" x-text="feat"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+
+                    <!-- Variants & Pricing Selector -->
+                    <div class="pt-4 border-t border-pink-100 mt-auto">
+                        <label class="block text-[11px] font-semibold text-slate-500 mb-1.5" 
+                               x-text="product.category === 'game' ? 'Pilih Nominal Top Up:' : (product.category === 'joki' ? 'Pilih Paket Pengerjaan:' : (product.category === 'handmade' ? 'Pilih Paket Custom:' : 'Pilih Paket / Durasi:'))"></label>
+                        <select x-model="product.selectedVariantIndex" 
+                                :disabled="!isCategoryOpen(product.category)"
+                                class="w-full bg-pink-50/50 border border-pink-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-300 font-medium cursor-pointer disabled:cursor-not-allowed">
+                            <template x-for="(variant, vIdx) in product.variants" :key="vIdx">
+                                <option :value="vIdx" x-text="variant.range ? variant.label + ' - Rp ' + variant.range : variant.label + ' - Rp ' + formatRupiah(variant.price)"></option>
+                            </template>
+                        </select>
+
+                        <!-- Price & Order Action (Dual Button: +Keranjang & Checkout Langsung) -->
+                        <div class="flex items-end justify-between gap-2.5 mt-4">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block" x-text="product.category === 'joki' ? 'Mulai Dari' : 'Harga'"></span>
+                                <div class="text-base sm:text-lg font-black" :class="isCategoryOpen(product.category) ? (product.category === 'handmade' ? 'text-purple-600' : 'text-pink-600') : 'text-slate-400'">
+                                    <span class="text-xs font-bold">Rp</span> 
+                                    <span x-text="product.variants[product.selectedVariantIndex || 0].range || formatRupiah(product.variants[product.selectedVariantIndex || 0].price)"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-1.5">
+                                <!-- Tombol Tambah ke Keranjang -->
+                                <button type="button"
+                                        @click="if (isCategoryOpen(product.category)) addToCart(product)"
+                                        :disabled="!isCategoryOpen(product.category)"
+                                        title="Tambah ke Keranjang"
+                                        :class="!isCategoryOpen(product.category) ? 'opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border-slate-200' : 'bg-pink-50 hover:bg-pink-100 text-pink-600 border border-pink-200 hover:border-pink-300 active:scale-90 cursor-pointer'"
+                                        class="p-2.5 rounded-xl transition-all flex items-center justify-center">
+                                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                </button>
+
+                                <!-- Tombol Beli / Order Langsung -->
+                                <button @click="if (isCategoryOpen(product.category)) openCheckoutModal(product)"
+                                        :disabled="!isCategoryOpen(product.category)"
+                                        :class="!isCategoryOpen(product.category) 
+                                            ? 'bg-slate-200 text-slate-400 border border-slate-300 cursor-not-allowed opacity-80' 
+                                            : (product.category === 'handmade' 
+                                                ? 'bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 hover:opacity-95 text-white shadow-md shadow-purple-400/30 cursor-pointer active:scale-95' 
+                                                : 'bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-md shadow-pink-400/30 cursor-pointer active:scale-95')"
+                                        class="px-3.5 py-2.5 font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all">
+                                    <i :data-lucide="!isCategoryOpen(product.category) ? 'lock' : (product.category === 'handmade' ? 'sparkles' : 'zap')" class="w-3.5 h-3.5"></i>
+                                    <span x-text="!isCategoryOpen(product.category) ? 'Tutup' : (product.category === 'game' ? 'Top Up' : (product.category === 'joki' ? 'Pesan' : (product.category === 'handmade' ? 'Custom' : 'Beli')))"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Trust Badges -->
+        <section class="mt-16 pt-12 border-t border-pink-200/80">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <h2 class="text-2xl font-bold text-slate-800">Kenapa Belanja di Bbylaa Store?</h2>
+                <p class="text-slate-500 text-xs sm:text-sm mt-1">Layanan ramah, respon kilat, terbukti amanah dan terpercaya.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-white border border-pink-200/80 soft-card-shadow flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="award" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-800 mb-1">3.000+ Testimoni Puas</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Bukti kepuasan ribuan pelanggan dapat dicek langsung di saluran Telegram kami.</p>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white border border-pink-200/80 soft-card-shadow flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="rotate-ccw" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-800 mb-1">Full Garansi SnK</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Garansi replace ganti baru untuk akun aplikasi, dan revisi sampai tuntas untuk tugas.</p>
+                    </div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white border border-pink-200/80 soft-card-shadow flex items-start gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-800 mb-1">Proses Cepat & Legal</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Top up game via ID resmi tanpa sandi, produk handmade rapi & aesthetic.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Checkout Modal -->
+    <div x-show="showModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+        <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" @click="closeCheckoutModal()"></div>
+
+        <div class="relative min-h-screen flex items-center justify-center p-4">
+            <div class="relative w-full max-w-lg bg-white border border-pink-200 rounded-3xl shadow-2xl p-6 sm:p-8 overflow-hidden">
+                
+                <button @click="closeCheckoutModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 leading-tight">Konfirmasi Pemesanan</h3>
+                        <p class="text-xs text-slate-500">Order otomatis disimpan & terhubung ke WhatsApp Admin</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-pink-50/70 border border-pink-200 mb-5">
+                    <div class="flex items-center justify-between text-sm mb-1.5">
+                        <span class="font-bold text-slate-800 text-base" x-text="activeProduct?.name"></span>
+                        <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-white text-pink-600 border border-pink-200" x-text="activeVariant?.label"></span>
+                    </div>
+                    <div class="text-xs text-slate-500 flex items-center justify-between">
+                        <span x-text="activeProduct?.category === 'joki' ? 'Estimasi Biaya' : 'Total Pembayaran'"></span>
+                        <span class="text-base font-black text-pink-600">Rp <span x-text="activeVariant?.range || formatRupiah(activeVariant?.price || 0)"></span></span>
+                    </div>
+                </div>
+
+                <!-- Keterangan Khusus Joki Tugas di Modal Checkout -->
+                <div x-show="activeProduct?.category === 'joki'" class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5 mb-4">
+                    <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
+                    <p class="text-[11px] leading-relaxed">
+                        <strong>Biaya Menyesuaikan:</strong> Harga di atas adalah estimasi awal. Harga fix akan ditentukan dan disepakati bersama antara kamu dan admin via WhatsApp sesuai tingkat kesulitan tugas dan deadline.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Pemesan <span class="text-rose-500">*</span></label>
+                        <input type="text" 
+                               x-model="customer.name"
+                               placeholder="Masukkan nama kamu" 
+                               class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-300">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nomor WhatsApp Kamu <span class="text-rose-500">*</span></label>
+                        <input type="tel" 
+                               x-model="customer.phone"
+                               placeholder="Contoh: 0823xxxxxxxx" 
+                               class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-300">
+                    </div>
+
+                    <!-- Input Khusus Game -->
+                    <div x-show="activeProduct?.category === 'game'" class="space-y-3 p-3.5 rounded-2xl bg-pink-50 border border-pink-200">
+                        <div>
+                            <label class="block text-xs font-bold text-pink-700 mb-1">
+                                <span x-text="activeProduct?.id === 204 ? 'GrowID & World Name :' : 'User ID (dan Server/Zone ID) :'"></span> 
+                                <span class="text-rose-500">*</span>
+                            </label>
+                            <input type="text" 
+                                   x-model="customer.gameId"
+                                   :placeholder="activeProduct?.id === 204 ? 'Contoh: GrowID: BylaPro / World: STOREBUY' : 'Contoh: 12345678 (2024)'" 
+                                   class="w-full px-3.5 py-2 bg-white border border-pink-300 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pink-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Pilihan Pembayaran</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <label class="flex items-center justify-center p-2.5 rounded-xl border cursor-pointer text-xs font-bold transition-all"
+                                   :class="customer.payment === 'QRIS' ? 'bg-pink-100 border-pink-500 text-pink-700' : 'bg-slate-50 border-slate-200 text-slate-600'">
+                                <input type="radio" value="QRIS" x-model="customer.payment" class="sr-only">
+                                <span>QRIS</span>
+                            </label>
+                            <label class="flex items-center justify-center p-2.5 rounded-xl border cursor-pointer text-xs font-bold transition-all"
+                                   :class="customer.payment === 'DANA / E-Wallet' ? 'bg-pink-100 border-pink-500 text-pink-700' : 'bg-slate-50 border-slate-200 text-slate-600'">
+                                <input type="radio" value="DANA / E-Wallet" x-model="customer.payment" class="sr-only">
+                                <span>E-Wallet</span>
+                            </label>
+                            <label class="flex items-center justify-center p-2.5 rounded-xl border cursor-pointer text-xs font-bold transition-all"
+                                   :class="customer.payment === 'Transfer Bank' ? 'bg-pink-100 border-pink-500 text-pink-700' : 'bg-slate-50 border-slate-200 text-slate-600'">
+                                <input type="radio" value="Transfer Bank" x-model="customer.payment" class="sr-only">
+                                <span>Bank</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Catatan Tambahan (Opsional)</label>
+                        <textarea rows="2" 
+                                  x-model="customer.notes"
+                                  :placeholder="activeProduct?.category === 'joki' ? 'Tulis judul tugas, jumlah halaman & deadline' : (activeProduct?.category === 'handmade' ? 'Keterangan custom: misal link foto ganci/fotostrip atau kirim via WA' : 'Contoh: email invite pribadi / kirim ke no ini')"
+                                  class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pink-500"></textarea>
+                    </div>
+                </div>
+
+                <button @click="submitOrderToWA()"
+                        :disabled="!customer.name || !customer.phone || (activeProduct?.category === 'game' && !customer.gameId)"
+                        class="w-full mt-6 py-3 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25 active:scale-[0.99] transition-all cursor-pointer">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Checkout via WhatsApp</span>
+                </button>
+                <p class="text-[11px] text-slate-400 text-center mt-3">Data pesanan otomatis tercatat di Google Sheets & diteruskan ke WhatsApp Admin.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL KERANJANG BELANJA (DRAWER / SLIDE-OVER) -->
+    <div x-show="showCartModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" @click="closeCartModal()"></div>
+
+        <div class="relative min-h-screen flex items-center justify-center p-3 sm:p-4">
+            <div class="relative w-full max-w-lg bg-white border border-pink-200 rounded-3xl shadow-2xl p-5 sm:p-7 overflow-hidden flex flex-col max-h-[92vh]">
+                
+                <!-- Header Keranjang -->
+                <div class="flex items-center justify-between pb-3.5 border-b border-pink-100">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 leading-tight">Keranjang Belanja</h3>
+                            <p class="text-[11px] text-slate-400"><span x-text="cartTotalCount"></span> item dipilih</p>
+                        </div>
+                    </div>
+                    <button @click="closeCartModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Konten Daftar Item di Keranjang (Scrollable) -->
+                <div class="flex-1 overflow-y-auto py-3.5 space-y-2.5 pr-1">
+                    <!-- Jika Keranjang Kosong -->
+                    <div x-show="cart.length === 0" class="py-12 text-center">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 text-pink-200 mx-auto mb-2.5"></i>
+                        <p class="text-xs font-bold text-slate-700">Keranjang kamu masih kosong</p>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Pilih layanan atau produk di katalog lalu klik tombol keranjang.</p>
+                    </div>
+
+                    <!-- List Item -->
+                    <template x-for="(item, index) in cart" :key="item.cartId">
+                        <div class="p-3 rounded-2xl bg-pink-50/50 border border-pink-100 flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs text-white shrink-0" :class="item.iconBg">
+                                    <span x-text="item.iconText"></span>
+                                </div>
+                                <div class="min-w-0">
+                                    <h4 class="text-xs font-bold text-slate-800 truncate" x-text="item.name"></h4>
+                                    <p class="text-[10px] text-pink-600 font-semibold truncate" x-text="item.variantLabel"></p>
+                                    <p class="text-[11px] font-black text-slate-900 mt-0.5">Rp <span x-text="formatRupiah(item.price)"></span></p>
+                                </div>
+                            </div>
+
+                            <!-- Qty Control & Hapus -->
+                            <div class="flex items-center gap-2 shrink-0">
+                                <div class="flex items-center border border-pink-200 rounded-lg bg-white overflow-hidden">
+                                    <button @click="decreaseCartQty(index)" class="px-2 py-0.5 text-slate-500 hover:bg-pink-50 text-xs font-bold">-</button>
+                                    <span class="px-2 text-xs font-bold text-slate-800" x-text="item.qty"></span>
+                                    <button @click="increaseCartQty(index)" class="px-2 py-0.5 text-slate-500 hover:bg-pink-50 text-xs font-bold">+</button>
+                                </div>
+                                <button @click="removeCartItem(index)" class="text-rose-400 hover:text-rose-600 p-1" title="Hapus">
+                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Form Data Pemesan (Jika keranjang ada isinya) -->
+                <div x-show="cart.length > 0" class="pt-3 border-t border-pink-100 space-y-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Nama Kamu <span class="text-rose-500">*</span></label>
+                            <input type="text" x-model="customer.name" placeholder="Nama pemesan" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-pink-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">No. WhatsApp <span class="text-rose-500">*</span></label>
+                            <input type="tel" x-model="customer.phone" placeholder="08xxxxxxxx" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-pink-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Catatan / Data Game (Jika ada)</label>
+                        <input type="text" x-model="customer.notes" placeholder="Contoh: ID ML / GrowID / Keterangan Ganci" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-pink-500">
+                    </div>
+
+                    <!-- Ringkasan Total & Tombol Checkout -->
+                    <div class="pt-2 flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Total Pembayaran:</span>
+                            <span class="text-base font-black text-pink-600">Rp <span x-text="formatRupiah(cartTotalPrice)"></span></span>
+                        </div>
+                        <button @click="checkoutCartToWA()"
+                                :disabled="!customer.name || !customer.phone"
+                                class="px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-md shadow-pink-400/30 cursor-pointer transition-all">
+                            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                            <span>Checkout Semua via WA</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart Button (Pojok Kanan Bawah) -->
+    <div class="fixed bottom-6 right-6 z-40" x-show="cartTotalCount > 0" x-transition>
+        <button @click="openCartModal()"
+                class="flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-xs shadow-xl shadow-pink-500/30 border-2 border-white cursor-pointer active:scale-95 transition-all">
+            <div class="relative">
+                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                <span x-text="cartTotalCount" class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-white text-pink-600 text-[10px] font-black flex items-center justify-center shadow"></span>
+            </div>
+            <span>Lihat Keranjang (Rp <span x-text="formatRupiah(cartTotalPrice)"></span>)</span>
+        </button>
+    </div>
+
+    <!-- Toast Notification (Notifikasi saat item masuk keranjang) -->
+    <div x-show="showToast" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-3"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 translate-y-3"
+         class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-xl flex items-center gap-2 border border-pink-400/30 pointer-events-none">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+        <span x-text="toastMessage"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-pink-200/80 bg-white mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-700">Bbylaa Store</span> &copy; 2026. All rights reserved.
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                <a :href="testiTelegramUrl" target="_blank" class="text-sky-600 hover:text-sky-700 underline flex items-center gap-1 font-bold">
+                    <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                    3.000+ Testimoni Telegram
+                </a>
+                <span>•</span>
+                <a :href="waChannelUrl" target="_blank" class="text-pink-600 hover:text-pink-700 underline font-semibold">Saluran WA</a>
+                <span>•</span>
+                <span>WA: 0823-1861-3826</span>
+                <span>•</span>
+                <span class="text-pink-600 font-semibold">Full Garansi SnK</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Alpine Data Logic & Products Catalog -->
+    <script>
+        function storeApp() {
+            return {
+                adminWhatsapp: '6282318613826',
+                waChannelUrl: 'https://whatsapp.com/channel/0029VbCfTrxI7BeNl8xXBw1f',
+                testiTelegramUrl: 'https://t.me/testinabilastore',
+                
+                // URL API Google Apps Script Real dari Akun Kamu
+                googleSheetUrl: 'https://script.google.com/macros/s/AKfycbzp0IYIBP8qq2yakPyYNuEmxo0LA5t--8gFfeSuwYKEkmr190bZmluFnOA4r9KM-LA/exec',
+
+                searchQuery: '',
+                mainCategory: 'all', // 'all', 'apk', 'game', 'joki', 'handmade'
+                cart: [],
+                showCartModal: false,
+                showToast: false,
+                toastMessage: '',
+                toastTimer: null,
+                selectedApkSub: 'all_apk', // 'all_apk', 'ai', 'streaming', 'design', 'study', 'utility'
+                apkSubCategories: [
+                    { id: 'all_apk', name: '🌟 Semua APK' },
+                    { id: 'ai', name: '🤖 AI & Bot' },
+                    { id: 'streaming', name: '🎬 Streaming Film' },
+                    { id: 'design', name: '🎨 Desain & Editing' },
+                    { id: 'study', name: '📚 Produktivitas & Edu' },
+                    { id: 'utility', name: '🛡️ VPN & Utilitas' },
+                ],
+                showModal: false,
+                activeProduct: null,
+                activeVariant: null,
+
+                customer: {
+                    name: '',
+                    phone: '',
+                    gameId: '',
+                    payment: 'QRIS',
+                    notes: ''
+                },
+
+                categories: [
+                    { id: 'ai', name: '🤖 AI & Bot', isOpen: true },
+                    { id: 'design', name: '🎨 Desain & Editing', isOpen: true },
+                    { id: 'game', name: '🎮 Top Up Game', isOpen: true },
+                    { id: 'study', name: '📚 Produktivitas & Edu', isOpen: true },
+                    { id: 'joki', name: '📝 Joki Tugas', isOpen: true },
+                    { id: 'streaming', name: '🎬 Streaming Film', isOpen: true },
+                    { id: 'utility', name: '🛡️ VPN & Utilitas', isOpen: true },
+                    { id: 'handmade', name: '✨ Hand Made', isOpen: true },
+                ],
+
+                initStore() {
+                    this.loadCart();
+                    const saved = localStorage.getItem('bbylaa_store_status');
+                    if (saved) {
+                        try {
+                            const parsed = JSON.parse(saved);
+                            this.categories.forEach(c => {
+                                if (parsed[c.id] !== undefined) c.isOpen = parsed[c.id];
+                            });
+                        } catch (e) {
+                            console.error('Error load status', e);
+                        }
+                    }
+                },
+
+                isCategoryOpen(catId) {
+                    const cat = this.categories.find(c => c.id === catId);
+                    return cat ? cat.isOpen : true;
+                },
+
+                setMainCategory(cat) {
+                    this.mainCategory = cat;
+                    if (cat === 'apk') this.selectedApkSub = 'all_apk';
+                    this.$nextTick(() => lucide.createIcons());
+                },
+
+                get filteredProducts() {
+                    const q = this.searchQuery.toLowerCase().trim();
+                    return this.products.filter(item => {
+                        let matchesCategory = false;
+                        if (this.mainCategory === 'all') {
+                            matchesCategory = true;
+                        } else if (this.mainCategory === 'game') {
+                            matchesCategory = item.category === 'game';
+                        } else if (this.mainCategory === 'joki') {
+                            matchesCategory = item.category === 'joki';
+                        } else if (this.mainCategory === 'handmade') {
+                            matchesCategory = item.category === 'handmade';
+                        } else if (this.mainCategory === 'apk') {
+                            if (this.selectedApkSub === 'all_apk') {
+                                matchesCategory = ['ai', 'streaming', 'design', 'study', 'utility'].includes(item.category);
+                            } else {
+                                matchesCategory = item.category === this.selectedApkSub;
+                            }
+                        }
+
+                        const matchesSearch = !q || 
+                            item.name.toLowerCase().includes(q) || 
+                            item.description.toLowerCase().includes(q) || 
+                            item.categoryName.toLowerCase().includes(q);
+                        return matchesCategory && matchesSearch;
+                    });
+                },
+
+                products: [
+                    // =================== HAND MADE ===================
+                    {
+                        id: 501,
+                        name: 'Gantungan Kunci Akrilik Custom',
+                        category: 'handmade',
+                        categoryName: 'Hand Made',
+                        badge: 'Custom Foto',
+                        badgeColor: 'bg-purple-100 text-purple-700 border border-purple-200',
+                        iconBg: 'bg-gradient-to-tr from-purple-500 to-pink-500',
+                        iconText: '🔑',
+                        subtext: 'Bisa Request Foto, Karakter & Nama',
+                        description: 'Gantungan kunci akrilik bening 2 sisi anti air, cocok untuk gantungan tas, kunci motor, atau gift sahabat.',
+                        features: ['Akrilik Bening 2 Sisi Tebal', 'Custom Foto & Tulisan Bebas', 'Packaging Estetik Cute'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Ganci 1 Sisi Polos', price: 8000 },
+                            { label: 'Ganci 2 Sisi Bolak-Balik', price: 12000 },
+                            { label: 'Paket Hemat 3 Pcs Ganci', price: 30000 }
+                        ]
+                    },
+                    {
+                        id: 502,
+                        name: 'Fotostrip Estetik (Custom Photo)',
+                        category: 'handmade',
+                        categoryName: 'Hand Made',
+                        badge: 'Best Gift',
+                        badgeColor: 'bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200',
+                        iconBg: 'bg-gradient-to-tr from-fuchsia-500 to-rose-400',
+                        iconText: '📸',
+                        subtext: 'Kertas Foto Tebal Glossy / Doff',
+                        description: 'Cetak foto strip polaroid ala photobooth kekinian. Frame bisa custom warna pink pastel, putih, atau hitam.',
+                        features: ['Kualitas Cetak Tajam HD', 'Kertas Silky / Glossy Tebal', 'Bisa Custom 3-4 Foto'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Paket 2 Strip (Isi 6-8 Foto)', price: 10000 },
+                            { label: 'Paket 5 Strip (Isi 15-20 Foto)', price: 22000 },
+                            { label: 'Paket 10 Strip + Free Ganci', price: 40000 }
+                        ]
+                    },
+                    // =================== AI (ChatGPT & Gemini) ===================
+                    {
+                        id: 1,
+                        name: 'ChatGPT Premium (Go & Plus)',
+                        category: 'ai',
+                        categoryName: 'AI & Bot',
+                        badge: 'Promo Poster',
+                        badgeColor: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
+                        iconBg: 'bg-gradient-to-tr from-emerald-500 to-teal-500',
+                        iconText: 'GPT',
+                        subtext: 'Sharing 8 User (1 Day, 7 Day, 1 Bln)',
+                        description: 'Akses ChatGPT Go & ChatGPT Plus Sharing 8 User dengan harga hemat.',
+                        features: ['Pilihan Harian s/d Bulanan', 'Akses Cepat & Stabil', 'Garansi Akun Aktif'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'ChatGPT Go Shar 8U 1Day', price: 4500 },
+                            { label: 'ChatGPT Go Shar 8U 7Day', price: 10000 },
+                            { label: 'ChatGPT Go Shar 8U 1Bln', price: 18000 },
+                            { label: 'ChatGPT Plus Shar 8U 1Day', price: 5000 },
+                            { label: 'ChatGPT Plus Shar 8U 7Day', price: 12000 },
+                            { label: 'ChatGPT Plus Shar 8U 1Bln', price: 25000 },
+                        ]
+                    },
+                    {
+                        id: 2,
+                        name: 'Gemini Pro AI Invite',
+                        category: 'ai',
+                        categoryName: 'AI & Bot',
+                        badge: 'Termurah',
+                        badgeColor: 'bg-blue-100 text-blue-700 border border-blue-200',
+                        iconBg: 'bg-gradient-to-tr from-blue-500 to-cyan-500',
+                        iconText: '✦',
+                        subtext: 'Invite Email Pribadi (1 Bln - 1 Thn)',
+                        description: 'Google Gemini Pro AI canggih untuk riset, coding, dan analisis dokumen.',
+                        features: ['Invite Email Pribadi Kamu', 'Full Garansi Durasi', 'Akses Model Pro'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Gemini Pro AI Invite 1 Bln', price: 15000 },
+                            { label: 'Gemini Pro AI Invite 3 Bln', price: 20000 },
+                            { label: 'Gemini Pro AI Invite 1 Thn', price: 40000 },
+                        ]
+                    },
+
+                    // =================== DESAIN & EDITING ===================
+                    {
+                        id: 3,
+                        name: 'Canva Pro Member & Head',
+                        category: 'design',
+                        categoryName: 'Desain',
+                        badge: 'Best Seller',
+                        badgeColor: 'bg-sky-100 text-sky-700 border border-sky-200',
+                        iconBg: 'bg-gradient-to-tr from-sky-500 to-cyan-500',
+                        iconText: 'C',
+                        subtext: 'Member Bulanan, Edu 1y & Head',
+                        description: 'Akses Canva Pro tanpa batas: Magic AI, background remover, template premium.',
+                        features: ['Bisa Email Pribadi', 'Garansi 6 Bulan (Edu 1y)', 'Fitur Pro Terbuka'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Canva Member 1 Month', price: 1500 },
+                            { label: 'Canva Member 2 Month', price: 3000 },
+                            { label: 'Canva Member 3 Month', price: 4500 },
+                            { label: 'Canva Head 1 Bln', price: 8000 },
+                            { label: 'Canva Edu 1y Garansi 6 Bln', price: 10000 },
+                        ]
+                    },
+                    {
+                        id: 4,
+                        name: 'CapCut Pro Video Editor',
+                        category: 'design',
+                        categoryName: 'Editing',
+                        badge: 'Favorit',
+                        badgeColor: 'bg-pink-100 text-pink-700 border border-pink-200',
+                        iconBg: 'bg-gradient-to-tr from-pink-500 to-rose-500',
+                        iconText: 'CP',
+                        subtext: 'Private 7 Hari, 1 Bln & Sharing',
+                        description: 'Export video TikTok & Reels tanpa watermark, buka auto-caption dan filter pro.',
+                        features: ['Bisa di HP & PC/Laptop', 'Auto Caption Indonesia', 'Fitur VIP Terbuka'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'CapCut Pro 7Day Private', price: 5000 },
+                            { label: 'CapCut Pro 1 Bln Sharing', price: 13000 },
+                            { label: 'CapCut Pro 1 Bln Private', price: 25000 },
+                        ]
+                    },
+                    {
+                        id: 5,
+                        name: 'Dazzcam Vintage Retro',
+                        category: 'design',
+                        categoryName: 'Kamera',
+                        badge: '1 Tahun',
+                        badgeColor: 'bg-amber-100 text-amber-700 border border-amber-200',
+                        iconBg: 'bg-gradient-to-tr from-amber-500 to-yellow-500',
+                        iconText: '📷',
+                        subtext: '1 Tahun Garansi 6 Bulan',
+                        description: 'Aplikasi kamera vintage analog estetis untuk foto dan video retro ala 90-an.',
+                        features: ['Semua Lensa Analog Pro', 'Filter Vintage Lengkap', 'Garansi 6 Bulan'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Dazzcam 1Thn Garansi 6bln', price: 25000 }
+                        ]
+                    },
+                    {
+                        id: 6,
+                        name: 'Picsart Photo Studio',
+                        category: 'design',
+                        categoryName: 'Desain',
+                        badge: 'Populer',
+                        badgeColor: 'bg-purple-100 text-purple-700 border border-purple-200',
+                        iconBg: 'bg-gradient-to-tr from-purple-500 to-pink-500',
+                        iconText: 'P',
+                        subtext: 'Private 1 Bln & Sharing 1 Bln',
+                        description: 'Edit foto kreatif dengan stiker, font VIP, remove background instan & efek AI.',
+                        features: ['Akses Semua Tool VIP', 'Bebas Iklan', 'Export Resolusi Penuh'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Picsart Sharing 1 Bln', price: 8000 },
+                            { label: 'Picsart Private 1 Bln', price: 15000 }
+                        ]
+                    },
+                    {
+                        id: 7,
+                        name: 'Meitu VIP Photo Editor',
+                        category: 'design',
+                        categoryName: 'Beauty',
+                        badge: 'Viral',
+                        badgeColor: 'bg-rose-100 text-rose-700 border border-rose-200',
+                        iconBg: 'bg-gradient-to-tr from-rose-500 to-pink-500',
+                        iconText: 'MT',
+                        subtext: 'Meitu VIP & VIP+ (7 Hari)',
+                        description: 'Filter kecantikan AI, retouch wajah mulus alami, dan frame aesthetic.',
+                        features: ['Filter VIP Terbuka', 'Retouch Wajah HD', 'Akses Cepat'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Meitu VIP 7Day', price: 3500 },
+                            { label: 'Meitu VIP+ 7Day', price: 5500 }
+                        ]
+                    },
+                    {
+                        id: 8,
+                        name: 'Wink Video Retouching',
+                        category: 'design',
+                        categoryName: 'Video AI',
+                        badge: 'Trending',
+                        badgeColor: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
+                        iconBg: 'bg-gradient-to-tr from-emerald-500 to-teal-500',
+                        iconText: 'W',
+                        subtext: 'Wink VIP & VIP+ (7 Hari & 14 Hari)',
+                        description: 'Bikin video portrait jernih 4K dan perbaiki detail wajah secara instan di video.',
+                        features: ['Quality Restoration 4K', 'Retouch Video AI', 'Full Garansi'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Wink VIP 7Day', price: 3500 },
+                            { label: 'Wink VIP+ 7Day', price: 5500 },
+                            { label: 'Wink VIP+ 14Day', price: 10000 }
+                        ]
+                    },
+                    {
+                        id: 9,
+                        name: 'Remini AI Photo Enhancer',
+                        category: 'design',
+                        categoryName: 'Restorasi',
+                        badge: 'Jernih HD',
+                        badgeColor: 'bg-red-100 text-red-700 border border-red-200',
+                        iconBg: 'bg-gradient-to-tr from-red-500 to-rose-500',
+                        iconText: 'R',
+                        subtext: 'Web Private & Web Sharing 1 Bln',
+                        description: 'Jernihkan foto buram/pecah jadi kualitas ultra HD dan buat avatar AI profesional.',
+                        features: ['Unblur Foto Seketika', 'Kualitas High Definition', 'Akses Web Praktis'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Remini Web Sharing 1 Bln', price: 8000 },
+                            { label: 'Remini Web Private 1 Bln', price: 18000 }
+                        ]
+                    },
+                    {
+                        id: 10,
+                        name: 'Lightroom Preset & Editor',
+                        category: 'design',
+                        categoryName: 'Fotografi',
+                        badge: 'Pro CC',
+                        badgeColor: 'bg-blue-100 text-blue-700 border border-blue-200',
+                        iconBg: 'bg-gradient-to-tr from-blue-600 to-cyan-500',
+                        iconText: 'Lr',
+                        subtext: 'Sharing 1 Bln & Sharing 1 Thn',
+                        description: 'Koleksi grading warna pro, selective edit, dan tone curve untuk fotografer.',
+                        features: ['Selective Masking Pro', 'Buka Semua Preset VIP', 'Cloud Storage'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Lightroom Sharing 1 Bln', price: 15000 },
+                            { label: 'Lightroom Sharing 1 Thn', price: 30000 }
+                        ]
+                    },
+                    {
+                        id: 11,
+                        name: 'VSCO X & POLAR',
+                        category: 'design',
+                        categoryName: 'Filter',
+                        badge: 'Aesthetic',
+                        badgeColor: 'bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200',
+                        iconBg: 'bg-gradient-to-tr from-fuchsia-600 to-pink-500',
+                        iconText: 'V',
+                        subtext: 'VSCO X 1Thn & POLAR 1Thn',
+                        description: 'Buka ratusan filter analog film estetik untuk feed Instagram dan Pinterest.',
+                        features: ['Buka Semua Preset Film', 'Durasi 1 Tahun', 'Garansi Aktif'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'VSCO X Sharing 1 Thn', price: 25000 },
+                            { label: 'POLAR Sharing 1 Thn', price: 25000 }
+                        ]
+                    },
+
+                    // =================== PRODUKTIVITAS ===================
+                    {
+                        id: 12,
+                        name: 'Grammarly & Quillbot',
+                        category: 'study',
+                        categoryName: 'Akademik',
+                        badge: 'Parafrase',
+                        badgeColor: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
+                        iconBg: 'bg-gradient-to-tr from-emerald-500 to-green-500',
+                        iconText: 'G',
+                        subtext: 'Grammarly 1Bln & Quillbot 1Bln',
+                        description: 'Parafrase otomatis anti-plagiasi dan cek tata bahasa Inggris otomatis.',
+                        features: ['Parafrase Mode Lengkap', 'Grammar Checker Akurat', 'Cocok untuk Skripsi'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Grammarly Sharing 1 Bln', price: 8000 },
+                            { label: 'Quillbot Sharing 1 Bln', price: 12000 }
+                        ]
+                    },
+                    {
+                        id: 13,
+                        name: 'Microsoft 365 & WPS PRO',
+                        category: 'study',
+                        categoryName: 'Office',
+                        badge: 'Office VIP',
+                        badgeColor: 'bg-amber-100 text-amber-700 border border-amber-200',
+                        iconBg: 'bg-gradient-to-tr from-orange-500 to-amber-500',
+                        iconText: 'MS',
+                        subtext: 'MS365 Invite 1Bln & WPS PRO Sharing',
+                        description: 'Aplikasi pengetikan resmi Word, Excel, PowerPoint & PDF Converter.',
+                        features: ['Word, Excel & PPT Pro', 'PDF Edit & Convert', 'Bisa di HP / Laptop'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'WPS PRO Sharing 1 Bln', price: 10000 },
+                            { label: 'MS365 Invite 1 Bln', price: 15000 }
+                        ]
+                    },
+                    {
+                        id: 14,
+                        name: 'Zoom Pro 100 Peserta',
+                        category: 'study',
+                        categoryName: 'Meeting',
+                        badge: 'Tanpa Batas',
+                        badgeColor: 'bg-blue-100 text-blue-700 border border-blue-200',
+                        iconBg: 'bg-gradient-to-tr from-blue-500 to-sky-500',
+                        iconText: 'Z',
+                        subtext: 'Zoom 100P (7 Hari & 14 Hari)',
+                        description: 'Meeting online tanpa batas durasi 40 menit, support recording & breakout room.',
+                        features: ['Kapasitas 100 Peserta', 'Durasi Bebas (No Limit)', 'Aktivasi Kilat'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Zoom 100P 7Day', price: 7000 },
+                            { label: 'Zoom 100P 14Day', price: 14000 }
+                        ]
+                    },
+                    {
+                        id: 15,
+                        name: 'Scribd & Duolingo',
+                        category: 'study',
+                        categoryName: 'Edu & Buku',
+                        badge: 'Belajar',
+                        badgeColor: 'bg-teal-100 text-teal-700 border border-teal-200',
+                        iconBg: 'bg-gradient-to-tr from-teal-500 to-emerald-500',
+                        iconText: 'S',
+                        subtext: 'Scribd (Private/Shar) & Duolingo 1Bln',
+                        description: 'Download ribuan dokumen/buku Scribd dan belajar bahasa tanpa jeda hati di Duolingo.',
+                        features: ['Download Dokumen Scribd', 'Duolingo Hati Unlimited', 'Garansi Pemakaian'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Duolingo Invite 1 Bln', price: 8000 },
+                            { label: 'Scribd Sharing 1 Bln', price: 8000 },
+                            { label: 'Scribd Private 1 Bln', price: 15000 }
+                        ]
+                    },
+                    {
+                        id: 16,
+                        name: 'ExpressVPN & HMA VPN Private',
+                        category: 'utility',
+                        categoryName: 'VPN Aman',
+                        badge: 'Private',
+                        badgeColor: 'bg-rose-100 text-rose-700 border border-rose-200',
+                        iconBg: 'bg-gradient-to-tr from-rose-500 to-red-600',
+                        iconText: 'VPN',
+                        subtext: 'Private 1 Bulan (Fast Server)',
+                        description: 'Proteksi privasi internet, bypass blokir, dan server negara lengkap.',
+                        features: ['Server Cepat Low Ping', 'Full Private 1 Bulan', 'Support SnK Toko'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Vpn Express Private 1 Bln', price: 15000 },
+                            { label: 'HMA VPN Private 1 Bln', price: 15000 }
+                        ]
+                    },
+
+                    // =================== TOP UP GAME ===================
+                    {
+                        id: 201,
+                        name: 'Roblox (Robux Murah & Cepat)',
+                        category: 'game',
+                        categoryName: 'Game Online',
+                        badge: 'Fast Send',
+                        badgeColor: 'bg-rose-100 text-rose-700 border border-rose-200',
+                        iconBg: 'bg-gradient-to-tr from-rose-500 to-pink-600',
+                        iconText: 'RBX',
+                        subtext: 'Via Gamepass / Group Funds',
+                        description: 'Top up Robux murah legal untuk beli avatar, gamepass Blox Fruits, Brookhaven, dll.',
+                        features: ['Legal & Anti Rollback', 'Proses 5 - 15 Menit', 'Hanya Butuh Username'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: '100 Robux Clean', price: 15000 },
+                            { label: '250 Robux Clean', price: 36000 },
+                            { label: '500 Robux Clean', price: 72000 },
+                            { label: '1,000 Robux Clean', price: 140000 },
+                        ]
+                    },
+                    {
+                        id: 202,
+                        name: 'Free Fire (Diamond FF)',
+                        category: 'game',
+                        categoryName: 'Game Online',
+                        badge: 'Instan',
+                        badgeColor: 'bg-amber-100 text-amber-700 border border-amber-200',
+                        iconBg: 'bg-gradient-to-tr from-amber-500 to-orange-500',
+                        iconText: 'FF',
+                        subtext: 'Cukup Kirimkan Player ID',
+                        description: 'Top up diamond Free Fire resmi, proses kilat masuk detik itu juga.',
+                        features: ['100% Legal via ID', 'Proses Otomatis 1 Menit', 'Bisa Member Mingguan'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: '70 Diamond FF', price: 10000 },
+                            { label: '140 Diamond FF', price: 20000 },
+                            { label: '355 Diamond FF', price: 50000 },
+                            { label: '720 Diamond FF', price: 100000 },
+                            { label: 'Membership Mingguan FF', price: 32000 },
+                        ]
+                    },
+                    {
+                        id: 203,
+                        name: 'Mobile Legends: Bang Bang',
+                        category: 'game',
+                        categoryName: 'Game Online',
+                        badge: 'Terlaris',
+                        badgeColor: 'bg-blue-100 text-blue-700 border border-blue-200',
+                        iconBg: 'bg-gradient-to-tr from-blue-500 to-indigo-600',
+                        iconText: 'ML',
+                        subtext: 'Diamond & Weekly Diamond Pass',
+                        description: 'Top up diamond MLBB murah, siap buat gacha skin favorit & beli WDP hemat.',
+                        features: ['Format: User ID (Zone ID)', 'Weekly Pass Termurah', 'Langsung Masuk'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Weekly Diamond Pass (WDP)', price: 28000 },
+                            { label: '86 Diamond ML', price: 21000 },
+                            { label: '172 Diamond ML', price: 42000 },
+                            { label: '257 Diamond ML', price: 63000 },
+                            { label: '706 Diamond ML', price: 168000 },
+                        ]
+                    },
+                    {
+                        id: 204,
+                        name: 'Growtopia (DL & WL Murah)',
+                        category: 'game',
+                        categoryName: 'Game Online',
+                        badge: 'Aman 100%',
+                        badgeColor: 'bg-yellow-100 text-yellow-800 border border-yellow-200',
+                        iconBg: 'bg-gradient-to-tr from-amber-400 to-yellow-600',
+                        iconText: 'GT',
+                        subtext: 'World Lock & Diamond Lock',
+                        description: 'Beli DL / WL Growtopia terpercaya, drop via Display Box / Donation Box di world kamu.',
+                        features: ['Ketik GrowID & World Name', 'Drop di Donation / Display Box', 'Stock Selalu Ready'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: '50 World Lock (WL)', price: 10000 },
+                            { label: '1 Diamond Lock (1 DL)', price: 18000 },
+                            { label: '3 Diamond Lock (3 DL)', price: 53000 },
+                            { label: '5 Diamond Lock (5 DL)', price: 88000 },
+                        ]
+                    },
+
+                    // =================== JOKI TUGAS ===================
+                    {
+                        id: 301,
+                        name: 'Joki Makalah & Paper Akademik',
+                        category: 'joki',
+                        categoryName: 'Joki Tugas',
+                        badge: 'Favorit Mhs',
+                        badgeColor: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
+                        iconBg: 'bg-gradient-to-tr from-emerald-500 to-teal-500',
+                        iconText: '📄',
+                        subtext: 'Harga Sesuai Kesulitan & Deadline',
+                        description: 'Pengerjaan makalah lengkap dengan cover, bab 1-3, dan daftar pustaka standar. Harga menyesuaikan tingkat kesulitan dan deadline tugas.',
+                        features: ['Belum Termasuk Turnitin', 'Harga Menyesuaikan Kesulitan & Deadline', 'Format Rapi Siap Cetak', 'Free Revisi SnK'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Estimasi Reguler (2-3 Hari)', price: 35000 },
+                            { label: 'Estimasi Kilat Express (1x24 Jam)', price: 55000 },
+                            { label: 'Estimasi Super Kilat (< 12 Jam)', price: 75000 }
+                        ]
+                    },
+                    {
+                        id: 302,
+                        name: 'Joki PPT / Slide Presentasi Canva',
+                        category: 'joki',
+                        categoryName: 'Joki Tugas',
+                        badge: 'Aesthetic',
+                        badgeColor: 'bg-pink-100 text-pink-700 border border-pink-200',
+                        iconBg: 'bg-gradient-to-tr from-pink-500 to-rose-500',
+                        iconText: '📊',
+                        subtext: 'Animasi Halus & Desain Modern',
+                        description: 'Pembuatan slide presentasi menarik, tidak membosankan, dilengkapi infografis visual.',
+                        features: ['Desain Canva Pro', 'Animasi & Transisi', 'Bisa Custom Warna'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Paket 10 - 15 Slide (Reguler)', range: '10.000 - 30.000', price: 10000 },
+                            { label: 'Paket 15 - 25 Slide (Reguler)', range: '18.000 - 50.000', price: 18000 },
+                            { label: 'Slide Kilat Express (1x24 Jam)', range: '30.000 - 80.000', price: 30000 }
+                        ]
+                    },
+                    {
+                        id: 303,
+                        name: 'Joki Rapihin Word / Excel / PPT dll',
+                        category: 'joki',
+                        categoryName: 'Joki Tugas',
+                        badge: 'Format Rapih',
+                        badgeColor: 'bg-indigo-100 text-indigo-700 border border-indigo-200',
+                        iconBg: 'bg-gradient-to-tr from-indigo-500 to-blue-500',
+                        iconText: '📑',
+                        subtext: 'Harga Menyesuaikan Kesulitan & Deadline',
+                        description: 'Jasa perapihan format dokumen Word (makalah/laporan/skripsi), olah tabel & rumus Excel, serta tata letak PPT. Cepat dan rapi sesuai panduan.',
+                        features: ['Rapihin Margin, Font & Paragraf', 'Daftar Isi & Penomoran Otomatis', 'Perapihan Tabel & Data Excel', 'Harga Sesuai Kesulitan & Deadline'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Rapihin Dokumen Word (Estimasi)', range: '10.000 - 35.000', price: 10000 },
+                            { label: 'Rapihin Tabel & Data Excel (Estimasi)', range: '15.000 - 50.000', price: 15000 },
+                            { label: 'Rapihin Format Slide PPT (Estimasi)', range: '15.000 - 45.000', price: 15000 },
+                            { label: 'Paket Komplit Dokumen (Estimasi)', range: '25.000 - 75.000', price: 25000 }
+                        ]
+                    },
+
+                    // =================== STREAMING & FILM ===================
+                    {
+                        id: 401,
+                        name: 'Netflix Premium UHD 4K',
+                        category: 'streaming',
+                        categoryName: 'Streaming',
+                        badge: 'Best Seller',
+                        badgeColor: 'bg-rose-100 text-rose-700 border border-rose-200',
+                        iconBg: 'bg-gradient-to-tr from-rose-500 to-red-500',
+                        iconText: 'N',
+                        subtext: 'Kualitas 4K Ultra HD & Dolby Atmos',
+                        description: 'Nonton film & series Netflix favorit tanpa iklan. Kualitas 4K Ultra HD full garansi durasi.',
+                        features: ['Kualitas 4K UHD + HDR', 'Bisa di HP, TV & Laptop', 'Full Garansi SnK'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Netflix 7d2u (7 Hari 2 User)', price: 10000 },
+                            { label: 'Netflix 7d1u (7 Hari 1 User)', price: 13000 },
+                            { label: 'Netflix 1b2u (1 Bulan 2 User)', price: 20000 },
+                            { label: 'Netflix 1b1u (1 Bulan 1 User)', price: 35000 },
+                            { label: 'Netflix 1 Bln Semi Private', price: 40000 },
+                            { label: 'Netflix Anti Limit 1 Bln', price: 49000 },
+                            { label: 'Netflix 1 Bln Private (5 Profil)', price: 130000 }
+                        ]
+                    },
+                    {
+                        id: 402,
+                        name: 'YouTube Premium Invite',
+                        category: 'streaming',
+                        categoryName: 'Streaming',
+                        badge: 'Bebas Iklan',
+                        badgeColor: 'bg-red-100 text-red-700 border border-red-200',
+                        iconBg: 'bg-gradient-to-tr from-red-600 to-rose-500',
+                        iconText: 'YT',
+                        subtext: 'Invite Email Pribadi (1 Bulan)',
+                        description: 'Nonton YouTube tanpa jeda iklan, putar video di latar belakang (background play), dan akses YouTube Music Premium.',
+                        features: ['Invite Email Pribadi Kamu', 'Bebas Iklan & Background Play', 'Termasuk YouTube Music'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'YouTube Invite 1 Bln', price: 8000 }
+                        ]
+                    },
+                    {
+                        id: 403,
+                        name: 'Viu Premium (Viu+)',
+                        category: 'streaming',
+                        categoryName: 'Drama & Film',
+                        badge: 'Promo Spesial',
+                        badgeColor: 'bg-amber-100 text-amber-800 border border-amber-200',
+                        iconBg: 'bg-gradient-to-tr from-yellow-500 to-amber-500',
+                        iconText: 'VIU',
+                        subtext: 'Drama Korea, Anime & Asia Lengkap',
+                        description: 'Streaming drama Korea on going & film Asia terbaru dengan subtitle Indonesia dan resolusi jernih.',
+                        features: ['Nonton Bebas Iklan', 'Download & Nonton Offline', 'Garansi Akun Aktif'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Viu+ 1 Bln', price: 3000 },
+                            { label: 'Viu+ 1 Thn Garansi (Promo)', price: 10000 },
+                            { label: 'Viu+ 1 Tahun Garansi 6B', price: 5000 }
+                        ]
+                    },
+                    {
+                        id: 404,
+                        name: 'Bstation (Bilibili VIP)',
+                        category: 'streaming',
+                        categoryName: 'Anime & Donghua',
+                        badge: 'Anime VIP',
+                        badgeColor: 'bg-sky-100 text-sky-700 border border-sky-200',
+                        iconBg: 'bg-gradient-to-tr from-sky-400 to-blue-500',
+                        iconText: 'B',
+                        subtext: 'Bstation Sharing 1 Bln & 1 Thn',
+                        description: 'Aplikasi streaming anime, donghua, dan komik legal terlengkap dengan kualitas 1080P hingga 4K.',
+                        features: ['Kualitas Video HD/4K', 'Semua Anime VIP Terbuka', 'Subtitle Resmi Indonesia'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Bstation Sharing 1 Bln 6u', price: 8000 },
+                            { label: 'Bstation Sharing 1 Thn 6u', price: 20000 }
+                        ]
+                    },
+                    {
+                        id: 405,
+                        name: 'WeTV VIP',
+                        category: 'streaming',
+                        categoryName: 'Drama Series',
+                        badge: 'Fast Track',
+                        badgeColor: 'bg-blue-100 text-blue-700 border border-blue-200',
+                        iconBg: 'bg-gradient-to-tr from-blue-500 to-cyan-500',
+                        iconText: 'W',
+                        subtext: 'Sharing 1 Bln & Private 1 Bln',
+                        description: 'Akses episode VIP drama China dan series original Indonesia lebih awal tanpa iklan.',
+                        features: ['Akses Episode VIP Lebih Awal', 'Bebas Iklan Mengganggu', 'Full Garansi Durasi'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'WeTV Sharing 1 Bln 6u', price: 8000 },
+                            { label: 'WeTV Private 1 Bln', price: 28000 }
+                        ]
+                    },
+                    {
+                        id: 406,
+                        name: 'iQIYI VIP',
+                        category: 'streaming',
+                        categoryName: 'Drama & Anime',
+                        badge: 'Standard & Prem',
+                        badgeColor: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
+                        iconBg: 'bg-gradient-to-tr from-emerald-500 to-green-600',
+                        iconText: 'iQ',
+                        subtext: 'Standar & Premium Sharing',
+                        description: 'Streaming drama Asia, anime terpopuler, dan variety show dengan audio Dolby Atmos.',
+                        features: ['Kualitas 1080P/Dolby', 'Skip Iklan Otomatis', 'Subtitle Multi-Bahasa'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'iQIYI Std Shar 1 Bln', price: 6000 },
+                            { label: 'iQIYI VIP Prem Shar 1 Bln', price: 8000 },
+                            { label: 'iQIYI VIP Prem Shar 1 Thn', price: 20000 }
+                        ]
+                    },
+                    {
+                        id: 407,
+                        name: 'Prime Video',
+                        category: 'streaming',
+                        categoryName: 'Film & Series',
+                        badge: 'Amazon Original',
+                        badgeColor: 'bg-sky-100 text-sky-800 border border-sky-200',
+                        iconBg: 'bg-gradient-to-tr from-sky-600 to-indigo-600',
+                        iconText: 'PV',
+                        subtext: 'Sharing 1 Bln & Private 1 Bln',
+                        description: 'Nonton film box office Hollywood, serial Amazon Original eksklusif, dan anime populer.',
+                        features: ['Serial Amazon Original', 'Kualitas 4K Ultra HD', 'Bisa di Smart TV & HP'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Prime Video Sharing 1 Bln', price: 8000 },
+                            { label: 'Prime Video Private 1 Bln', price: 15000 }
+                        ]
+                    },
+                    {
+                        id: 408,
+                        name: 'Youku VIP',
+                        category: 'streaming',
+                        categoryName: 'Drama Asia',
+                        badge: 'C-Drama',
+                        badgeColor: 'bg-indigo-100 text-indigo-700 border border-indigo-200',
+                        iconBg: 'bg-gradient-to-tr from-indigo-500 to-blue-500',
+                        iconText: 'YK',
+                        subtext: 'Sharing 1 Bln & 1 Thn',
+                        description: 'Koleksi drama romantis Tiongkok, wuxia, dan reality show dengan kualitas video jernih.',
+                        features: ['Buka Akses VIP Youku', 'Nonton Tanpa Iklan', 'Garansi Penuh'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Youku VIP Sharing 1 Bln 6u', price: 8000 },
+                            { label: 'Youku VIP Sharing 1 Thn', price: 20000 }
+                        ]
+                    },
+                    {
+                        id: 409,
+                        name: 'Spotify Premium Individual',
+                        category: 'streaming',
+                        categoryName: 'Musik',
+                        badge: 'Musik',
+                        badgeColor: 'bg-pink-100 text-pink-700 border border-pink-200',
+                        iconBg: 'bg-gradient-to-tr from-pink-500 to-rose-400',
+                        iconText: 'S',
+                        subtext: 'Bebas Skip & Download Offline',
+                        description: 'Dengarkan jutaan lagu tanpa jeda iklan. Akun langsung aktif atau via upgrade email pribadi.',
+                        features: ['Audio Kualitas Tinggi', 'Download Musik Offline', 'Bisa Akun Sendiri'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: '1 Bulan Akun Baru', price: 15000 },
+                            { label: '1 Bulan Upgrade Email Pribadi', price: 23000 }
+                        ]
+                    }
+                ],
+
+                setMainCategory(cat) {
+                    this.mainCategory = cat;
+                    if (cat === 'apk') this.selectedApkSub = 'all_apk';
+                    this.$nextTick(() => lucide.createIcons());
+                },
+
+                get filteredProducts() {
+                    const q = this.searchQuery.toLowerCase().trim();
+                    return this.products.filter(item => {
+                        let matchesCategory = false;
+                        if (this.mainCategory === 'all') {
+                            matchesCategory = true;
+                        } else if (this.mainCategory === 'game') {
+                            matchesCategory = item.category === 'game';
+                        } else if (this.mainCategory === 'joki') {
+                            matchesCategory = item.category === 'joki';
+                        } else if (this.mainCategory === 'handmade') {
+                            matchesCategory = item.category === 'handmade';
+                        } else if (this.mainCategory === 'apk') {
+                            if (this.selectedApkSub === 'all_apk') {
+                                matchesCategory = ['ai', 'streaming', 'design', 'study', 'utility'].includes(item.category);
+                            } else {
+                                matchesCategory = item.category === this.selectedApkSub;
+                            }
+                        }
+
+                        const matchesSearch = !q || 
+                            item.name.toLowerCase().includes(q) || 
+                            item.description.toLowerCase().includes(q) || 
+                            item.categoryName.toLowerCase().includes(q);
+                        return matchesCategory && matchesSearch;
+                    });
+                },
+
+                // ================= LOGIKA FITUR KERANJANG =================
+                get cartTotalCount() {
+                    return this.cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+                },
+
+                get cartTotalPrice() {
+                    return this.cart.reduce((sum, item) => sum + (item.price * (item.qty || 1)), 0);
+                },
+
+                addToCart(product) {
+                    const vIdx = product.selectedVariantIndex || 0;
+                    const variant = product.variants[vIdx];
+                    const cartId = `${product.id}-${vIdx}`;
+                    const existing = this.cart.find(c => c.cartId === cartId);
+
+                    if (existing) {
+                        existing.qty = (existing.qty || 1) + 1;
+                    } else {
+                        this.cart.push({
+                            cartId: cartId,
+                            productId: product.id,
+                            category: product.category,
+                            name: product.name,
+                            variantLabel: variant.label,
+                            price: variant.price,
+                            iconBg: product.iconBg,
+                            iconText: product.iconText,
+                            qty: 1
+                        });
+                    }
+                    this.saveCart();
+                    this.triggerToast(`"${product.name}" ditambahkan ke keranjang! 💕`);
+                    this.$nextTick(() => lucide.createIcons());
+                },
+
+                triggerToast(msg) {
+                    this.toastMessage = msg;
+                    this.showToast = true;
+                    clearTimeout(this.toastTimer);
+                    this.toastTimer = setTimeout(() => { this.showToast = false; }, 2500);
+                },
+
+                increaseCartQty(idx) {
+                    this.cart[idx].qty = (this.cart[idx].qty || 1) + 1;
+                    this.saveCart();
+                },
+
+                decreaseCartQty(idx) {
+                    if (this.cart[idx].qty > 1) {
+                        this.cart[idx].qty -= 1;
+                    } else {
+                        this.removeCartItem(idx);
+                    }
+                    this.saveCart();
+                },
+
+                removeCartItem(idx) {
+                    this.cart.splice(idx, 1);
+                    this.saveCart();
+                    this.$nextTick(() => lucide.createIcons());
+                },
+
+                saveCart() {
+                    localStorage.setItem('bbylaa_store_cart', JSON.stringify(this.cart));
+                },
+
+                loadCart() {
+                    try {
+                        const saved = localStorage.getItem('bbylaa_store_cart');
+                        if (saved) this.cart = JSON.parse(saved);
+                    } catch(e) {}
+                },
+
+                openCartModal() {
+                    this.showCartModal = true;
+                    this.$nextTick(() => lucide.createIcons());
+                },
+
+                closeCartModal() {
+                    this.showCartModal = false;
+                },
+
+                checkoutCartToWA() {
+                    if (!this.customer.name || !this.customer.phone) {
+                        alert('Silakan isi Nama dan Nomor WhatsApp terlebih dahulu.');
+                        return;
+                    }
+
+                    if (this.cart.length === 0) {
+                        alert('Keranjang belanja kamu masih kosong.');
+                        return;
+                    }
+
+                    const orderId = 'BBYLAA-CART-' + Math.floor(100000 + Math.random() * 900000);
+                    const grandTotal = this.cartTotalPrice;
+                    const grandTotalFormatted = 'Rp ' + this.formatRupiah(grandTotal);
+
+                    // Buat rincian list item untuk WhatsApp
+                    let itemListWA = '';
+                    this.cart.forEach((item, idx) => {
+                        const subtotal = item.price * (item.qty || 1);
+                        itemListWA += `${idx + 1}. *${item.name}*
+   - Paket: ${item.variantLabel}
+   - Qty: ${item.qty}x (Rp ${this.formatRupiah(subtotal)})
+`;
+                        
+                        // Kirim setiap item keranjang ke Google Sheets
+                        if (this.googleSheetUrl && !this.googleSheetUrl.includes('MASUKKAN_URL')) {
+                            fetch(this.googleSheetUrl, {
+                                method: 'POST',
+                                mode: 'no-cors',
+                                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                body: JSON.stringify({
+                                    orderId: orderId,
+                                    category: 'Keranjang (' + (item.category || 'Belanja') + ')',
+                                    productName: item.name + ' (' + item.qty + 'x)',
+                                    variant: item.variantLabel,
+                                    price: subtotal,
+                                    customerName: this.customer.name,
+                                    customerPhone: this.customer.phone,
+                                    notes: this.customer.notes || '-'
+                                })
+                            }).catch(err => console.log(err));
+                        }
+                    });
+
+                    // Susun Pesan WhatsApp Multi-Item
+                    const message = 
+`Halo Admin Bbylaa Store, saya ingin memesan beberapa item dari Keranjang Belanja:
+
+*Kode Order:* ${orderId}
+
+*Daftar Pesanan (${this.cartTotalCount} item):*
+${itemListWA}
+*Grand Total Pembayaran:* ${grandTotalFormatted}
+
+*Data Pemesan:*
+- Nama: ${this.customer.name}
+- No. WhatsApp: ${this.customer.phone}
+${this.customer.notes ? '- Catatan / Data Akun: ' + this.customer.notes : ''}
+
+Mohon diproses dan kirim instruksi pembayarannya ya admin. Terima kasih! 💕`;
+
+                    const waUrl = `https://wa.me/${this.adminWhatsapp}?text=${encodeURIComponent(message)}`;
+                    
+                    // Bersihkan keranjang setelah checkout
+                    this.cart = [];
+                    this.saveCart();
+                    this.closeCartModal();
+                    
+                    window.open(waUrl, '_blank');
+                },
+                // =========================================================
+
+                formatRupiah(number) {
+                    return new Intl.NumberFormat('id-ID').format(number);
+                },
+
+                openCheckoutModal(product) {
+                    this.activeProduct = product;
+                    const variantIdx = product.selectedVariantIndex || 0;
+                    this.activeVariant = product.variants[variantIdx];
+                    this.showModal = true;
+                    this.$nextTick(() => {
+                        lucide.createIcons();
+                    });
+                },
+
+                closeCheckoutModal() {
+                    this.showModal = false;
+                },
+
+                submitOrderToWA() {
+                    if (!this.customer.name || !this.customer.phone) {
+                        alert('Silakan isi Nama dan Nomor WhatsApp terlebih dahulu.');
+                        return;
+                    }
+
+                    if (this.activeProduct.category === 'game' && !this.customer.gameId) {
+                        alert('Silakan isi User ID Game / GrowID terlebih dahulu.');
+                        return;
+                    }
+
+                    const orderId = 'BBYLAA-' + Math.floor(100000 + Math.random() * 900000);
+                    const productName = this.activeProduct.name;
+                    const variantLabel = this.activeVariant.label;
+                    const priceRaw = this.activeVariant.price;
+                    const priceFormatted = this.activeVariant.range ? 'Rp ' + this.activeVariant.range : 'Rp ' + this.formatRupiah(priceRaw);
+                    const isGame = this.activeProduct.category === 'game';
+                    const isJoki = this.activeProduct.category === 'joki';
+                    const isHandmade = this.activeProduct.category === 'handmade';
+
+                    let orderTypeLabel = 'APK / Akun Premium';
+                    if (isGame) orderTypeLabel = 'Top Up Game Online';
+                    if (isJoki) orderTypeLabel = 'Layanan Joki Tugas';
+                    if (isHandmade) orderTypeLabel = 'Produk Hand Made';
+
+                    let notesDetail = '';
+                    if (isGame) notesDetail += 'Akun: ' + this.customer.gameId + ' | ';
+                    if (this.customer.notes) notesDetail += this.customer.notes;
+
+                    // 1. KIRIM DATA KE GOOGLE SHEETS SECARA REAL-TIME
+                    if (this.googleSheetUrl && !this.googleSheetUrl.includes('MASUKKAN_URL')) {
+                        const payload = {
+                            orderId: orderId,
+                            category: orderTypeLabel,
+                            productName: productName,
+                            variant: variantLabel,
+                            price: priceRaw,
+                            customerName: this.customer.name,
+                            customerPhone: this.customer.phone,
+                            notes: notesDetail || '-'
+                        };
+
+                        try {
+                            fetch(this.googleSheetUrl, {
+                                method: 'POST',
+                                mode: 'no-cors',
+                                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                body: JSON.stringify(payload)
+                            });
+                        } catch (err) {
+                            console.error('GSheet logging error:', err);
+                        }
+                    }
+
+                    // 2. SUSUN PESAN WHATSAPP
+                    const message = 
+`Halo Admin Bbylaa Store, saya ingin melakukan pemesanan:
+
+*Kategori:* ${orderTypeLabel}
+*Kode Order:* ${orderId}
+*Layanan/Item:* ${productName}
+*Paket:* ${variantLabel}
+*Total Harga:* ${priceFormatted} ${isJoki ? '(Estimasi - Penyesuaian Sesuai Kesepakatan)' : ''}
+
+*Data Pemesan:*
+- Nama:* ${this.customer.name}
+- No. WhatsApp: ${this.customer.phone}
+${isGame ? '- Data Akun Game: ' + this.customer.gameId : ''}
+- Metode Bayar: ${this.customer.payment}
+${this.customer.notes ? '- Catatan: ' + this.customer.notes : ''}
+
+Mohon dicek dan info instruksi pembayarannya ya admin. Terima kasih!`;
+
+                    const waUrl = `https://wa.me/${this.adminWhatsapp}?text=${encodeURIComponent(message)}`;
+                    window.open(waUrl, '_blank');
+                    this.closeCheckoutModal();
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
