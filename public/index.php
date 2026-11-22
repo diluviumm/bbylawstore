@@ -65,7 +65,7 @@ try {
             if (str_starts_with($path, '/api/')) {
                 json_response(['ok' => false, 'error' => 'Sesi kedaluwarsa. Muat ulang halaman lalu coba lagi.'], 419);
             }
-            echo view('errors/419', ['title' => 'Sesi Kedaluwarsa']);
+            echo layout('errors/419', ['title' => 'Sesi Kedaluwarsa', 'theme' => theme_from_request()]);
             exit;
         }
 
@@ -114,7 +114,7 @@ try {
                 break;
             default:
                 http_response_code(404);
-                echo view('errors/404', ['title' => 'Halaman tidak ditemukan']);
+                echo layout('errors/404', ['title' => 'Halaman tidak ditemukan', 'theme' => theme_from_request()]);
         }
         exit;
     }
@@ -122,7 +122,7 @@ try {
     if ($method !== 'GET' && $method !== 'HEAD') {
         http_response_code(405);
         header('Allow: GET, HEAD, POST');
-        echo view('errors/405', ['title' => 'Metode tidak diizinkan']);
+        echo layout('errors/405', ['title' => 'Metode tidak diizinkan', 'theme' => theme_from_request()]);
         exit;
     }
 
@@ -188,7 +188,7 @@ try {
 
         default:
             http_response_code(404);
-            echo view('errors/404', ['title' => 'Halaman tidak ditemukan']);
+            echo layout('errors/404', ['title' => 'Halaman tidak ditemukan', 'theme' => theme_from_request()]);
     }
 } catch (Throwable $ex) {
     error_log('[bbylaa] ' . $ex->getMessage() . ' @ ' . $ex->getFile() . ':' . $ex->getLine());
@@ -196,5 +196,5 @@ try {
     if (str_starts_with($path, '/api/')) {
         json_response(['ok' => false, 'error' => 'Terjadi kesalahan di server. Coba lagi.'], 500);
     }
-    echo view('errors/500', ['title' => 'Terjadi kesalahan']);
+    echo layout('errors/500', ['title' => 'Terjadi kesalahan', 'theme' => theme_from_request()]);
 }
