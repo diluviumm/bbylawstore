@@ -101,6 +101,29 @@ function render_cart(): void
     ]);
 }
 
+function render_checkout(): void
+{
+    $cart = cart_lines();
+    if (!$cart['lines']) {
+        flash('error', 'Keranjang kamu masih kosong.');
+        redirect('/keranjang');
+    }
+
+    $hasGame = false;
+    foreach ($cart['lines'] as $l) {
+        if ($l['category_id'] === 'game') {
+            $hasGame = true;
+        }
+    }
+    echo layout('checkout', [
+        'title'   => 'Checkout',
+        'desc'    => 'Konfirmasi data pemesan dan selesaikan pesanan.',
+        'cart'    => $cart,
+        'hasGame' => $hasGame,
+        'theme'   => theme_from_request(),
+    ]);
+}
+
 function render_track(): void
 {
     $code = strtoupper(trim((string) ($_GET['kode'] ?? '')));

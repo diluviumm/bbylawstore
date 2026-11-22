@@ -340,8 +340,11 @@
             if (ev.key === 'Escape' && d && !d.classList.contains('hidden')) closeDrawer();
         });
 
-        document.querySelectorAll('[data-buy]').forEach(function (b) {
-            b.addEventListener('click', function () {
+        document.querySelectorAll('[data-buy-form]').forEach(function (form) {
+            form.addEventListener('submit', function (ev) {
+                if (!window.bbyCart) return; // tanpa JS tidak sampai ke sini
+                ev.preventDefault();
+                var b = form.querySelector('[data-buy]');
                 addToCart(Number(b.dataset.buy), b.dataset.buyName || '');
             });
         });

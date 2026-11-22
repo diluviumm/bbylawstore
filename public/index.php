@@ -73,6 +73,9 @@ try {
             case '/api/cart/add':
                 handle_cart_add();
                 break;
+            case '/keranjang/tambah':
+                handle_cart_add_form();
+                break;
             case '/api/cart/set':
                 handle_cart_set();
                 break;
@@ -134,6 +137,10 @@ try {
 
         case $path === '/keranjang':
             render_cart();
+            break;
+
+        case $path === '/checkout':
+            render_checkout();
             break;
 
         case $path === '/lacak':

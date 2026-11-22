@@ -50,9 +50,9 @@ $adminWa = setting('admin_whatsapp', '6282318613826');
                     <span class="ink-muted block text-[10px] font-bold uppercase">Total</span>
                     <span class="text-lg font-black text-pink-700 dark:text-pink-300"><?= rupiah((int) $cart['total']) ?></span>
                 </div>
-                <button type="button" data-cart-open class="btn-primary px-4 py-2.5 text-sm">
+                <a href="/checkout" class="btn-primary px-4 py-2.5 text-sm">
                     <i data-lucide="send" class="h-4 w-4"></i> Lanjut checkout
-                </button>
+                </a>
             </div>
         </div>
         <p class="ink-muted mt-3 text-xs">

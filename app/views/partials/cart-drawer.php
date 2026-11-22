@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 $cartState = cart_lines();
 $payments = array_values(array_filter(array_map('trim', explode(',', (string) setting('payments', 'QRIS,DANA / E-Wallet,Transfer Bank')))));
+$paymentLabels = ['QRIS' => 'QRIS', 'DANA / E-Wallet' => 'E-Wallet', 'Transfer Bank' => 'Transfer'];
 
 $hasGame = false;
 foreach ($cartState['lines'] as $l) {
@@ -21,10 +22,17 @@ foreach ($cartState['lines'] as $l) {
 }
 ?>
 
+<noscript>
+    <div class="border-b border-amber-300 bg-amber-50 px-4 py-2.5 text-center text-xs font-semibold text-amber-900 dark:border-amber-400/40 dark:bg-amber-500/15 dark:text-amber-100">
+        JavaScript dimatikan di browser ini. Kamu tetap bisa melihat katalog, tetapi untuk memesan
+        silakan hubungi admin lewat WhatsApp.
+    </div>
+</noscript>
+
 <div id="cart-drawer" class="fixed inset-0 z-50 hidden overflow-y-auto"
      role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true">
 
-    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" data-cart-close aria-hidden="true"></div>
+    <a href="#" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" data-cart-close aria-hidden="true" tabindex="-1"></a>
 
     <div class="relative flex min-h-full items-end justify-center p-0 sm:items-center sm:p-4">
         <div class="relative w-full max-w-lg rounded-t-3xl bg-white shadow-2xl dark:bg-[#1a1021] sm:rounded-3xl">
@@ -92,7 +100,7 @@ foreach ($cartState['lines'] as $l) {
                                               has-[:checked]:border-pink-600 has-[:checked]:bg-pink-50 has-[:checked]:text-pink-800
                                               dark:has-[:checked]:border-pink-400 dark:has-[:checked]:bg-pink-500/15 dark:has-[:checked]:text-pink-200">
                                     <input type="radio" name="payment" value="<?= e($pay) ?>" class="sr-only" <?= $i === 0 ? 'checked' : '' ?>>
-                                    <span class="truncate"><?= e($pay) ?></span>
+                                    <span class="truncate"><?= e($paymentLabels[$pay] ?? $pay) ?></span>
                                 </label>
                             <?php endforeach; ?>
                         </div>

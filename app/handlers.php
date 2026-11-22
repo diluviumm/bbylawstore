@@ -67,6 +67,45 @@ function handle_cart_add(): never
     ]);
 }
 
+/**
+ * Jalur tanpa JavaScript: form biasa POST ke sini, lalu redirect ke /keranjang.
+ * Dipakai sebagai fallback bila store.js gagal dimuat sama sekali.
+ */
+function handle_cart_add_form(): never
+{
+    $vid = post_int('variant_id');
+    $qty = max(1, min(20, post_int('qty', 1)));
+
+    $product = null;
+    $variant = null;
+    foreach (products_all() as $p) {
+        $v = variant_of($p, $vid);
+        if ($v) {
+            $product = $p;
+            $variant = $v;
+            break;
+        }
+    }
+
+    if (!$product || !$variant) {
+        flash('error', 'Produk tidak ditemukan.');
+        redirect('/');
+    }
+    $cat = category_map()[$product['category_id']] ?? null;
+    if (!$cat || !(int) $cat['is_open']) {
+        flash('error', 'Kategori ini sedang tutup.');
+        redirect('/produk?id=' . $product['id']);
+    }
+    if (!variant_available($variant)) {
+        flash('error', 'Stok paket ini sedang habis.');
+        redirect('/produk?id=' . $product['id']);
+    }
+
+    cart_add($vid, $qty);
+    flash('ok', $product['name'] . ' ditambahkan ke keranjang.');
+    redirect('/keranjang');
+}
+
 function handle_cart_set(): never
 {
     $vid = post_int('variant_id');
@@ -83,6 +122,25 @@ function handle_cart_remove(): never
 }
 
 // ------------------------------------------------------------------- checkout
+
+/**
+ * Balasan checkout: JSON untuk fetch, redirect untuk form tanpa JavaScript.
+ * Satu jalur logika — jangan duplikasi transaksi pesanan.
+ */
+function checkout_respond(array $data, int $status = 200): never
+{
+    if (wants_json()) {
+        json_response($data, $status);
+    }
+
+    if (!empty($data['ok'])) {
+        redirect('/pesanan?kode=' . urlencode((string) $data['code']));
+    }
+
+    flash('error', (string) ($data['error'] ?? 'Checkout gagal.'));
+    redirect('/checkout');
+}
+
 /**
  * Inti perbaikan: pesanan disimpan ke database SEBELUM pembeli dikirim ke
  * WhatsApp. Harga, stok, dan status kategori divalidasi ulang dari server —
@@ -93,7 +151,7 @@ function handle_checkout(): never
     // Batas per IP, bukan per orang: pembeli di wifi kampus/kantor bisa berbagi
     // satu IP publik. 30/menit tetap memblokir skrip, tanpa menghukum pembeli sah.
     if (!throttle('checkout', 30, 60)) {
-        json_response(['ok' => false, 'error' => 'Terlalu banyak percobaan checkout. Tunggu sebentar.'], 429);
+        checkout_respond(['ok' => false, 'error' => 'Terlalu banyak percobaan checkout. Tunggu sebentar.'], 429);
     }
 
     $name  = post_str('name', 80);
@@ -134,7 +192,7 @@ function handle_checkout(): never
     }
 
     if ($errors) {
-        json_response(['ok' => false, 'error' => reset($errors), 'errors' => $errors], 422);
+        checkout_respond(['ok' => false, 'error' => reset($errors), 'errors' => $errors], 422);
     }
 
     $noteParts = [];
@@ -200,7 +258,7 @@ function handle_checkout(): never
     } catch (Throwable $ex) {
         $pdo->rollBack();
         error_log('[bbylaa] checkout gagal: ' . $ex->getMessage());
-        json_response(['ok' => false, 'error' => 'Pesanan gagal disimpan. Coba lagi atau hubungi admin.'], 500);
+        checkout_respond(['ok' => false, 'error' => 'Pesanan gagal disimpan. Coba lagi atau hubungi admin.'], 500);
     }
 
     cart_clear();
@@ -210,7 +268,7 @@ function handle_checkout(): never
     $order = order_find($code);
     $waText = wa_message($order);
 
-    json_response([
+    checkout_respond([
         'ok'       => true,
         'code'     => $code,
         'total'    => $state['total'],

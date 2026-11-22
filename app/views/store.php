@@ -265,14 +265,28 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
                                    class="btn-quiet flex-1 px-3 py-2 text-xs <?= $isOpen ? '' : 'pointer-events-none opacity-50' ?>">
                                     <i data-lucide="eye" class="h-3.5 w-3.5"></i> Detail
                                 </a>
-                                <button type="button"
-                                        data-buy="<?= (int) $firstVariant['id'] ?>"
-                                        data-buy-name="<?= e($p['name']) ?>"
-                                        <?= $isOpen && variant_available($firstVariant) ? '' : 'disabled' ?>
-                                        class="btn-primary px-3 py-2 text-xs"
-                                        aria-label="Tambah <?= e($p['name']) ?> ke keranjang">
-                                    <i data-lucide="plus" class="h-3.5 w-3.5"></i> <?= variant_available($firstVariant) ? 'Beli' : 'Habis' ?>
-                                </button>
+                                <?php if ($isOpen && variant_available($firstVariant)): ?>
+                                    <form action="/keranjang/tambah" method="post" data-buy-form>
+                                        <?= csrf_field() ?>
+                                        <input type="hidden" name="variant_id" value="<?= (int) $firstVariant['id'] ?>">
+                                        <input type="hidden" name="qty" value="1">
+                                        <button type="submit"
+                                                data-buy="<?= (int) $firstVariant['id'] ?>"
+                                                data-buy-name="<?= e($p['name']) ?>"
+                                                class="btn-primary px-3 py-2 text-xs"
+                                                aria-label="Tambah <?= e($p['name']) ?> ke keranjang">
+                                            <i data-lucide="plus" class="h-3.5 w-3.5"></i> Beli
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <a href="/produk?id=<?= (int) $p['id'] ?>"
+                                       class="btn-quiet px-3 py-2 text-xs <?= $isOpen ? 'pointer-events-none opacity-50' : '' ?>"
+                                       aria-label="<?= variant_available($firstVariant) ? 'Lihat detail' : 'Stok habis, lihat detail' ?>">
+                                        <i data-lucide="<?= variant_available($firstVariant) ? 'eye' : 'package-x' ?>"
+                                           class="h-3.5 w-3.5"></i>
+                                        <?= variant_available($firstVariant) ? 'Detail' : 'Habis' ?>
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
                     </div>

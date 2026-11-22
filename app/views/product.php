@@ -126,7 +126,8 @@ foreach ($product['variants'] as $v) {
                         <i data-lucide="message-circle" class="h-4 w-4"></i> Konsultasi via WhatsApp
                     </a>
                 <?php else: ?>
-                    <form id="buy-form" class="space-y-3">
+                    <form id="buy-form" action="/keranjang/tambah" method="post" class="space-y-3">
+                        <?= csrf_field() ?>
                         <div>
                             <label for="variant" class="ink mb-1.5 block text-xs font-bold">
                                 <?= $product['category_id'] === 'game' ? 'Pilih nominal' : 'Pilih paket' ?>
@@ -248,6 +249,7 @@ foreach ($product['variants'] as $v) {
     });
 
     form.addEventListener('submit', function (ev) {
+        if (!window.addToCart) return; // tanpa JS: biarkan form POST ke /keranjang/tambah
         ev.preventDefault();
         window.addToCart(select.value, <?= json_encode($product['name'], JSON_UNESCAPED_UNICODE) ?>, qtyEl.value);
     });
