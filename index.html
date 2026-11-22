@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -36,38 +37,123 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         [x-cloak] { display: none !important; }
-        .soft-card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(244, 114, 182, 0.12), 0 8px 10px -6px rgba(244, 114, 182, 0.08);
+        
+/* Dark Kawaii Background dengan bg.jpeg yang lebih terlihat */
+        body {
+            background-color: #0e0714;
+            /* Angka 0.65 di bawah mengatur ketebalan gelap. Semakin kecil angkanya (misal 0.50), gambar bg.jpeg semakin terang/jelas */
+            background-image: radial-gradient(circle at 50% 0%, rgba(236, 72, 153, 0.25), transparent 55%),
+                              linear-gradient(rgba(14, 7, 20, 0.65), rgba(14, 7, 20, 0.72)),
+                              url('bg.jpeg');
+            background-repeat: no-repeat;
+           background-size: cover; /* Atau ganti '300px auto' menjadi 'cover' jika ingin 1 gambar penuh layar */
+            background-attachment: fixed;
+            background-position: center;
         }
-        .soft-card-shadow:hover {
-            box-shadow: 0 20px 30px -10px rgba(236, 72, 153, 0.22);
+
+        /* Glass Dark Cute Card dengan tekstur background & glow pink */
+        .cute-card {
+            background: linear-gradient(145deg, rgba(38, 20, 52, 0.82), rgba(20, 10, 29, 0.88)),
+                        url('bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(244, 114, 182, 0.3);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 0 15px -3px rgba(236, 72, 153, 0.18);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #fdf2f8; }
-        ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 4px; }
+        .cute-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(244, 114, 182, 0.45);
+            box-shadow: 0 18px 36px -4px rgba(0, 0, 0, 0.65), 0 0 25px 2px rgba(236, 72, 153, 0.22);
+        }
+
+        /* Cute Pink Gradient Buttons */
+        .btn-cute-primary {
+            background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #db2777 100%);
+            box-shadow: 0 6px 20px -2px rgba(236, 72, 153, 0.5);
+            transition: all 0.2s ease;
+        }
+        .btn-cute-primary:hover {
+            opacity: 0.95;
+            box-shadow: 0 8px 24px 0px rgba(236, 72, 153, 0.65);
+            transform: translateY(-1px);
+        }
+        .btn-cute-primary:active {
+            transform: scale(0.96);
+        }
+
+        
+        /* Running Text (Marquee Animation) */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 22s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* Floating Click Text Animation */
+        @keyframes floatUpFade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, 0) scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -28px) scale(1.05);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -55px) scale(1);
+            }
+        }
+        .click-sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            animation: floatUpFade 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            font-size: 12px;
+            font-weight: 800;
+            color: #f472b6;
+            text-shadow: 0 0 10px rgba(244, 114, 182, 0.8), 0 2px 4px rgba(0,0,0,0.8);
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        /* Custom Scrollbar Dark Pink */
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: #120a1a; }
+        ::-webkit-scrollbar-thumb { background: #db2777; border-radius: 9999px; }
         ::-webkit-scrollbar-thumb:hover { background: #f472b6; }
     </style>
 </head>
-<body class="bg-gradient-to-b from-[#fff2f7] via-[#fff9fb] to-[#fff2f7] text-slate-800 min-h-screen flex flex-col font-sans antialiased selection:bg-pink-400 selection:text-white"
+<body class="text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-pink-500 selection:text-white pb-24 sm:pb-8"
       x-data="storeApp()" x-init="initStore()" x-cloak>
 
-    <!-- Top Soft Glow Accent -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-pink-200/40 via-rose-100/20 to-transparent pointer-events-none blur-3xl z-0"></div>
+    <!-- Top Soft Dark Glow Accent -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-pink-600/15 via-rose-900/10 to-transparent pointer-events-none blur-3xl z-0"></div>
 
-    <!-- Navigation Header -->
-    <header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-pink-200/70 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3 sm:gap-4">
+    <!-- Navigation Header (Dark Kawaii Glass) -->
+    <header class="sticky top-0 z-40 bg-[#140b1c]/90 backdrop-blur-md border-b border-pink-500/20 shadow-[0_4px_25px_rgba(0,0,0,0.6)]">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2.5 sm:gap-4">
             <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl overflow-hidden border-2 border-pink-300 shadow-md shadow-pink-400/20 group-hover:scale-105 transition-transform bg-pink-50 flex items-center justify-center shrink-0">
+            <a href="#" class="flex items-center gap-2 sm:gap-3 group shrink-0">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl overflow-hidden border-2 border-pink-400/50 shadow-md shadow-pink-500/20 group-hover:scale-105 transition-transform bg-[#24132f] flex items-center justify-center shrink-0">
                     <img src="logobyla.jpeg" 
                          alt="Logo Bbylaa Store" 
                          onerror="this.onerror=null; this.src='logobyla.jpeg'; this.src='logobyla.jpg';"
                          class="w-full h-full object-cover">
                 </div>
                 <div>
-                    <span class="text-lg sm:text-xl font-black tracking-tight text-slate-900 block leading-none">BBYLAA <span class="text-pink-600">STORE</span></span>
-                    <span class="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-pink-500">APK, Joki & Top Up</span>
+                    <span class="text-base sm:text-xl font-black tracking-tight text-white block leading-none">BBYLAA <span class="text-pink-400">STORE</span></span>
+                    <span class="text-[8.5px] sm:text-[10px] uppercase font-bold tracking-widest text-pink-400/90">APK, Joki & Top Up</span>
                 </div>
             </a>
 
@@ -78,9 +164,9 @@
                 </div>
                 <input type="text"
                        x-model="searchQuery"
-                       placeholder="Cari di BbylaaStore (Roblox, Canva, ChatGPT)..."
-                       class="w-full pl-9 pr-4 py-2 bg-pink-50/70 hover:bg-pink-50 border border-pink-200 rounded-xl text-sm placeholder-pink-300/80 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 transition-all text-slate-800">
-                <button x-show="searchQuery" @click="searchQuery = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-pink-400 hover:text-pink-600">
+                       placeholder="Cari di BbylaaStore (, Canva, ChatGPT)..."
+                       class="w-full pl-9 pr-4 py-2 bg-[#21142b]/90 hover:bg-[#271833] border border-pink-500/30 rounded-2xl text-sm placeholder-pink-300/40 focus:outline-none focus:border-pink-400 focus:ring-2 focus:ring-pink-500/20 transition-all text-pink-50 shadow-inner">
+                <button x-show="searchQuery" @click="searchQuery = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-pink-400 hover:text-pink-300">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -90,34 +176,34 @@
                 <!-- Testimoni Telegram -->
                 <a :href="testiTelegramUrl" 
                    target="_blank"
-                   class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 border border-sky-200 text-xs font-bold text-sky-700 transition-all shadow-sm">
-                    <i data-lucide="star" class="w-3.5 h-3.5 text-amber-500 fill-amber-400"></i>
-                    <span>3.000+ Testi</span>
+                   class="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-[#22142e] hover:bg-[#2b193a] border border-pink-500/25 text-xs font-bold text-sky-300 transition-all shadow-sm">
+                    <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+                    <span>Testimoni</span>
                 </a>
 
                 <!-- Saluran WA -->
                 <a :href="waChannelUrl" 
                    target="_blank"
-                   class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-pink-50 hover:bg-pink-100 border border-pink-200 text-xs font-bold text-pink-700 transition-all shadow-sm">
-                    <i data-lucide="bell" class="w-3.5 h-3.5 text-pink-500"></i>
+                   class="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-[#22142e] hover:bg-[#2b193a] border border-pink-500/25 text-xs font-bold text-pink-300 transition-all shadow-sm">
+                    <i data-lucide="bell" class="w-3.5 h-3.5 text-pink-400"></i>
                     <span>Saluran WA</span>
                 </a>
 
                 <!-- Tombol Keranjang Belanja -->
                 <button @click="openCartModal()" 
-                        class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-pink-100 hover:bg-pink-200 border border-pink-300 text-xs font-bold text-pink-700 transition-all shadow-sm cursor-pointer">
-                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                        class="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-pink-950/70 hover:bg-pink-900 border border-pink-500/40 text-xs font-bold text-pink-200 transition-all shadow-sm cursor-pointer">
+                    <i data-lucide="shopping-cart" class="w-4 h-4 text-pink-300"></i>
                     <span class="hidden sm:inline">Keranjang</span>
                     <span x-show="cartTotalCount > 0" 
                           x-text="cartTotalCount"
-                          class="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-black text-white bg-pink-600 rounded-full shadow-sm animate-pulse">
+                          class="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-black text-white bg-pink-500 rounded-full shadow-sm animate-pulse">
                     </span>
                 </button>
 
-                <!-- Chat CS WhatsApp -->
+                <!-- Chat CS WhatsApp Button -->
                 <a :href="'https://wa.me/' + adminWhatsapp + '?text=' + encodeURIComponent('Halo Admin Bbylaa Store, saya mau konsultasi / order produk dong!')" 
                    target="_blank"
-                   class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-xs sm:text-sm font-bold text-white shadow-md shadow-pink-500/30 transition-all">
+                   class="btn-cute-primary inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold text-white shadow-md transition-all">
                     <i data-lucide="message-circle" class="w-4 h-4"></i>
                     <span>Chat CS</span>
                 </a>
@@ -125,44 +211,90 @@
         </div>
 
         <!-- Mobile Search Bar -->
-        <div class="p-3 lg:hidden border-t border-pink-100 bg-white/95">
+        <div class="px-3.5 pb-2.5 lg:hidden bg-[#140b1c]/95 border-t border-pink-500/15 pt-2">
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-pink-400">
                     <i data-lucide="search" class="w-4 h-4"></i>
                 </div>
                 <input type="text"
                        x-model="searchQuery"
-                       placeholder="Cari di BbylaaStore..."
-                       class="w-full pl-10 pr-4 py-2 bg-pink-50/70 border border-pink-200 rounded-xl text-sm placeholder-pink-300 focus:outline-none focus:border-pink-500 text-slate-800">
+                       placeholder="Cari kebutuhanmu (Netflix, , Joki)..."
+                       class="w-full pl-9 pr-8 py-2 bg-[#201229] border border-pink-500/30 rounded-2xl text-xs placeholder-pink-300/40 focus:outline-none focus:border-pink-400 text-pink-50 shadow-inner">
+                <button x-show="searchQuery" @click="searchQuery = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-pink-400 hover:text-pink-300">
+                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 relative z-10">
+    <!-- RUNNING TEXT TICKER (Teks Berjalan Beranimasi) -->
+    <div class="relative z-20 overflow-hidden bg-[#160c1f]/95 border-b border-pink-500/25 py-2 sm:py-2.5 shadow-[0_4px_15px_rgba(0,0,0,0.4)]">
+        <div class="animate-marquee items-center gap-8 text-xs sm:text-sm font-extrabold text-pink-300 tracking-wide select-none">
+            <span class="flex items-center gap-2">
+                <span class="text-amber-300">~</span>
+                <span>welcome to bbylaa store</span>
+                <span class="text-pink-400">~</span>
+                <span class="text-white">Happy Shoping , Trusted 100%</span>
+                <span class="text-emerald-400">~</span>
+                <span class="text-pink-200">Proses Cepat & Full Garansi SnK</span>
+                <span class="text-pink-500">~</span>
+            </span>
+            <span class="flex items-center gap-2">
+                <span class="text-amber-300">~</span>
+                <span>welcome to bbylaa store</span>
+                <span class="text-pink-400">~</span>
+                <span class="text-white">Happy Shoping , Trusted 100%</span>
+                <span class="text-emerald-400">~</span>
+                <span class="text-pink-200">Proses Cepat & Full Garansi SnK</span>
+                <span class="text-pink-500">~</span>
+            </span>
+            <span class="flex items-center gap-2">
+                <span class="text-amber-300">~</span>
+                <span>welcome to bbylaa store</span>
+                <span class="text-pink-400">~</span>
+                <span class="text-white">Happy Shoping , Trusted 100%</span>
+                <span class="text-emerald-400">~</span>
+                <span class="text-pink-200">Proses Cepat & Full Garansi SnK</span>
+                <span class="text-pink-500">~</span>
+            </span>
+            <span class="flex items-center gap-2">
+                <span class="text-amber-300">~</span>
+                <span>welcome to bbylaa store</span>
+                <span class="text-pink-400">~</span>
+                <span class="text-white">Happy Shoping , Trusted 100%</span>
+                <span class="text-emerald-400">~</span>
+                <span class="text-pink-200">Proses Cepat & Full Garansi SnK</span>
+                <span class="text-pink-500">~</span>
+            </span>
+        </div>
+    </div>
 
-        <!-- Banner Promosi Bbylaa Store -->
-        <div class="max-w-4xl mx-auto mb-8 sm:mb-10">
-            <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-pink-200 soft-card-shadow group bg-white shadow-xl">
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 py-5 sm:py-8 relative z-10">
+
+        <!-- Banner Promosi Bbylaa Store (Dark Glow Frame) -->
+        <div class="max-w-4xl mx-auto mb-6 sm:mb-10">
+            <div class="relative overflow-hidden rounded-3xl border-2 border-pink-500/30 shadow-[0_12px_40px_rgba(0,0,0,0.65)] group bg-[#1a0f24]">
                 <div class="relative w-full">
                     <img src="baner_byla.jpeg" 
                          alt="Bbylaa Store Banner" 
                          class="w-full h-auto block object-contain transition-transform duration-500 group-hover:scale-[1.01]">
                     
-                    <div class="absolute inset-x-0 bottom-0 h-14 sm:h-20 bg-gradient-to-t from-black/40 via-black/10 to-transparent pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-[#0e0714] via-[#0e0714]/60 to-transparent pointer-events-none"></div>
                     
                     <!-- Badge Info -->
-                    <div class="absolute bottom-2.5 left-2.5 sm:bottom-3.5 sm:left-3.5 flex flex-wrap items-center gap-1.5 sm:gap-2">
-                        <span class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-pink-500/90 text-white text-[10px] sm:text-xs font-bold shadow-md backdrop-blur-sm">
-                            <i data-lucide="heart" class="w-3.5 h-3.5 fill-white"></i>
+                    <div class="absolute bottom-2 left-2 sm:bottom-3.5 sm:left-3.5 flex flex-wrap items-center gap-1.5 sm:gap-2">
+                        <span class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-pink-600/90 text-white text-[9px] sm:text-xs font-bold shadow-md backdrop-blur-sm">
+                            <i data-lucide="heart" class="w-3 h-3 fill-white"></i>
                             Official Store
                         </span>
-                        <a :href="testiTelegramUrl" target="_blank" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-sky-500/90 hover:bg-sky-500 text-white text-[10px] sm:text-xs font-bold shadow-md backdrop-blur-sm transition-all">
-                            <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-300 text-amber-300"></i>
-                            3.000+ Testimoni
+                        <a :href="testiTelegramUrl" target="_blank" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-sky-600/90 hover:bg-sky-500 text-white text-[9px] sm:text-xs font-bold shadow-md backdrop-blur-sm transition-all">
+                            <i data-lucide="star" class="w-3 h-3 fill-amber-300 text-amber-300"></i>
+                            Testimoni
                         </a>
-                        <span class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-white/90 border border-pink-200 text-slate-800 text-[10px] sm:text-xs font-semibold backdrop-blur-sm shadow-sm">
-                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-pink-500"></i>
+                        <span class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-[#1c1126]/90 border border-pink-500/30 text-pink-200 text-[9px] sm:text-xs font-semibold backdrop-blur-sm shadow-sm">
+                            <i data-lucide="shield-check" class="w-3 h-3 text-pink-400"></i>
                             Full Garansi SnK
                         </span>
                     </div>
@@ -170,247 +302,312 @@
             </div>
         </div>
 
-        <!-- Filter Categories Tabs (Hierarki Utama: Semua, APK, Game, Joki, Hand Made) -->
-        <div class="mb-8 space-y-3">
+        <!-- Filter Categories Tabs (Dark Pink Pills - 4 Kategori Utama) -->
+        <div class="mb-6 sm:mb-8 space-y-2.5 sm:space-y-3">
             <!-- Level 1: Kategori Utama -->
-            <div class="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-none">
-                <!-- Semua Layanan -->
-                <button @click="setMainCategory('all')"
-                        :class="mainCategory === 'all' ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold shadow-md shadow-pink-400/30' : 'bg-white text-slate-700 hover:text-pink-600 border border-pink-200'"
-                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-sm">
-                    <i data-lucide="grid" class="w-4 h-4"></i>
-                    <span>Semua Layanan</span>
-                </button>
-
-                <!-- APK Premium (Parent Category) -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                <!-- APK Premium -->
                 <button @click="setMainCategory('apk')"
-                        :class="mainCategory === 'apk' ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold shadow-md shadow-pink-400/30' : 'bg-white text-slate-700 hover:text-pink-600 border border-pink-200'"
-                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-sm">
-                    <i data-lucide="crown" class="w-4 h-4"></i>
+                        :class="mainCategory === 'apk' ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-extrabold shadow-lg shadow-pink-500/35 border-2 border-pink-400' : 'bg-[#1c1126]/90 text-slate-300 hover:text-pink-300 border border-pink-500/25'"
+                        class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 sm:gap-2 cursor-pointer shadow-sm">
+                    <i data-lucide="crown" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                     <span>APK Premium</span>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 text-current font-bold" x-show="mainCategory === 'apk'">Pilihan</span>
+                    <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-white/20 text-current font-bold" x-show="mainCategory === 'apk'">Pilihan</span>
                 </button>
 
                 <!-- Top Up Game -->
                 <button @click="if (isCategoryOpen('game')) setMainCategory('game')"
                         :disabled="!isCategoryOpen('game')"
                         :class="{
-                            'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold shadow-md shadow-pink-400/30 cursor-pointer': mainCategory === 'game' && isCategoryOpen('game'),
-                            'bg-white text-slate-700 hover:text-pink-600 border border-pink-200 cursor-pointer': mainCategory !== 'game' && isCategoryOpen('game'),
-                            'bg-slate-100 text-slate-400 border border-slate-200 opacity-60 cursor-not-allowed': !isCategoryOpen('game')
+                            'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-extrabold shadow-lg shadow-pink-500/35 border-2 border-pink-400 cursor-pointer': mainCategory === 'game' && isCategoryOpen('game'),
+                            'bg-[#1c1126]/90 text-slate-300 hover:text-pink-300 border border-pink-500/25 cursor-pointer': mainCategory !== 'game' && isCategoryOpen('game'),
+                            'bg-slate-900/60 text-slate-600 border border-slate-800 opacity-60 cursor-not-allowed': !isCategoryOpen('game')
                         }"
-                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 shadow-sm">
-                    <i data-lucide="gamepad-2" class="w-4 h-4"></i>
+                        class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 sm:gap-2 shadow-sm">
+                    <i data-lucide="gamepad-2" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                     <span>Top Up Game</span>
-                    <span x-show="!isCategoryOpen('game')" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-600 border border-rose-200">Close</span>
+                    <span x-show="!isCategoryOpen('game')" class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800">Close</span>
                 </button>
 
                 <!-- Joki Tugas -->
                 <button @click="if (isCategoryOpen('joki')) setMainCategory('joki')"
                         :disabled="!isCategoryOpen('joki')"
                         :class="{
-                            'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold shadow-md shadow-pink-400/30 cursor-pointer': mainCategory === 'joki' && isCategoryOpen('joki'),
-                            'bg-white text-slate-700 hover:text-pink-600 border border-pink-200 cursor-pointer': mainCategory !== 'joki' && isCategoryOpen('joki'),
-                            'bg-slate-100 text-slate-400 border border-slate-200 opacity-60 cursor-not-allowed': !isCategoryOpen('joki')
+                            'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-extrabold shadow-lg shadow-pink-500/35 border-2 border-pink-400 cursor-pointer': mainCategory === 'joki' && isCategoryOpen('joki'),
+                            'bg-[#1c1126]/90 text-slate-300 hover:text-pink-300 border border-pink-500/25 cursor-pointer': mainCategory !== 'joki' && isCategoryOpen('joki'),
+                            'bg-slate-900/60 text-slate-600 border border-slate-800 opacity-60 cursor-not-allowed': !isCategoryOpen('joki')
                         }"
-                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 shadow-sm">
-                    <i data-lucide="file-edit" class="w-4 h-4"></i>
+                        class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 sm:gap-2 shadow-sm">
+                    <i data-lucide="file-edit" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                     <span>Joki Tugas</span>
-                    <span x-show="!isCategoryOpen('joki')" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-600 border border-rose-200">Close</span>
+                    <span x-show="!isCategoryOpen('joki')" class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800">Close</span>
                 </button>
 
-                <!-- Hand Made (Kategori Baru) -->
+                <!-- Hand Made -->
                 <button @click="if (isCategoryOpen('handmade')) setMainCategory('handmade')"
                         :disabled="!isCategoryOpen('handmade')"
                         :class="{
-                            'bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-md shadow-purple-300/40 cursor-pointer': mainCategory === 'handmade' && isCategoryOpen('handmade'),
-                            'bg-white text-slate-700 hover:text-purple-600 border border-purple-200 cursor-pointer': mainCategory !== 'handmade' && isCategoryOpen('handmade'),
-                            'bg-slate-100 text-slate-400 border border-slate-200 opacity-60 cursor-not-allowed': !isCategoryOpen('handmade')
+                            'bg-gradient-to-r from-purple-500 to-pink-500 text-white font-extrabold shadow-lg shadow-purple-500/35 border-2 border-purple-400 cursor-pointer': mainCategory === 'handmade' && isCategoryOpen('handmade'),
+                            'bg-[#1c1126]/90 text-slate-300 hover:text-purple-300 border border-purple-500/30 cursor-pointer': mainCategory !== 'handmade' && isCategoryOpen('handmade'),
+                            'bg-slate-900/60 text-slate-600 border border-slate-800 opacity-60 cursor-not-allowed': !isCategoryOpen('handmade')
                         }"
-                        class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-2 shadow-sm cursor-pointer">
-                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 sm:gap-2 shadow-sm cursor-pointer">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-300"></i>
                     <span>Hand Made</span>
-                    <span x-show="!isCategoryOpen('handmade')" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-600 border border-rose-200">Close</span>
+                    <span x-show="!isCategoryOpen('handmade')" class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800">Close</span>
                 </button>
             </div>
 
-            <!-- Level 2: Sub-Klasifikasi Khusus APK Premium -->
+            <!-- Level 2: Sub-Klasifikasi Khusus APK Premium (Dark) -->
             <div x-show="mainCategory === 'apk'" 
                  x-transition:enter="transition ease-out duration-200"
                  x-transition:enter-start="opacity-0 -translate-y-1"
                  x-transition:enter-end="opacity-100 translate-y-0"
-                 class="p-2.5 bg-pink-50/70 border border-pink-200 rounded-2xl flex items-center gap-2 overflow-x-auto scrollbar-none">
-                <span class="text-[11px] font-extrabold text-pink-600 px-2 shrink-0 flex items-center gap-1">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                 class="p-2 sm:p-2.5 bg-[#1b1026]/95 border border-pink-500/30 rounded-2xl flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none shadow-sm">
+                <span class="text-[10px] sm:text-[11px] font-extrabold text-pink-400 px-1.5 shrink-0 flex items-center gap-1">
+                    <i data-lucide="sparkles" class="w-3 h-3"></i>
                     Pilih Jenis APK:
                 </span>
                 <template x-for="sub in apkSubCategories" :key="sub.id">
-                    <button @click="selectedApkSub = sub.id"
-                            :class="selectedApkSub === sub.id ? 'bg-pink-600 text-white font-bold shadow-sm' : 'bg-white text-slate-600 hover:text-pink-600 border border-pink-200/80'"
-                            class="px-3.5 py-1.5 rounded-xl text-xs whitespace-nowrap transition-all duration-150 flex items-center gap-1.5 cursor-pointer">
+                    <button @click="selectedApkSub = sub.id; $nextTick(() => lucide.createIcons())"
+                            :class="selectedApkSub === sub.id ? 'bg-pink-600 text-white font-bold shadow-md shadow-pink-600/30' : 'bg-[#251633] text-slate-300 hover:text-pink-300 border border-pink-500/20'"
+                            class="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl text-[11px] sm:text-xs whitespace-nowrap transition-all duration-150 flex items-center gap-1.5 cursor-pointer">
                         <span x-text="sub.name"></span>
                     </button>
                 </template>
             </div>
         </div>
 
-        <!-- Banner Keterangan Khusus Joki Tugas (Muncul saat tab Joki Tugas aktif) -->
+        <!-- Banner Keterangan Khusus Joki Tugas (Dark Callout) -->
         <div x-show="mainCategory === 'joki'" 
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0 -translate-y-2"
              x-transition:enter-end="opacity-100 translate-y-0"
-             class="mb-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-pink-50 via-rose-50 to-amber-50/50 border border-pink-200/90 shadow-sm flex items-start gap-3.5">
-            <div class="w-9 h-9 rounded-xl bg-pink-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-pink-300">
-                <i data-lucide="info" class="w-5 h-5"></i>
+             class="mb-6 p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-[#24132b] via-[#1a0e22] to-[#24132b] border border-pink-500/35 shadow-lg flex items-start gap-3">
+            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-pink-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-pink-500/30">
+                <i data-lucide="info" class="w-4 h-4 sm:w-5 sm:h-5"></i>
             </div>
-            <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                <h4 class="font-bold text-slate-900 mb-0.5 flex items-center gap-1.5">
-                    Ketentuan Biaya Joki Tugas
-                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 font-extrabold">Penting</span>
+            <div class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                <h4 class="font-extrabold text-white mb-0.5 flex items-center gap-1.5">
+                    Ketentuan Joki Tugas
+                    <span class="text-[9px] px-2 py-0.5 rounded-full bg-pink-950 text-pink-300 border border-pink-500/40 font-extrabold">Fleksibel</span>
                 </h4>
-                <p class="text-slate-600 text-xs sm:text-[13px]">
-                    Harga yang tertera pada katalog merupakan <strong>estimasi awal</strong>. Biaya pengerjaan akhir <strong>menyesuaikan tingkat kesulitan materi, jumlah halaman/slide, dan batas waktu (deadline)</strong>, serta <strong>ditentukan dan disepakati bersama antara buyer dan admin</strong> via chat WhatsApp sebelum pengerjaan dimulai.
+                <p class="text-slate-300 text-[11px] sm:text-[13px]">
+                    Biaya pengerjaan tugas <strong>fleksibel menyesuaikan tingkat kesulitan materi, jumlah halaman/slide, serta batas waktu (deadline)</strong>. Silakan langsung klik tombol <strong>Konsultasi & Order via WA</strong> pada layanan yang kamu butuhkan untuk kesepakatan harga bersama admin.
                 </p>
             </div>
         </div>
 
         <!-- Empty State -->
-        <div x-show="filteredProducts.length === 0" class="text-center py-20 bg-white/80 rounded-2xl border-2 border-dashed border-pink-200">
-            <i data-lucide="package-search" class="w-12 h-12 text-pink-300 mx-auto mb-3"></i>
-            <h3 class="text-base font-bold text-slate-700">Layanan Tidak Ditemukan</h3>
-            <p class="text-slate-400 text-sm mt-1">Coba gunakan kata kunci lain atau pilih Semua Layanan.</p>
-            <button @click="searchQuery = ''; selectedCategory = 'all'" class="mt-4 px-4 py-2 bg-pink-100 hover:bg-pink-200 text-xs font-bold text-pink-700 rounded-xl transition-colors cursor-pointer">
+        <div x-show="filteredProducts.length === 0" class="text-center py-16 sm:py-20 bg-[#1a0f24]/90 rounded-3xl border-2 border-dashed border-pink-500/30 shadow-sm">
+            <i data-lucide="package-search" class="w-10 h-10 sm:w-12 sm:h-12 text-pink-400 mx-auto mb-2.5"></i>
+            <h3 class="text-sm sm:text-base font-bold text-white">Layanan Tidak Ditemukan</h3>
+            <p class="text-slate-400 text-xs sm:text-sm mt-0.5">Coba gunakan kata kunci lain atau pilih Semua Layanan.</p>
+            <button @click="searchQuery = ''; setMainCategory('apk')" class="mt-3.5 px-4 py-2 bg-pink-900/60 hover:bg-pink-800 text-xs font-bold text-pink-200 rounded-xl transition-colors cursor-pointer border border-pink-500/30">
                 Reset Pencarian
             </button>
         </div>
 
-        <!-- Products Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" x-show="filteredProducts.length > 0">
+        <!-- Products Grid (Dark Cute Cards) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6" x-show="filteredProducts.length > 0">
             <template x-for="product in filteredProducts" :key="product.id">
-                <div class="bg-white border rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 soft-card-shadow group relative"
-                     :class="isCategoryOpen(product.category) ? 'border-pink-200/80 hover:border-pink-400' : 'border-slate-200 opacity-70 bg-slate-50/50'">
+                <div class="cute-card p-4 sm:p-5 flex flex-col justify-between group relative"
+                     :class="isCategoryOpen(product.category) ? '' : 'opacity-60 grayscale-[40%]'">
                     
                     <!-- Badge Tag & Status -->
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-pink-50 text-pink-600 border border-pink-200" x-text="product.categoryName"></span>
-                        <div>
-                            <span x-show="!isCategoryOpen(product.category)" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-600 border border-rose-200">Layanan Tutup</span>
-                            <span x-show="isCategoryOpen(product.category)" class="text-[11px] font-bold px-2.5 py-1 rounded-md"
+            <div class="relative z-10 flex items-center justify-between gap-1 mb-2 sm:mb-4">
+                        <span class="text-[8.5px] sm:text-[11px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-pink-950/85 text-pink-300 border border-pink-500/40 backdrop-blur-sm truncate" x-text="product.categoryName"></span>
+                        <div class="shrink-0">
+                            <span x-show="!isCategoryOpen(product.category)" class="text-[8px] sm:text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-rose-950 text-rose-300 border border-rose-800">Tutup</span>
+                            <span x-show="isCategoryOpen(product.category)" class="text-[8.5px] sm:text-[11px] font-bold px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-md block truncate max-w-[75px] sm:max-w-none shadow-sm"
                                   :class="product.badgeColor"
                                   x-text="product.badge"></span>
                         </div>
                     </div>
 
                     <!-- App/Service Info -->
-                    <div>
-                        <div class="flex items-center gap-3.5 mb-3">
-                            <div class="w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl text-white shadow-md relative overflow-hidden"
+                 <div class="relative z-10">
+                        <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                            <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center font-black text-xs sm:text-xl text-white shadow-lg relative overflow-hidden shrink-0 border border-white/30"
                                  :class="product.iconBg">
                                 <span x-text="product.iconText"></span>
                             </div>
-                            <div>
-                                <h3 class="font-bold text-slate-800 text-base leading-snug group-hover:text-pink-600 transition-colors" x-text="product.name"></h3>
-                                <p class="text-xs text-slate-500 mt-0.5 line-clamp-1" x-text="product.subtext"></p>
+                            <div class="min-w-0">
+                                <h3 class="font-extrabold text-white text-xs sm:text-base leading-tight group-hover:text-pink-400 transition-colors line-clamp-2 sm:truncate drop-shadow" x-text="product.name"></h3>
+                                <p class="text-[9.5px] sm:text-[11px] text-pink-400 font-semibold mt-0.5 truncate" x-text="product.subtext"></p>
                             </div>
                         </div>
 
-                        <p class="text-slate-600 text-xs leading-relaxed mb-4" x-text="product.description"></p>
-
                         <!-- Key Features Checklist -->
-                        <ul class="space-y-1.5 mb-5 text-xs text-slate-600">
+                        <ul class="space-y-1 sm:space-y-1.5 mb-4 text-[11px] sm:text-xs text-slate-300 font-medium">
                             <template x-for="(feat, idx) in product.features" :key="idx">
                                 <li class="flex items-center gap-2">
-                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                                        <path d="m9 12 2 2 4-4"/>
+                                    </svg>
                                     <span class="truncate" x-text="feat"></span>
                                 </li>
                             </template>
                         </ul>
                     </div>
 
-                    <!-- Variants & Pricing Selector -->
-                    <div class="pt-4 border-t border-pink-100 mt-auto">
-                        <label class="block text-[11px] font-semibold text-slate-500 mb-1.5" 
-                               x-text="product.category === 'game' ? 'Pilih Nominal Top Up:' : (product.category === 'joki' ? 'Pilih Paket Pengerjaan:' : (product.category === 'handmade' ? 'Pilih Paket Custom:' : 'Pilih Paket / Durasi:'))"></label>
-                        <select x-model="product.selectedVariantIndex" 
-                                :disabled="!isCategoryOpen(product.category)"
-                                class="w-full bg-pink-50/50 border border-pink-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-300 font-medium cursor-pointer disabled:cursor-not-allowed">
-                            <template x-for="(variant, vIdx) in product.variants" :key="vIdx">
-                                <option :value="vIdx" x-text="variant.range ? variant.label + ' - Rp ' + variant.range : variant.label + ' - Rp ' + formatRupiah(variant.price)"></option>
-                            </template>
-                        </select>
+                    <!-- Variants & Pricing Selector (Kondisional: Joki Tugas vs Produk Lain) -->
+                    <div class="pt-3 sm:pt-4 border-t border-pink-500/20 mt-auto">
+                        <!-- Tampilan KHUSUS Joki Tugas: Tanpa Harga, Tombol Chat WA Langsung -->
+                        <template x-if="product.category === 'joki'">
+                            <div class="space-y-3">
+                                <div class="p-2 sm:p-2.5 rounded-2xl bg-pink-950/40 border border-pink-500/25 flex items-center justify-between text-xs">
+                                    <span class="text-slate-300 font-medium text-[11px] sm:text-xs">Biaya Pengerjaan:</span>
+                                    <span class="font-bold text-pink-300 bg-pink-900/60 px-2 py-0.5 rounded-lg border border-pink-500/30 text-[10px] sm:text-[11px]">Sesuai Kesepakatan</span>
+                                </div>
+                                <a :href="'https://wa.me/' + adminWhatsapp + '?text=' + encodeURIComponent('Halo Admin Bbylaa Store, saya mau konsultasi tugas & tanya harga untuk layanan: *' + product.name + '*. Detail tugasnya sebagai berikut:')"
+                                   target="_blank"
+                                   class="w-full btn-cute-primary py-2.5 px-4 rounded-2xl text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg cursor-pointer transition-all hover:scale-[1.02] active:scale-95">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                                    <span>Konsultasi & Order via WA</span>
+                                </a>
+                            </div>
+                        </template>
 
-                        <!-- Price & Order Action (Dual Button: +Keranjang & Checkout Langsung) -->
-                        <div class="flex items-end justify-between gap-2.5 mt-4">
-                            <div>
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block" x-text="product.category === 'joki' ? 'Mulai Dari' : 'Harga'"></span>
-                                <div class="text-base sm:text-lg font-black" :class="isCategoryOpen(product.category) ? (product.category === 'handmade' ? 'text-purple-600' : 'text-pink-600') : 'text-slate-400'">
-                                    <span class="text-xs font-bold">Rp</span> 
-                                    <span x-text="product.variants[product.selectedVariantIndex || 0].range || formatRupiah(product.variants[product.selectedVariantIndex || 0].price)"></span>
+                        <!-- Tampilan Produk Lain (APK, Game, Hand Made): Dropdown Varian, Harga & Keranjang -->
+                         <!-- SLIDER FOTO CONTOH PRODUK (MUNCUL JIKA KARTU MEMILIKI IMAGES) -->
+
+
+
+
+<!-- SLIDER FOTO CONTOH PRODUK -->
+<template x-if="product.images && product.images.length > 0">
+    <div class="relative mb-3 rounded-xl overflow-hidden border border-pink-500/30 bg-black/40 group">
+        <div :id="'slider-' + product.id" class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth" style="scrollbar-width: none;">
+            <template x-for="(img, idx) in product.images" :key="idx">
+                <img :src="img" :alt="'Contoh ' + product.name" class="w-full h-44 object-cover flex-shrink-0 snap-center">
+            </template>
+        </div>
+
+        <!-- Tombol Geser Kiri -->
+        <button type="button" 
+                @click="document.getElementById('slider-' + product.id).scrollBy({left: -260, behavior: 'smooth'})"
+                class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-pink-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-md transition">
+            ❮
+        </button>
+
+        <!-- Tombol Geser Kanan -->
+        <button type="button" 
+                @click="document.getElementById('slider-' + product.id).scrollBy({left: 260, behavior: 'smooth'})"
+                class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-pink-600 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-md transition">
+            ❯
+        </button>
+
+        <!-- Label Petunjuk Geser -->
+        <span class="absolute bottom-2 right-2 bg-black/70 text-[10px] text-pink-200 px-2.5 py-0.5 rounded-full border border-pink-500/30">
+            Geser contoh (<span x-text="product.images.length"></span> foto) ➔
+        </span>
+    </div>
+</template>
+
+<!-- Tampilan Produk Lain (APK, Game, Hand Made): Dropdown Varian, Harga & Keranjang -->
+<template x-if="product.category !== 'joki'">
+    <div>
+        <label class="block text-[10px] sm:text-[11px] font-bold text-pink-200/80 mb-1" 
+               x-text="product.category === 'game' ? 'Pilih Nominal Top Up:' : (product.category === 'handmade' ? 'Pilih Paket Custom:' : 'Pilih Paket / Durasi:')"></label>
+        <select x-model="product.selectedVariantIndex" 
+                :disabled="!isCategoryOpen(product.category)"
+                class="w-full bg-[#231530] border border-pink-500/35 rounded-2xl px-2.5 py-1.5 sm:px-3 sm:py-2 text-[11px] sm:text-xs text-pink-100 font-semibold focus:outline-none focus:border-pink-400 cursor-pointer disabled:cursor-not-allowed">
+            <template x-for="(variant, vIdx) in product.variants" :key="vIdx">
+                <option :value="vIdx" x-text="variant.range ? variant.label + ' - Rp ' + variant.range : variant.label + ' - Rp ' + formatRupiah(variant.price)"></option>
+            </template>
+        </select>
+
+
+
+
+
+                                <!-- Price & Order Action -->
+                                <div class="flex items-end justify-between gap-2 mt-3 sm:mt-4">
+                                    <div class="min-w-0 pr-1">
+                                        <span class="text-[9px] uppercase font-extrabold text-slate-400 block tracking-wide">Harga</span>
+                                        <div class="font-black leading-tight whitespace-nowrap" 
+                                             :class="[
+                                                 isCategoryOpen(product.category) ? (product.category === 'handmade' ? 'text-purple-400' : 'text-pink-400') : 'text-slate-500',
+                                                 product.variants[product.selectedVariantIndex || 0].range ? 'text-xs sm:text-[13px]' : 'text-sm sm:text-base'
+                                             ]">
+                                            <span class="text-[10px] font-bold">Rp</span> 
+                                            <span x-text="product.variants[product.selectedVariantIndex || 0].range || formatRupiah(product.variants[product.selectedVariantIndex || 0].price)"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center gap-1.5 shrink-0">
+                                        <!-- Tombol Tambah ke Keranjang -->
+                                        <button type="button"
+                                                @click="if (isCategoryOpen(product.category)) addToCart(product)"
+                                                :disabled="!isCategoryOpen(product.category)"
+                                                title="Tambah ke Keranjang"
+                                                :class="!isCategoryOpen(product.category) ? 'opacity-40 cursor-not-allowed bg-slate-900 text-slate-600 border-slate-800' : 'bg-pink-950/70 hover:bg-pink-900/90 text-pink-300 border border-pink-500/40 hover:border-pink-400 active:scale-90 cursor-pointer shadow-sm'"
+                                                class="p-2 sm:p-2.5 rounded-2xl transition-all flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-pink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+                                                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+                                            </svg>
+                                        </button>
+
+                                        <!-- Tombol Beli / Order Langsung -->
+                                        <button @click="if (isCategoryOpen(product.category)) openCheckoutModal(product)"
+                                                :disabled="!isCategoryOpen(product.category)"
+                                                :class="!isCategoryOpen(product.category) 
+                                                    ? 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed opacity-80' 
+                                                    : (product.category === 'handmade' 
+                                                        ? 'bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 hover:opacity-95 text-white shadow-lg shadow-purple-500/30 cursor-pointer active:scale-95' 
+                                                        : 'btn-cute-primary text-white cursor-pointer active:scale-95')"
+                                                class="px-3 sm:px-3.5 py-2 sm:py-2.5 font-extrabold text-[11px] sm:text-xs rounded-2xl flex items-center gap-1.5 transition-all">
+                                            <span class="flex items-center shrink-0">
+                                                <svg x-show="!isCategoryOpen(product.category)" xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-3.5 sm:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                                <svg x-show="isCategoryOpen(product.category) && product.category === 'handmade'" xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-3.5 sm:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                                                <svg x-show="isCategoryOpen(product.category) && product.category !== 'handmade'" xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-3.5 sm:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+                                            </span>
+                                            <span x-text="!isCategoryOpen(product.category) ? 'Tutup' : (product.category === 'game' ? 'Top Up' : (product.category === 'handmade' ? 'Custom' : 'Beli'))"></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <div class="flex items-center gap-1.5">
-                                <!-- Tombol Tambah ke Keranjang -->
-                                <button type="button"
-                                        @click="if (isCategoryOpen(product.category)) addToCart(product)"
-                                        :disabled="!isCategoryOpen(product.category)"
-                                        title="Tambah ke Keranjang"
-                                        :class="!isCategoryOpen(product.category) ? 'opacity-40 cursor-not-allowed bg-slate-100 text-slate-400 border-slate-200' : 'bg-pink-50 hover:bg-pink-100 text-pink-600 border border-pink-200 hover:border-pink-300 active:scale-90 cursor-pointer'"
-                                        class="p-2.5 rounded-xl transition-all flex items-center justify-center">
-                                    <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                                </button>
-
-                                <!-- Tombol Beli / Order Langsung -->
-                                <button @click="if (isCategoryOpen(product.category)) openCheckoutModal(product)"
-                                        :disabled="!isCategoryOpen(product.category)"
-                                        :class="!isCategoryOpen(product.category) 
-                                            ? 'bg-slate-200 text-slate-400 border border-slate-300 cursor-not-allowed opacity-80' 
-                                            : (product.category === 'handmade' 
-                                                ? 'bg-gradient-to-r from-purple-500 via-fuchsia-500 to-pink-500 hover:opacity-95 text-white shadow-md shadow-purple-400/30 cursor-pointer active:scale-95' 
-                                                : 'bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-md shadow-pink-400/30 cursor-pointer active:scale-95')"
-                                        class="px-3.5 py-2.5 font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all">
-                                    <i :data-lucide="!isCategoryOpen(product.category) ? 'lock' : (product.category === 'handmade' ? 'sparkles' : 'zap')" class="w-3.5 h-3.5"></i>
-                                    <span x-text="!isCategoryOpen(product.category) ? 'Tutup' : (product.category === 'game' ? 'Top Up' : (product.category === 'joki' ? 'Pesan' : (product.category === 'handmade' ? 'Custom' : 'Beli')))"></span>
-                                </button>
-                            </div>
-                        </div>
+                        </template>
                     </div>
                 </div>
             </template>
         </div>
 
-        <!-- Trust Badges -->
-        <section class="mt-16 pt-12 border-t border-pink-200/80">
-            <div class="text-center max-w-2xl mx-auto mb-10">
-                <h2 class="text-2xl font-bold text-slate-800">Kenapa Belanja di Bbylaa Store?</h2>
-                <p class="text-slate-500 text-xs sm:text-sm mt-1">Layanan ramah, respon kilat, terbukti amanah dan terpercaya.</p>
+        <!-- Trust Badges (Dark Glass) -->
+        <section class="mt-14 pt-10 border-t border-pink-500/25">
+            <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+                <h2 class="text-xl sm:text-2xl font-black text-white">Kenapa Belanja di Bbylaa Store?</h2>
+                <p class="text-pink-300/80 text-xs sm:text-sm mt-1">Layanan ramah, respon kilat, terbukti amanah dan terpercaya.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-6 rounded-2xl bg-white border border-pink-200/80 soft-card-shadow flex items-start gap-4">
-                    <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0">
-                        <i data-lucide="award" class="w-6 h-6"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                <div class="p-5 sm:p-6 rounded-3xl bg-[#1c1126]/90 border border-pink-500/25 shadow-lg flex items-start gap-4">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-sky-950 text-sky-400 border border-sky-500/30 flex items-center justify-center shrink-0 shadow-sm">
+                        <i data-lucide="award" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold text-sm text-slate-800 mb-1">3.000+ Testimoni Puas</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">Bukti kepuasan ribuan pelanggan dapat dicek langsung di saluran Telegram kami.</p>
+                        <h4 class="font-extrabold text-xs sm:text-sm text-white mb-0.5">3.000+ Testimoni Puas</h4>
+                        <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed">Bukti kepuasan ribuan pelanggan dapat dicek langsung di saluran Telegram kami.</p>
                     </div>
                 </div>
-                <div class="p-6 rounded-2xl bg-white border border-pink-200/80 soft-card-shadow flex items-start gap-4">
-                    <div class="w-11 h-11 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0">
-                        <i data-lucide="rotate-ccw" class="w-6 h-6"></i>
+                <div class="p-5 sm:p-6 rounded-3xl bg-[#1c1126]/90 border border-pink-500/25 shadow-lg flex items-start gap-4">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-pink-950 text-pink-400 border border-pink-500/30 flex items-center justify-center shrink-0 shadow-sm">
+                        <i data-lucide="rotate-ccw" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold text-sm text-slate-800 mb-1">Full Garansi SnK</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">Garansi replace ganti baru untuk akun aplikasi, dan revisi sampai tuntas untuk tugas.</p>
+                        <h4 class="font-extrabold text-xs sm:text-sm text-white mb-0.5">Full Garansi SnK</h4>
+                        <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed">Garansi replace ganti baru untuk akun aplikasi, dan revisi sampai tuntas untuk tugas.</p>
                     </div>
                 </div>
-                <div class="p-6 rounded-2xl bg-white border border-pink-200/80 soft-card-shadow flex items-start gap-4">
-                    <div class="w-11 h-11 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
-                        <i data-lucide="zap" class="w-6 h-6"></i>
+                <div class="p-5 sm:p-6 rounded-3xl bg-[#1c1126]/90 border border-pink-500/25 shadow-lg flex items-start gap-4">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-rose-950 text-rose-400 border border-rose-500/30 flex items-center justify-center shrink-0 shadow-sm">
+                        <i data-lucide="zap" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold text-sm text-slate-800 mb-1">Proses Cepat & Legal</h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">Top up game via ID resmi tanpa sandi, produk handmade rapi & aesthetic.</p>
+                        <h4 class="font-extrabold text-xs sm:text-sm text-white mb-0.5">Proses Cepat & Legal</h4>
+                        <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed">Top up game via ID resmi tanpa sandi, produk handmade rapi & aesthetic.</p>
                     </div>
                 </div>
             </div>
@@ -418,92 +615,92 @@
 
     </main>
 
-    <!-- Checkout Modal -->
+    <!-- Checkout Modal (Dark Theme Glass) -->
     <div x-show="showModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
-        <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" @click="closeCheckoutModal()"></div>
+        <div class="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity" @click="closeCheckoutModal()"></div>
 
-        <div class="relative min-h-screen flex items-center justify-center p-4">
-            <div class="relative w-full max-w-lg bg-white border border-pink-200 rounded-3xl shadow-2xl p-6 sm:p-8 overflow-hidden">
+        <div class="relative min-h-screen flex items-center justify-center p-3 sm:p-4">
+            <div class="relative w-full max-w-lg bg-[#180e22] border-2 border-pink-500/35 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] p-5 sm:p-8 overflow-hidden text-white">
                 
-                <button @click="closeCheckoutModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+                <button @click="closeCheckoutModal()" class="absolute top-4 right-4 sm:top-5 sm:right-5 text-slate-400 hover:text-pink-300">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
 
-                <div class="flex items-center gap-3 mb-5">
-                    <div class="w-10 h-10 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center">
-                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                <div class="flex items-center gap-3 mb-4 sm:mb-5">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-pink-950 text-pink-400 border border-pink-500/30 flex items-center justify-center">
+                        <i data-lucide="shopping-bag" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 leading-tight">Konfirmasi Pemesanan</h3>
-                        <p class="text-xs text-slate-500">Order otomatis disimpan & terhubung ke WhatsApp Admin</p>
+                        <h3 class="text-base sm:text-lg font-extrabold text-white leading-tight">Konfirmasi Pemesanan</h3>
+                        <p class="text-[11px] sm:text-xs text-pink-300/70">Order otomatis disimpan & terhubung ke WhatsApp Admin</p>
                     </div>
                 </div>
 
-                <div class="p-4 rounded-2xl bg-pink-50/70 border border-pink-200 mb-5">
-                    <div class="flex items-center justify-between text-sm mb-1.5">
-                        <span class="font-bold text-slate-800 text-base" x-text="activeProduct?.name"></span>
-                        <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-white text-pink-600 border border-pink-200" x-text="activeVariant?.label"></span>
+                <div class="p-3.5 sm:p-4 rounded-2xl bg-pink-950/40 border border-pink-500/30 mb-4 sm:mb-5">
+                    <div class="flex items-center justify-between text-xs sm:text-sm mb-1">
+                        <span class="font-bold text-white text-sm sm:text-base" x-text="activeProduct?.name"></span>
+                        <span class="text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full bg-pink-900/80 text-pink-300 border border-pink-500/40" x-text="activeVariant?.label"></span>
                     </div>
-                    <div class="text-xs text-slate-500 flex items-center justify-between">
+                    <div class="text-[11px] sm:text-xs text-pink-200/80 flex items-center justify-between font-semibold">
                         <span x-text="activeProduct?.category === 'joki' ? 'Estimasi Biaya' : 'Total Pembayaran'"></span>
-                        <span class="text-base font-black text-pink-600">Rp <span x-text="activeVariant?.range || formatRupiah(activeVariant?.price || 0)"></span></span>
+                        <span class="text-sm sm:text-base font-black text-pink-400">Rp <span x-text="activeVariant?.range || formatRupiah(activeVariant?.price || 0)"></span></span>
                     </div>
                 </div>
 
                 <!-- Keterangan Khusus Joki Tugas di Modal Checkout -->
-                <div x-show="activeProduct?.category === 'joki'" class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5 mb-4">
-                    <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
-                    <p class="text-[11px] leading-relaxed">
+                <div x-show="activeProduct?.category === 'joki'" class="p-3 rounded-2xl bg-amber-950/40 border border-amber-500/35 text-xs text-amber-200 flex items-start gap-2.5 mb-3.5">
+                    <i data-lucide="alert-circle" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                    <p class="text-[10.5px] sm:text-[11px] leading-relaxed">
                         <strong>Biaya Menyesuaikan:</strong> Harga di atas adalah estimasi awal. Harga fix akan ditentukan dan disepakati bersama antara kamu dan admin via WhatsApp sesuai tingkat kesulitan tugas dan deadline.
                     </p>
                 </div>
 
-                <div class="space-y-4">
+                <div class="space-y-3 sm:space-y-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Pemesan <span class="text-rose-500">*</span></label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-pink-200 mb-1">Nama Pemesan <span class="text-rose-400">*</span></label>
                         <input type="text" 
                                x-model="customer.name"
                                placeholder="Masukkan nama kamu" 
-                               class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-300">
+                               class="w-full px-3.5 py-2 sm:py-2.5 bg-[#231530] border border-pink-500/30 rounded-2xl text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-pink-400">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nomor WhatsApp Kamu <span class="text-rose-500">*</span></label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-pink-200 mb-1">Nomor WhatsApp Kamu <span class="text-rose-400">*</span></label>
                         <input type="tel" 
                                x-model="customer.phone"
                                placeholder="Contoh: 0823xxxxxxxx" 
-                               class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-300">
+                               class="w-full px-3.5 py-2 sm:py-2.5 bg-[#231530] border border-pink-500/30 rounded-2xl text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-pink-400">
                     </div>
 
                     <!-- Input Khusus Game -->
-                    <div x-show="activeProduct?.category === 'game'" class="space-y-3 p-3.5 rounded-2xl bg-pink-50 border border-pink-200">
+                    <div x-show="activeProduct?.category === 'game'" class="space-y-2.5 p-3 rounded-2xl bg-pink-950/40 border border-pink-500/30">
                         <div>
-                            <label class="block text-xs font-bold text-pink-700 mb-1">
+                            <label class="block text-xs font-bold text-pink-300 mb-1">
                                 <span x-text="activeProduct?.id === 204 ? 'GrowID & World Name :' : 'User ID (dan Server/Zone ID) :'"></span> 
-                                <span class="text-rose-500">*</span>
+                                <span class="text-rose-400">*</span>
                             </label>
                             <input type="text" 
                                    x-model="customer.gameId"
                                    :placeholder="activeProduct?.id === 204 ? 'Contoh: GrowID: BylaPro / World: STOREBUY' : 'Contoh: 12345678 (2024)'" 
-                                   class="w-full px-3.5 py-2 bg-white border border-pink-300 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pink-500">
+                                   class="w-full px-3.5 py-2 bg-[#2a1a38] border border-pink-500/40 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-400">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Pilihan Pembayaran</label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-pink-200 mb-1">Pilihan Pembayaran</label>
                         <div class="grid grid-cols-3 gap-2">
-                            <label class="flex items-center justify-center p-2.5 rounded-xl border cursor-pointer text-xs font-bold transition-all"
-                                   :class="customer.payment === 'QRIS' ? 'bg-pink-100 border-pink-500 text-pink-700' : 'bg-slate-50 border-slate-200 text-slate-600'">
+                            <label class="flex items-center justify-center p-2.5 rounded-2xl border-2 cursor-pointer text-xs font-bold transition-all"
+                                   :class="customer.payment === 'QRIS' ? 'bg-pink-950/80 border-pink-500 text-pink-300 shadow-sm' : 'bg-[#231530] border-pink-500/25 text-slate-400'">
                                 <input type="radio" value="QRIS" x-model="customer.payment" class="sr-only">
                                 <span>QRIS</span>
                             </label>
-                            <label class="flex items-center justify-center p-2.5 rounded-xl border cursor-pointer text-xs font-bold transition-all"
-                                   :class="customer.payment === 'DANA / E-Wallet' ? 'bg-pink-100 border-pink-500 text-pink-700' : 'bg-slate-50 border-slate-200 text-slate-600'">
+                            <label class="flex items-center justify-center p-2.5 rounded-2xl border-2 cursor-pointer text-xs font-bold transition-all"
+                                   :class="customer.payment === 'DANA / E-Wallet' ? 'bg-pink-950/80 border-pink-500 text-pink-300 shadow-sm' : 'bg-[#231530] border-pink-500/25 text-slate-400'">
                                 <input type="radio" value="DANA / E-Wallet" x-model="customer.payment" class="sr-only">
                                 <span>E-Wallet</span>
                             </label>
-                            <label class="flex items-center justify-center p-2.5 rounded-xl border cursor-pointer text-xs font-bold transition-all"
-                                   :class="customer.payment === 'Transfer Bank' ? 'bg-pink-100 border-pink-500 text-pink-700' : 'bg-slate-50 border-slate-200 text-slate-600'">
+                            <label class="flex items-center justify-center p-2.5 rounded-2xl border-2 cursor-pointer text-xs font-bold transition-all"
+                                   :class="customer.payment === 'Transfer Bank' ? 'bg-pink-950/80 border-pink-500 text-pink-300 shadow-sm' : 'bg-[#231530] border-pink-500/25 text-slate-400'">
                                 <input type="radio" value="Transfer Bank" x-model="customer.payment" class="sr-only">
                                 <span>Bank</span>
                             </label>
@@ -511,79 +708,79 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Catatan Tambahan (Opsional)</label>
+                        <label class="block text-[11px] sm:text-xs font-bold text-pink-200 mb-1">Catatan Tambahan (Opsional)</label>
                         <textarea rows="2" 
                                   x-model="customer.notes"
-                                  :placeholder="activeProduct?.category === 'joki' ? 'Tulis judul tugas, jumlah halaman & deadline' : (activeProduct?.category === 'handmade' ? 'Keterangan custom: misal link foto ganci/fotostrip atau kirim via WA' : 'Contoh: email invite pribadi / kirim ke no ini')"
-                                  class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-pink-500"></textarea>
+                                  :placeholder="activeProduct?.category === 'joki' ? 'Tulis judul tugas, jumlah halaman & deadline' : (activeProduct?.category === 'handmade' ? 'Keterangan custom ganci/fotostrip atau kirim via WA' : 'Contoh: email invite pribadi / catatan khusus')"
+                                  class="w-full px-3.5 py-2 bg-[#231530] border border-pink-500/30 rounded-2xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-400"></textarea>
                     </div>
                 </div>
 
                 <button @click="submitOrderToWA()"
                         :disabled="!customer.name || !customer.phone || (activeProduct?.category === 'game' && !customer.gameId)"
-                        class="w-full mt-6 py-3 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25 active:scale-[0.99] transition-all cursor-pointer">
+                        class="btn-cute-primary w-full mt-5 py-3 text-white font-extrabold text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg cursor-pointer">
                     <i data-lucide="send" class="w-4 h-4"></i>
                     <span>Checkout via WhatsApp</span>
                 </button>
-                <p class="text-[11px] text-slate-400 text-center mt-3">Data pesanan otomatis tercatat di Google Sheets & diteruskan ke WhatsApp Admin.</p>
+                <p class="text-[10px] text-pink-300/60 text-center mt-2.5">Data pesanan otomatis tercatat & diteruskan ke WhatsApp Admin.</p>
             </div>
         </div>
     </div>
 
-    <!-- MODAL KERANJANG BELANJA (DRAWER / SLIDE-OVER) -->
+    <!-- MODAL KERANJANG BELANJA (Dark Theme Glass) -->
     <div x-show="showCartModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
-        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" @click="closeCartModal()"></div>
+        <div class="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity" @click="closeCartModal()"></div>
 
         <div class="relative min-h-screen flex items-center justify-center p-3 sm:p-4">
-            <div class="relative w-full max-w-lg bg-white border border-pink-200 rounded-3xl shadow-2xl p-5 sm:p-7 overflow-hidden flex flex-col max-h-[92vh]">
+            <div class="relative w-full max-w-lg bg-[#180e22] border-2 border-pink-500/35 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] p-5 sm:p-7 overflow-hidden flex flex-col max-h-[92vh] text-white">
                 
                 <!-- Header Keranjang -->
-                <div class="flex items-center justify-between pb-3.5 border-b border-pink-100">
+                <div class="flex items-center justify-between pb-3.5 border-b border-pink-500/25">
                     <div class="flex items-center gap-2.5">
-                        <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
-                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        <div class="w-9 h-9 rounded-2xl bg-pink-950 text-pink-400 border border-pink-500/30 flex items-center justify-center">
+                            <i data-lucide="shopping-cart" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                         </div>
                         <div>
-                            <h3 class="text-base font-bold text-slate-900 leading-tight">Keranjang Belanja</h3>
-                            <p class="text-[11px] text-slate-400"><span x-text="cartTotalCount"></span> item dipilih</p>
+                            <h3 class="text-sm sm:text-base font-extrabold text-white leading-tight">Keranjang Belanja</h3>
+                            <p class="text-[11px] text-pink-300/70"><span x-text="cartTotalCount"></span> item dipilih</p>
                         </div>
                     </div>
-                    <button @click="closeCartModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
+                    <button @click="closeCartModal()" class="text-slate-400 hover:text-pink-300 p-1 rounded-lg">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
 
                 <!-- Konten Daftar Item di Keranjang (Scrollable) -->
-                <div class="flex-1 overflow-y-auto py-3.5 space-y-2.5 pr-1">
+                <div class="flex-1 overflow-y-auto py-3 space-y-2.5 pr-1">
                     <!-- Jika Keranjang Kosong -->
                     <div x-show="cart.length === 0" class="py-12 text-center">
-                        <i data-lucide="shopping-bag" class="w-12 h-12 text-pink-200 mx-auto mb-2.5"></i>
-                        <p class="text-xs font-bold text-slate-700">Keranjang kamu masih kosong</p>
-                        <p class="text-[11px] text-slate-400 mt-0.5">Pilih layanan atau produk di katalog lalu klik tombol keranjang.</p>
+                        <i data-lucide="shopping-bag" class="w-12 h-12 text-pink-400/40 mx-auto mb-2.5"></i>
+                        <p class="text-xs font-bold text-slate-300">Keranjang kamu masih kosong</p>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Pilih layanan atau produk di katalog lalu klik tombol keranjang.</p>
                     </div>
 
                     <!-- List Item -->
                     <template x-for="(item, index) in cart" :key="item.cartId">
-                        <div class="p-3 rounded-2xl bg-pink-50/50 border border-pink-100 flex items-center justify-between gap-3">
+                        <div class="p-3 rounded-2xl bg-[#22132d] border border-pink-500/25 flex items-center justify-between gap-3">
                             <div class="flex items-center gap-2.5 min-w-0">
-                                <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs text-white shrink-0" :class="item.iconBg">
+                                <div class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs text-white shrink-0 border border-white/20" :class="item.iconBg">
                                     <span x-text="item.iconText"></span>
                                 </div>
                                 <div class="min-w-0">
-                                    <h4 class="text-xs font-bold text-slate-800 truncate" x-text="item.name"></h4>
-                                    <p class="text-[10px] text-pink-600 font-semibold truncate" x-text="item.variantLabel"></p>
-                                    <p class="text-[11px] font-black text-slate-900 mt-0.5">Rp <span x-text="formatRupiah(item.price)"></span></p>
+                                    <h4 class="text-xs font-bold text-white truncate" x-text="item.name"></h4>
+                                    <p class="text-[10px] text-pink-400 font-semibold truncate" x-text="item.variantLabel"></p>
+                                    <p class="text-[11px] font-black text-pink-200 mt-0.5">Rp <span x-text="formatRupiah(item.price)"></span></p>
                                 </div>
                             </div>
 
                             <!-- Qty Control & Hapus -->
                             <div class="flex items-center gap-2 shrink-0">
-                                <div class="flex items-center border border-pink-200 rounded-lg bg-white overflow-hidden">
-                                    <button @click="decreaseCartQty(index)" class="px-2 py-0.5 text-slate-500 hover:bg-pink-50 text-xs font-bold">-</button>
-                                    <span class="px-2 text-xs font-bold text-slate-800" x-text="item.qty"></span>
-                                    <button @click="increaseCartQty(index)" class="px-2 py-0.5 text-slate-500 hover:bg-pink-50 text-xs font-bold">+</button>
+                                <div class="flex items-center border border-pink-500/35 rounded-xl bg-[#2a1738] overflow-hidden">
+                                    <button @click="decreaseCartQty(index)" class="px-2 py-0.5 text-pink-300 hover:bg-pink-900 text-xs font-bold cursor-pointer">-</button>
+                                    <span class="px-2 text-xs font-bold text-white" x-text="item.qty"></span>
+                                    <button @click="increaseCartQty(index)" class="px-2 py-0.5 text-pink-300 hover:bg-pink-900 text-xs font-bold cursor-pointer">+</button>
                                 </div>
-                                <button @click="removeCartItem(index)" class="text-rose-400 hover:text-rose-600 p-1" title="Hapus">
+                                <button @click="removeCartItem(index)" class="text-rose-400 hover:text-rose-300 p-1 cursor-pointer" title="Hapus">
                                     <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                                 </button>
                             </div>
@@ -592,32 +789,32 @@
                 </div>
 
                 <!-- Form Data Pemesan (Jika keranjang ada isinya) -->
-                <div x-show="cart.length > 0" class="pt-3 border-t border-pink-100 space-y-3">
+                <div x-show="cart.length > 0" class="pt-3 border-t border-pink-500/25 space-y-2.5">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <div>
-                            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Nama Kamu <span class="text-rose-500">*</span></label>
-                            <input type="text" x-model="customer.name" placeholder="Nama pemesan" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-pink-500">
+                            <label class="block text-[11px] font-bold text-pink-200 mb-0.5">Nama Kamu <span class="text-rose-400">*</span></label>
+                            <input type="text" x-model="customer.name" placeholder="Nama pemesan" class="w-full px-3 py-1.5 bg-[#231530] border border-pink-500/30 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-400">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">No. WhatsApp <span class="text-rose-500">*</span></label>
-                            <input type="tel" x-model="customer.phone" placeholder="08xxxxxxxx" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-pink-500">
+                            <label class="block text-[11px] font-bold text-pink-200 mb-0.5">No. WhatsApp <span class="text-rose-400">*</span></label>
+                            <input type="tel" x-model="customer.phone" placeholder="08xxxxxxxx" class="w-full px-3 py-1.5 bg-[#231530] border border-pink-500/30 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-400">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Catatan / Data Game (Jika ada)</label>
-                        <input type="text" x-model="customer.notes" placeholder="Contoh: ID ML / GrowID / Keterangan Ganci" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-pink-500">
+                        <label class="block text-[11px] font-bold text-pink-200 mb-0.5">Catatan / Data Game (Jika ada)</label>
+                        <input type="text" x-model="customer.notes" placeholder="Contoh: ID ML / GrowID / Keterangan Ganci" class="w-full px-3 py-1.5 bg-[#231530] border border-pink-500/30 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-400">
                     </div>
 
                     <!-- Ringkasan Total & Tombol Checkout -->
                     <div class="pt-2 flex items-center justify-between">
                         <div>
-                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Total Pembayaran:</span>
-                            <span class="text-base font-black text-pink-600">Rp <span x-text="formatRupiah(cartTotalPrice)"></span></span>
+                            <span class="text-[10px] text-pink-300/70 block uppercase font-bold">Total Pembayaran:</span>
+                            <span class="text-sm sm:text-base font-black text-pink-400">Rp <span x-text="formatRupiah(cartTotalPrice)"></span></span>
                         </div>
                         <button @click="checkoutCartToWA()"
                                 :disabled="!customer.name || !customer.phone"
-                                class="px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-md shadow-pink-400/30 cursor-pointer transition-all">
+                                class="btn-cute-primary px-4 sm:px-5 py-2.5 text-white font-extrabold text-xs rounded-2xl flex items-center gap-1.5 shadow-md cursor-pointer">
                             <i data-lucide="send" class="w-3.5 h-3.5"></i>
                             <span>Checkout Semua via WA</span>
                         </button>
@@ -628,19 +825,64 @@
         </div>
     </div>
 
-    <!-- Floating Cart Button (Pojok Kanan Bawah) -->
-    <div class="fixed bottom-6 right-6 z-40" x-show="cartTotalCount > 0" x-transition>
-        <button @click="openCartModal()"
-                class="flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-xs shadow-xl shadow-pink-500/30 border-2 border-white cursor-pointer active:scale-95 transition-all">
-            <div class="relative">
-                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-                <span x-text="cartTotalCount" class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-white text-pink-600 text-[10px] font-black flex items-center justify-center shadow"></span>
-            </div>
-            <span>Lihat Keranjang (Rp <span x-text="formatRupiah(cartTotalPrice)"></span>)</span>
-        </button>
-    </div>
+    <!-- CUTE MOBILE BOTTOM NAVIGATION DOCK (Dark Mode) -->
+    <nav class="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-[#140b1c]/95 backdrop-blur-md border-t border-pink-500/25 shadow-[0_-8px_30px_rgba(0,0,0,0.7)] px-3 py-1">
+        <div class="max-w-md mx-auto flex items-center justify-around relative">
+            
+            <!-- 1. Home / Katalog -->
+            <button @click="setMainCategory('apk'); window.scrollTo({top: 0, behavior: 'smooth'})" 
+                    class="flex flex-col items-center justify-center py-1 text-slate-400 hover:text-pink-400 transition-colors cursor-pointer group">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center group-hover:bg-pink-950/60 transition-colors">
+                    <i data-lucide="home" class="w-4 h-4" :class="mainCategory === 'all' ? 'text-pink-400 stroke-[2.5]' : 'text-slate-400'"></i>
+                </div>
+                <span class="text-[9.5px] font-bold mt-0.5" :class="mainCategory === 'all' ? 'text-pink-400 font-extrabold' : 'text-slate-400'">Home</span>
+            </button>
 
-    <!-- Toast Notification (Notifikasi saat item masuk keranjang) -->
+            <!-- 2. Testimoni Telegram -->
+            <a :href="testiTelegramUrl" target="_blank" 
+               class="flex flex-col items-center justify-center py-1 text-slate-400 hover:text-pink-400 transition-colors cursor-pointer group">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center group-hover:bg-pink-950/60 transition-colors">
+                    <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+                </div>
+                <span class="text-[9.5px] font-bold mt-0.5 text-slate-400">Testimoni</span>
+            </a>
+
+            <!-- 3. Keranjang (Center Button) -->
+            <div class="relative -top-4 flex flex-col items-center">
+                <button @click="openCartModal()" 
+                        class="w-12 h-12 rounded-full bg-gradient-to-tr from-pink-500 via-rose-500 to-pink-500 text-white flex items-center justify-center shadow-lg shadow-pink-500/40 border-4 border-[#140b1c] cursor-pointer active:scale-90 transition-transform">
+                    <div class="relative">
+                        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        <span x-show="cartTotalCount > 0" 
+                              x-text="cartTotalCount" 
+                              class="absolute -top-2.5 -right-3 min-w-5 h-5 px-1 bg-amber-400 text-slate-900 text-[10px] font-black rounded-full flex items-center justify-center border-2 border-[#140b1c] shadow"></span>
+                    </div>
+                </button>
+                <span class="text-[9px] font-black text-pink-400 mt-0.5 uppercase tracking-tight">Keranjang</span>
+            </div>
+
+            <!-- 4. Saluran WA -->
+            <a :href="waChannelUrl" target="_blank" 
+               class="flex flex-col items-center justify-center py-1 text-slate-400 hover:text-pink-400 transition-colors cursor-pointer group">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center group-hover:bg-pink-950/60 transition-colors">
+                    <i data-lucide="bell" class="w-4 h-4 text-slate-400 group-hover:text-pink-400"></i>
+                </div>
+                <span class="text-[9.5px] font-bold mt-0.5 text-slate-400">Saluran</span>
+            </a>
+
+            <!-- 5. Chat CS -->
+            <a :href="'https://wa.me/' + adminWhatsapp + '?text=' + encodeURIComponent('Halo Admin Bbylaa Store, saya mau tanya / order dong!')" target="_blank" 
+               class="flex flex-col items-center justify-center py-1 text-slate-400 hover:text-emerald-400 transition-colors cursor-pointer group">
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center group-hover:bg-pink-950/60 transition-colors">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+                </div>
+                <span class="text-[9.5px] font-bold mt-0.5 text-slate-400">Chat CS</span>
+            </a>
+
+        </div>
+    </nav>
+
+    <!-- Toast Notification (Dark Pink) -->
     <div x-show="showToast" 
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 translate-y-3"
@@ -648,28 +890,46 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 translate-y-3"
-         class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-xl flex items-center gap-2 border border-pink-400/30 pointer-events-none">
+         class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-[#1f102b]/95 backdrop-blur-md text-pink-100 text-xs font-bold px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-pink-500/40 pointer-events-none">
         <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
         <span x-text="toastMessage"></span>
     </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-pink-200/80 bg-white mt-16 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+    <!-- Footer (Dark & Rapi dengan Tombol WhatsApp Interaktif) -->
+    <footer class="border-t border-pink-500/20 bg-[#100817]/95 backdrop-blur-md mt-14 py-8 shadow-inner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
             <div class="flex items-center gap-2">
-                <span class="font-bold text-slate-700">Bbylaa Store</span> &copy; 2026. All rights reserved.
+                <span class="font-extrabold text-white">Bbylaa Store</span> &copy; 2026. All rights reserved.
             </div>
-            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                <a :href="testiTelegramUrl" target="_blank" class="text-sky-600 hover:text-sky-700 underline flex items-center gap-1 font-bold">
-                    <i data-lucide="award" class="w-3.5 h-3.5"></i>
-                    3.000+ Testimoni Telegram
+            
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                <!-- Button Testimoni Interaktif -->
+                <a :href="testiTelegramUrl" target="_blank" 
+                   class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-sky-950/80 hover:bg-sky-900 border border-sky-500/40 text-sky-300 text-xs font-bold shadow-sm transition-all hover:scale-105 active:scale-95">
+                    <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+                    <span>Testimoni</span>
                 </a>
-                <span>•</span>
-                <a :href="waChannelUrl" target="_blank" class="text-pink-600 hover:text-pink-700 underline font-semibold">Saluran WA</a>
-                <span>•</span>
-                <span>WA: 0823-1861-3826</span>
-                <span>•</span>
-                <span class="text-pink-600 font-semibold">Full Garansi SnK</span>
+                
+                <!-- Button Saluran WA -->
+                <a :href="waChannelUrl" target="_blank" 
+                   class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-pink-950/80 hover:bg-pink-900 border border-pink-500/40 text-pink-300 text-xs font-bold shadow-sm transition-all hover:scale-105 active:scale-95">
+                    <i data-lucide="bell" class="w-3.5 h-3.5 text-pink-400"></i>
+                    <span>Saluran WA</span>
+                </a>
+                
+                <!-- Button WhatsApp Interaktif -->
+                <a :href="'https://wa.me/' + adminWhatsapp + '?text=' + encodeURIComponent('Halo Admin Bbylaa Store, saya mau tanya seputar produk!')" 
+                   target="_blank" 
+                   class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 text-emerald-300 text-xs font-bold shadow-sm transition-all hover:scale-105 active:scale-95">
+                    <i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <span>WA: 0823-1861-3826</span>
+                </a>
+
+                <!-- Badge Garansi -->
+                <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-pink-950/50 border border-pink-500/20 text-pink-300 text-xs font-semibold">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-pink-400"></i>
+                    <span>Full Garansi SnK</span>
+                </span>
             </div>
         </div>
     </footer>
@@ -686,7 +946,7 @@
                 googleSheetUrl: 'https://script.google.com/macros/s/AKfycbzp0IYIBP8qq2yakPyYNuEmxo0LA5t--8gFfeSuwYKEkmr190bZmluFnOA4r9KM-LA/exec',
 
                 searchQuery: '',
-                mainCategory: 'all', // 'all', 'apk', 'game', 'joki', 'handmade'
+                mainCategory: 'apk', // 'all', 'apk', 'game', 'joki', 'handmade'
                 cart: [],
                 showCartModal: false,
                 showToast: false,
@@ -726,6 +986,9 @@
 
                 initStore() {
                     this.loadCart();
+                    this.$watch('selectedApkSub', () => this.$nextTick(() => lucide.createIcons()));
+                    this.$watch('searchQuery', () => this.$nextTick(() => lucide.createIcons()));
+                    this.$watch('mainCategory', () => this.$nextTick(() => lucide.createIcons()));
                     const saved = localStorage.getItem('bbylaa_store_status');
                     if (saved) {
                         try {
@@ -744,59 +1007,30 @@
                     return cat ? cat.isOpen : true;
                 },
 
-                setMainCategory(cat) {
-                    this.mainCategory = cat;
-                    if (cat === 'apk') this.selectedApkSub = 'all_apk';
-                    this.$nextTick(() => lucide.createIcons());
-                },
-
-                get filteredProducts() {
-                    const q = this.searchQuery.toLowerCase().trim();
-                    return this.products.filter(item => {
-                        let matchesCategory = false;
-                        if (this.mainCategory === 'all') {
-                            matchesCategory = true;
-                        } else if (this.mainCategory === 'game') {
-                            matchesCategory = item.category === 'game';
-                        } else if (this.mainCategory === 'joki') {
-                            matchesCategory = item.category === 'joki';
-                        } else if (this.mainCategory === 'handmade') {
-                            matchesCategory = item.category === 'handmade';
-                        } else if (this.mainCategory === 'apk') {
-                            if (this.selectedApkSub === 'all_apk') {
-                                matchesCategory = ['ai', 'streaming', 'design', 'study', 'utility'].includes(item.category);
-                            } else {
-                                matchesCategory = item.category === this.selectedApkSub;
-                            }
-                        }
-
-                        const matchesSearch = !q || 
-                            item.name.toLowerCase().includes(q) || 
-                            item.description.toLowerCase().includes(q) || 
-                            item.categoryName.toLowerCase().includes(q);
-                        return matchesCategory && matchesSearch;
-                    });
-                },
-
-                products: [
+products: [
                     // =================== HAND MADE ===================
-                    {
+{
                         id: 501,
                         name: 'Gantungan Kunci Akrilik Custom',
                         category: 'handmade',
                         categoryName: 'Hand Made',
-                        badge: 'Custom Foto',
+                        badge: 'coming soon',
                         badgeColor: 'bg-purple-100 text-purple-700 border border-purple-200',
                         iconBg: 'bg-gradient-to-tr from-purple-500 to-pink-500',
                         iconText: '🔑',
                         subtext: 'Bisa Request Foto, Karakter & Nama',
+                        images: [
+                            'ganci2.jpg',
+                            'ganci2.jpg',
+                            'ganci3.jpg'
+                        ],
                         description: 'Gantungan kunci akrilik bening 2 sisi anti air, cocok untuk gantungan tas, kunci motor, atau gift sahabat.',
                         features: ['Akrilik Bening 2 Sisi Tebal', 'Custom Foto & Tulisan Bebas', 'Packaging Estetik Cute'],
                         selectedVariantIndex: 0,
                         variants: [
-                            { label: 'Ganci 1 Sisi Polos', price: 8000 },
-                            { label: 'Ganci 2 Sisi Bolak-Balik', price: 12000 },
-                            { label: 'Paket Hemat 3 Pcs Ganci', price: 30000 }
+                    
+                            { label: 'Ganci 2 Sisi Bolak-Balik', price: 8000 },
+                           
                         ]
                     },
                     {
@@ -804,20 +1038,25 @@
                         name: 'Fotostrip Estetik (Custom Photo)',
                         category: 'handmade',
                         categoryName: 'Hand Made',
-                        badge: 'Best Gift',
+                        badge: 'coming soon',
                         badgeColor: 'bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200',
                         iconBg: 'bg-gradient-to-tr from-fuchsia-500 to-rose-400',
                         iconText: '📸',
                         subtext: 'Kertas Foto Tebal Glossy / Doff',
+                        images: [
+                            'fotostrip1.jpg',
+                            'fotostrip2.jpg'
+                        ],
                         description: 'Cetak foto strip polaroid ala photobooth kekinian. Frame bisa custom warna pink pastel, putih, atau hitam.',
                         features: ['Kualitas Cetak Tajam HD', 'Kertas Silky / Glossy Tebal', 'Bisa Custom 3-4 Foto'],
                         selectedVariantIndex: 0,
                         variants: [
-                            { label: 'Paket 2 Strip (Isi 6-8 Foto)', price: 10000 },
-                            { label: 'Paket 5 Strip (Isi 15-20 Foto)', price: 22000 },
-                            { label: 'Paket 10 Strip + Free Ganci', price: 40000 }
+                            { label: 'Paket 1 (Isi 6-8 Foto)', price: 10000 },
+                            { label: 'Paket 2 (Isi 15-20 Foto)', price: 30000 },
+                            
                         ]
                     },
+                    
                     // =================== AI (ChatGPT & Gemini) ===================
                     {
                         id: 1,
@@ -858,6 +1097,8 @@
                             { label: 'Gemini Pro AI Invite 1 Bln', price: 15000 },
                             { label: 'Gemini Pro AI Invite 3 Bln', price: 20000 },
                             { label: 'Gemini Pro AI Invite 1 Thn', price: 40000 },
+                            { label: 'Gemini Plus AI Invite 6 bln', price: 30000 },
+                            { label: 'Gemini Plus AI Invite 1 bln', price: 15000 },
                         ]
                     },
 
@@ -1121,6 +1362,41 @@
                             { label: 'HMA VPN Private 1 Bln', price: 15000 }
                         ]
                     },
+                    {
+                        id: 17,
+                        name: 'Wattpad Premium',
+                        category: 'study',
+                        categoryName: 'Edu & Buku',
+                        badge: 'Novel & Cerita',
+                        badgeColor: 'bg-orange-950 text-orange-300 border border-orange-500/30',
+                        iconBg: 'bg-gradient-to-tr from-orange-500 to-amber-500',
+                        iconText: 'WP',
+                        subtext: 'Bebas Iklan & Akses Cerita VIP',
+                        description: 'Baca jutaan novel, fanfiction, dan web novel favorit tanpa gangguan iklan dengan koin bonus.',
+                        features: ['Baca Cerita Sepuasnya', 'Bebas Iklan Mengganggu', 'Full Garansi Durasi'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Wattpad Sharing 1 Bln', price: 10500 }
+                        ]
+                    },
+                    {
+                        id: 18,
+                        name: 'NordVPN & HMA VPN Sharing',
+                        category: 'utility',
+                        categoryName: 'VPN Aman',
+                        badge: 'Fast Server',
+                        badgeColor: 'bg-blue-950 text-blue-300 border border-blue-500/30',
+                        iconBg: 'bg-gradient-to-tr from-blue-600 to-cyan-600',
+                        iconText: 'VPN',
+                        subtext: 'Koneksi Super Cepat & Aman',
+                        description: 'Proteksi privasi internet, bypass blokir wilayah, server luar negeri cepat dan stabil.',
+                        features: ['Bypass Sensor & Blokir', 'Koneksi Cepat Low Ping', 'Full Garansi Akun'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'HMA VPN Sharing 1 Bln', price: 10500 },
+                            { label: 'NordVPN Sharing 1 Bln', price: 15000 }
+                        ]
+                    },
 
                     // =================== TOP UP GAME ===================
                     {
@@ -1128,86 +1404,53 @@
                         name: 'Roblox (Robux Murah & Cepat)',
                         category: 'game',
                         categoryName: 'Game Online',
-                        badge: 'Fast Send',
+                        badge: 'Stock Kosong',
                         badgeColor: 'bg-rose-100 text-rose-700 border border-rose-200',
                         iconBg: 'bg-gradient-to-tr from-rose-500 to-pink-600',
                         iconText: 'RBX',
-                        subtext: 'Via Gamepass / Group Funds',
+                        subtext: 'Cukup Kirimkan Username Roblox',
                         description: 'Top up Robux murah legal untuk beli avatar, gamepass Blox Fruits, Brookhaven, dll.',
-                        features: ['Legal & Anti Rollback', 'Proses 5 - 15 Menit', 'Hanya Butuh Username'],
+                        features: ['Legal & Anti Rollback', 'Proses 5 - 15 Menit', 'Hanya Butuh Username', 'Nominal Lainnya Tanyakan Admin'],
                         selectedVariantIndex: 0,
                         variants: [
-                            { label: '100 Robux Clean', price: 15000 },
-                            { label: '250 Robux Clean', price: 36000 },
-                            { label: '500 Robux Clean', price: 72000 },
-                            { label: '1,000 Robux Clean', price: 140000 },
+                            { label: '80 Robux', price: 11000 },
+                            { label: '160 Robux', price: 22000 },
+                            { label: '240 Robux', price: 33000 },
+                            { label: '320 Robux', price: 44000 },
+                            { label: '400 Robux', price: 55000 },
+                            { label: '480 Robux', price: 66000 },
+                            { label: '560 Robux', price: 77000 },
+                            { label: '640 Robux', price: 88000 },
+                            { label: '720 Robux', price: 99000 },
+                            { label: '800 Robux', price: 110000 },
                         ]
                     },
+            
                     {
                         id: 202,
-                        name: 'Free Fire (Diamond FF)',
+                        name: 'Growtopia (DL Murah)',
                         category: 'game',
                         categoryName: 'Game Online',
-                        badge: 'Instan',
-                        badgeColor: 'bg-amber-100 text-amber-700 border border-amber-200',
-                        iconBg: 'bg-gradient-to-tr from-amber-500 to-orange-500',
-                        iconText: 'FF',
-                        subtext: 'Cukup Kirimkan Player ID',
-                        description: 'Top up diamond Free Fire resmi, proses kilat masuk detik itu juga.',
-                        features: ['100% Legal via ID', 'Proses Otomatis 1 Menit', 'Bisa Member Mingguan'],
-                        selectedVariantIndex: 0,
-                        variants: [
-                            { label: '70 Diamond FF', price: 10000 },
-                            { label: '140 Diamond FF', price: 20000 },
-                            { label: '355 Diamond FF', price: 50000 },
-                            { label: '720 Diamond FF', price: 100000 },
-                            { label: 'Membership Mingguan FF', price: 32000 },
-                        ]
-                    },
-                    {
-                        id: 203,
-                        name: 'Mobile Legends: Bang Bang',
-                        category: 'game',
-                        categoryName: 'Game Online',
-                        badge: 'Terlaris',
-                        badgeColor: 'bg-blue-100 text-blue-700 border border-blue-200',
-                        iconBg: 'bg-gradient-to-tr from-blue-500 to-indigo-600',
-                        iconText: 'ML',
-                        subtext: 'Diamond & Weekly Diamond Pass',
-                        description: 'Top up diamond MLBB murah, siap buat gacha skin favorit & beli WDP hemat.',
-                        features: ['Format: User ID (Zone ID)', 'Weekly Pass Termurah', 'Langsung Masuk'],
-                        selectedVariantIndex: 0,
-                        variants: [
-                            { label: 'Weekly Diamond Pass (WDP)', price: 28000 },
-                            { label: '86 Diamond ML', price: 21000 },
-                            { label: '172 Diamond ML', price: 42000 },
-                            { label: '257 Diamond ML', price: 63000 },
-                            { label: '706 Diamond ML', price: 168000 },
-                        ]
-                    },
-                    {
-                        id: 204,
-                        name: 'Growtopia (DL & WL Murah)',
-                        category: 'game',
-                        categoryName: 'Game Online',
-                        badge: 'Aman 100%',
+                        badge: 'Stock Kosong',
                         badgeColor: 'bg-yellow-100 text-yellow-800 border border-yellow-200',
                         iconBg: 'bg-gradient-to-tr from-amber-400 to-yellow-600',
                         iconText: 'GT',
-                        subtext: 'World Lock & Diamond Lock',
-                        description: 'Beli DL / WL Growtopia terpercaya, drop via Display Box / Donation Box di world kamu.',
-                        features: ['Ketik GrowID & World Name', 'Drop di Donation / Display Box', 'Stock Selalu Ready'],
+                        subtext: 'Diamond Lock',
+                        description: 'Beli DL Growtopia terpercaya, drop via Display Box / Donation Box di world kamu.',
+                        features: ['Ketik GrowID & World Name', 'Drop di Donation / Display Box', 'Stock Selalu Ready', 'Nominal Lainnya Tanyakan Admin'],
                         selectedVariantIndex: 0,
                         variants: [
-                            { label: '50 World Lock (WL)', price: 10000 },
-                            { label: '1 Diamond Lock (1 DL)', price: 18000 },
-                            { label: '3 Diamond Lock (3 DL)', price: 53000 },
-                            { label: '5 Diamond Lock (5 DL)', price: 88000 },
+                            { label: '1 Diamond Lock (1 DL)', price: 1500 },
+                            { label: '3 Diamond Lock (3 DL)', price: 4500 },
+                            { label: '5 Diamond Lock (5 DL)', price: 7500 },
+                            { label: '10 Diamond Lock (10 DL)', price: 15000 },
+                            { label: '15 Diamond Lock (15 DL)', price: 22500 },
+                            { label: '20 Diamond Lock (20 DL)', price: 30000 },
                         ]
                     },
 
                     // =================== JOKI TUGAS ===================
-                    {
+             {
                         id: 301,
                         name: 'Joki Makalah & Paper Akademik',
                         category: 'joki',
@@ -1217,8 +1460,8 @@
                         iconBg: 'bg-gradient-to-tr from-emerald-500 to-teal-500',
                         iconText: '📄',
                         subtext: 'Harga Sesuai Kesulitan & Deadline',
-                        description: 'Pengerjaan makalah lengkap dengan cover, bab 1-3, dan daftar pustaka standar. Harga menyesuaikan tingkat kesulitan dan deadline tugas.',
-                        features: ['Belum Termasuk Turnitin', 'Harga Menyesuaikan Kesulitan & Deadline', 'Format Rapi Siap Cetak', 'Free Revisi SnK'],
+                        description: 'Pengerjaan makalah lengkap dengan cover, bab 1 - 4/5, dan daftar pustaka standar. Harga menyesuaikan tingkat kesulitan dan deadline tugas.',
+                        features: ['Belum Termasuk Turnitin', 'Harga Menyesuaikan Kesulitan & Deadline', 'Format Rapi Siap Cetak', 'Revisi Free 3x (SnK Berlaku)'],
                         selectedVariantIndex: 0,
                         variants: [
                             { label: 'Estimasi Reguler (2-3 Hari)', price: 35000 },
@@ -1228,20 +1471,21 @@
                     },
                     {
                         id: 302,
-                        name: 'Joki PPT / Slide Presentasi Canva',
+                        name: 'Joki PPT / Slide Presentasi (Canva & Morph)',
                         category: 'joki',
                         categoryName: 'Joki Tugas',
                         badge: 'Aesthetic',
                         badgeColor: 'bg-pink-100 text-pink-700 border border-pink-200',
                         iconBg: 'bg-gradient-to-tr from-pink-500 to-rose-500',
                         iconText: '📊',
-                        subtext: 'Animasi Halus & Desain Modern',
-                        description: 'Pembuatan slide presentasi menarik, tidak membosankan, dilengkapi infografis visual.',
-                        features: ['Desain Canva Pro', 'Animasi & Transisi', 'Bisa Custom Warna'],
+                        subtext: 'Transisi Morph Halus & Desain Modern',
+                        description: 'Pembuatan slide presentasi menarik dengan efek transisi Morph dinamis, tidak membosankan, dan dilengkapi infografis visual.',
+                        features: ['Desain Canva Pro & PPT', 'Animasi & Transisi Morph', 'Bisa Custom Warna'],
                         selectedVariantIndex: 0,
                         variants: [
                             { label: 'Paket 10 - 15 Slide (Reguler)', range: '10.000 - 30.000', price: 10000 },
                             { label: 'Paket 15 - 25 Slide (Reguler)', range: '18.000 - 50.000', price: 18000 },
+                            { label: 'Paket Slide + Transisi Morph', range: '25.000 - 65.000', price: 25000 },
                             { label: 'Slide Kilat Express (1x24 Jam)', range: '30.000 - 80.000', price: 30000 }
                         ]
                     },
@@ -1263,6 +1507,42 @@
                             { label: 'Rapihin Tabel & Data Excel (Estimasi)', range: '15.000 - 50.000', price: 15000 },
                             { label: 'Rapihin Format Slide PPT (Estimasi)', range: '15.000 - 45.000', price: 15000 },
                             { label: 'Paket Komplit Dokumen (Estimasi)', range: '25.000 - 75.000', price: 25000 }
+                        ]
+                    },
+                   {
+                        id: 304,
+                        name: 'Joki Project / Praktikum IT',
+                        category: 'joki',
+                        categoryName: 'Joki Tugas',
+                        badge: 'Coding & IT',
+                        badgeColor: 'bg-purple-100 text-purple-700 border border-purple-200',
+                        iconBg: 'bg-gradient-to-tr from-purple-500 to-indigo-500',
+                        iconText: '💻',
+                        subtext: 'Harga Sesuai Kesulitan & Deadline',
+                        description: 'Bantuan pengerjaan tugas praktikum IT, pembuatan program/website sederhana, debugging error, dan bisa dibuatkan sekalian dengan laporannya.',
+                        features: ['Web, Python, Java, C++, PHP, SQL', 'Bisa Sekalian Dibuatkan Laporannya', 'Free Penjelasan Alur Kode', 'Revisi Free 3x (SnK Berlaku)'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Praktikum / Coding Saja', price: 35000 },
+                            { label: 'Praktikum + Laporan Lengkap', price: 60000 },
+                            { label: 'Project Aplikasi / Web + Laporan', price: 120000 }
+                        ]
+                    },
+                    {
+                        id: 305,
+                        name: 'Jasa Cek Turnitin (No Repository)',
+                        category: 'joki',
+                        categoryName: 'Joki Tugas',
+                        badge: 'Coming Soon',
+                        badgeColor: 'bg-amber-100 text-amber-700 border border-amber-200',
+                        iconBg: 'bg-gradient-to-tr from-amber-500 to-orange-500',
+                        iconText: '🔍',
+                        subtext: 'Segera Hadir • Cek Plagiasi Aman',
+                        description: 'Layanan pengecekan tingkat plagiarisme dokumen menggunakan akun Turnitin No Repository (dokumen tidak tersimpan di database). Nantikan segera di Bbylaa Store!',
+                        features: ['Akun No Repository (Aman)', 'Hasil Cek Lengkap PDF', 'Proses Cepat & Privasi Terjaga', 'Segera Hadir (Coming Soon)'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Coming Soon (Belum Tersedia)', price: 0 }
                         ]
                     },
 
@@ -1434,6 +1714,170 @@
                             { label: '1 Bulan Akun Baru', price: 15000 },
                             { label: '1 Bulan Upgrade Email Pribadi', price: 23000 }
                         ]
+                    },
+                    {
+                        id: 410,
+                        name: 'MangoTV Premium (VIP & SVIP)',
+                        category: 'streaming',
+                        categoryName: 'Drama Asia',
+                        badge: 'C-Drama VIP',
+                        badgeColor: 'bg-amber-950 text-amber-300 border border-amber-500/30',
+                        iconBg: 'bg-gradient-to-tr from-yellow-500 to-orange-500',
+                        iconText: 'MG',
+                        subtext: 'VIP & SVIP Sharing 1 Bulan',
+                        description: 'Aplikasi streaming drama Tiongkok populer, variety show eksklusif, dan subtitle Indonesia resmi.',
+                        features: ['Akses Episode VIP & SVIP', 'Kualitas Video Jernih HD', 'Garansi Akun Aktif'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'MangoTV VIP Sharing 1 Bln', price: 10500 },
+                            { label: 'MangoTV SVIP Sharing 1 Bln', price: 15000 }
+                        ]
+                    },
+                    {
+                        id: 411,
+                        name: 'HBO Max Premium (Max)',
+                        category: 'streaming',
+                        categoryName: 'Film & Series',
+                        badge: 'Box Office',
+                        badgeColor: 'bg-purple-950 text-purple-300 border border-purple-500/30',
+                        iconBg: 'bg-gradient-to-tr from-purple-700 to-indigo-600',
+                        iconText: 'MAX',
+                        subtext: 'Standard & Ultimate Sharing 8 User',
+                        description: 'Nonton film blockbuster Warner Bros, serial HBO Original eksklusif, DC Universe, dan kartun Cartoon Network.',
+                        features: ['Serial HBO Original Eksklusif', 'Kualitas 4K UHD & Dolby Atmos', 'Full Garansi Durasi'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'HBO Max Std Sharing 1B 8U', price: 9500 },
+                            { label: 'HBO Max Ult Sharing 1B 8U', price: 13500 }
+                        ]
+                    },
+                    {
+                        id: 412,
+                        name: 'DrakorID Premium',
+                        category: 'streaming',
+                        categoryName: 'Drama Korea',
+                        badge: 'Drakor Indo',
+                        badgeColor: 'bg-rose-950 text-rose-300 border border-rose-500/30',
+                        iconBg: 'bg-gradient-to-tr from-rose-500 to-pink-600',
+                        iconText: 'DK',
+                        subtext: 'Sharing 1 Bulan & 1 Tahun',
+                        description: 'Streaming drama Korea terlengkap, fast update on-going, subtitle bahasa Indonesia rapi tanpa iklan.',
+                        features: ['Fast Update Drakor On-Going', 'Download Offline Sepuasnya', 'Bebas Iklan Menjeda'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'DrakorID Sharing 1 Bln', price: 18000 },
+                            { label: 'DrakorID Sharing 1 Thn', price: 30000 }
+                        ]
+                    },
+                    {
+                        id: 413,
+                        name: 'Loklok Premium',
+                        category: 'streaming',
+                        categoryName: 'Film & Anime',
+                        badge: 'Trending App',
+                        badgeColor: 'bg-emerald-950 text-emerald-300 border border-emerald-500/30',
+                        iconBg: 'bg-gradient-to-tr from-emerald-600 to-teal-500',
+                        iconText: 'LK',
+                        subtext: 'Plan Basic & Standar Sharing',
+                        description: 'Aplikasi streaming film, anime, drama Korea, dan serial barat lengkap dengan subtitle multi-bahasa.',
+                        features: ['Koleksi Film & Anime Lengkap', 'Buka Kualitas HD / Full HD', 'Garansi Pemakaian'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Loklok Plan Basic Sharing 1 Bln', price: 18000 },
+                            { label: 'Loklok Plan Standar Sharing 1 Bln', price: 25000 }
+                        ]
+                    },
+                    {
+                        id: 414,
+                        name: 'Moviebox Pro',
+                        category: 'streaming',
+                        categoryName: 'Film & Series',
+                        badge: 'Cinema HD',
+                        badgeColor: 'bg-blue-950 text-blue-300 border border-blue-500/30',
+                        iconBg: 'bg-gradient-to-tr from-blue-600 to-indigo-600',
+                        iconText: 'MB',
+                        subtext: 'Plan Basic & Pro Sharing 1 Bulan',
+                        description: 'Nonton film bioskop box office terbaru dan serial TV Hollywood lengkap dengan subtitle Indonesia.',
+                        features: ['Update Film Bioskop Kilat', 'Server Cepat Kualitas HD', 'Full Garansi Durasi'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Moviebox Plan Basic Sharing 1 Bln', price: 10000 },
+                            { label: 'Moviebox Plan Pro Sharing 1 Bln', price: 17500 }
+                        ]
+                    },
+                    {
+                        id: 415,
+                        name: 'GagaOOLala VIP',
+                        category: 'streaming',
+                        categoryName: 'Drama Series',
+                        badge: 'LGBTQ+ & BL',
+                        badgeColor: 'bg-fuchsia-950 text-fuchsia-300 border border-fuchsia-500/30',
+                        iconBg: 'bg-gradient-to-tr from-pink-600 to-fuchsia-600',
+                        iconText: 'GG',
+                        subtext: 'Sharing 1 Bulan',
+                        description: 'Platform streaming resmi nomor 1 untuk serial BL, GL, dan sinema Asia indie terlengkap.',
+                        features: ['Akses Semua Judul VIP', 'Subtitle Resmi Indonesia', 'Garansi Akun Aktif'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'GagaOOLala Sharing 1 Bln', price: 13500 }
+                        ]
+                    },
+                    {
+                        id: 416,
+                        name: 'Viki Rakuten Pass Plus',
+                        category: 'streaming',
+                        categoryName: 'Drama Asia',
+                        badge: 'Asian Drama',
+                        badgeColor: 'bg-cyan-950 text-cyan-300 border border-cyan-500/30',
+                        iconBg: 'bg-gradient-to-tr from-cyan-600 to-blue-600',
+                        iconText: 'VK',
+                        subtext: 'Plan Plus Sharing 1 Bulan',
+                        description: 'Nonton drama Korea, drama China, dan variety show Asia dengan terjemahan komunitas paling akurat.',
+                        features: ['Buka Akses Viki Pass Plus', 'Kualitas Video HD 1080p', 'Full Garansi Durasi'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Viki Plan Plus Sharing 1 Bln', price: 13500 }
+                        ]
+                    },
+                    {
+                        id: 417,
+                        name: 'Crunchyroll Premium (Mega Fan)',
+                        category: 'streaming',
+                        categoryName: 'Anime VIP',
+                        badge: 'Anime Terbesar',
+                        badgeColor: 'bg-orange-950 text-orange-300 border border-orange-500/30',
+                        iconBg: 'bg-gradient-to-tr from-orange-500 to-red-500',
+                        iconText: 'CR',
+                        subtext: 'Sharing 1 Bulan',
+                        description: 'Koleksi anime Jepang terbesar di dunia, simulcast 1 jam setelah tayang di Jepang, bebas iklan.',
+                        features: ['Simulcast Anime Terbaru', 'Bebas Iklan Resolusi Penuh', 'Full Garansi SnK'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Crunchyroll Sharing 1 Bln', price: 13500 }
+                        ]
+                        
+                 },
+                    {
+                     id: 418,
+                        name: 'Vidio Platinum',
+                        category: 'streaming',
+                        categoryName: 'Streaming VIP',
+                        badge: 'Sports & Original',
+                        badgeColor: 'bg-rose-950 text-rose-300 border border-rose-500/30',
+                        iconBg: 'bg-gradient-to-tr from-rose-600 to-red-500',
+                        iconText: 'VD',
+                        subtext: 'Sharing & Private 1 Bulan',
+                        description: 'Nonton ribuan tayangan olahraga eksklusif, Vidio Original Series, film box office, hingga drama Korea & anime.',
+                        features: ['Tayangan Sports & Original Series', 'Tersedia Mobile, All Device & TV', 'Full Garansi jika memenuhi SnK'],
+                        selectedVariantIndex: 0,
+                        variants: [
+                            { label: 'Platinum Mobile Sharing (2U) - 1 Bln', price: 18000 },
+                            { label: 'Platinum Mobile Private - 1 Bln', price: 28000 },
+                            { label: 'Platinum All Device Sharing (2U) - 1 Bln', price: 25000 },
+                            { label: 'Platinum All Device Private - 1 Bln', price: 40000 },
+                            { label: 'Platinum Only TV - 1 Bln', price: 10000 }
+                        ]
+                        
                     }
                 ],
 
@@ -1471,7 +1915,7 @@
                     });
                 },
 
-                // ================= LOGIKA FITUR KERANJANG =================
+                                // ================= LOGIKA FITUR KERANJANG =================
                 get cartTotalCount() {
                     return this.cart.reduce((sum, item) => sum + (item.qty || 1), 0);
                 },
@@ -1726,6 +2170,28 @@ Mohon dicek dan info instruksi pembayarannya ya admin. Terima kasih!`;
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         });
+
+        // Animasi Teks Melayang Saat Layar Diklik ("Welcome to Bbylaa Store 💕")
+        document.addEventListener('click', function(e) {
+            // Jangan trigger jika klik tombol input atau select
+            if (['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) return;
+            
+        
+            const textToSpawn = sparkles[Math.floor(Math.random() * sparkles.length)];
+
+            const span = document.createElement('span');
+            span.className = 'click-sparkle';
+            span.textContent = textToSpawn;
+            span.style.left = e.clientX + 'px';
+            span.style.top = e.clientY + 'px';
+            document.body.appendChild(span);
+
+            setTimeout(() => {
+                span.remove();
+            }, 1100);
+        });
+
     </script>
 </body>
 </html>
+
