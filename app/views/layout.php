@@ -31,10 +31,10 @@ $flashes = take_flashes();
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= e($title) ?> — <?= e($storeName) ?>">
     <meta property="og:description" content="<?= e($desc) ?>">
-    <meta property="og:image" content="<?= e(base_url()) ?>/assets/img/baner_byla.jpeg">
+    <meta property="og:image" content="<?= e(base_url()) ?>/assets/img/banner-1200.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
-    <link rel="icon" type="image/jpeg" href="/assets/img/logobyla.jpeg">
+    <link rel="icon" type="image/jpeg" href="/assets/img/logo-192.jpg">
     <link rel="stylesheet" href="/assets/css/app.css?v=<?= BBY_VERSION ?>">
     <script src="/assets/vendor/lucide.min.js" defer></script>
 </head>

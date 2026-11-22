@@ -25,8 +25,8 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
         <a href="/" class="flex shrink-0 items-center gap-2 sm:gap-3">
             <span class="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-2xl
                          ring-2 ring-pink-300 dark:ring-pink-500/50 sm:h-11 sm:w-11">
-                <img src="/assets/img/logobyla.jpeg" alt="Logo Bbylaa Store" width="44" height="44"
-                     class="h-full w-full object-cover">
+                <img src="/assets/img/logo-192.jpg" alt="Logo Bbylaa Store" width="44" height="44"
+                     class="h-full w-full object-cover" decoding="async">
             </span>
             <span class="leading-none">
                 <span class="block text-base font-black tracking-tight ink sm:text-xl">
@@ -137,8 +137,12 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
     <?php if ($q === '' && $activeCat === ''): ?>
     <section class="mx-auto mb-6 max-w-4xl sm:mb-10" aria-label="Banner promosi">
         <div class="relative overflow-hidden rounded-3xl border-2 border-pink-200 bg-white shadow-xl shadow-pink-600/10 dark:border-pink-500/30 dark:bg-[#1a1021]">
-            <img src="/assets/img/baner_byla.jpeg" alt="Banner Bbylaa Store"
-                 class="block h-auto w-full object-contain">
+            <picture>
+                <source srcset="/assets/img/banner-1200.webp" type="image/webp">
+                <img src="/assets/img/banner-1200.jpg" alt="Banner Bbylaa Store"
+                     width="1200" height="673" fetchpriority="high" decoding="async"
+                     class="block h-auto w-full object-contain">
+            </picture>
             <div class="absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-1.5 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 sm:gap-2 sm:p-3.5">
                 <span class="chip bg-white/95 text-pink-800 ring-white/50">
                     <i data-lucide="heart" class="h-3 w-3"></i> Official Store

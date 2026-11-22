@@ -34,7 +34,17 @@ $path   = '/' . trim($uri, '/');
 // ------------------------------------------------------------------ keamanan
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin-when-cross-origin');
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
+// Cloudflare menyuntikkan beacon analitik di edge. Dua host itu harus
+// diizinkan eksplisit, kalau tidak setiap kunjungan mencatat pelanggaran CSP
+// di konsol pengunjung (dan menakut-nakuti pemilik toko).
+header(
+    "Content-Security-Policy: default-src 'self'; "
+    . "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; "
+    . "style-src 'self' 'unsafe-inline'; "
+    . "img-src 'self' data:; font-src 'self' data:; "
+    . "connect-src 'self' https://cloudflareinsights.com; "
+    . "form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'"
+);
 
 // Halaman dinamis tidak boleh di-cache lama: status buka/tutup & stok berubah.
 header('Cache-Control: no-cache, must-revalidate');

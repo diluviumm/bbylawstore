@@ -32,7 +32,7 @@ foreach (categories_all() as $c) {
     <title><?= e($title) ?> — Admin Bbylaa Store</title>
     <meta name="robots" content="noindex, nofollow">
     <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
-    <link rel="icon" type="image/jpeg" href="/assets/img/logobyla.jpeg">
+    <link rel="icon" type="image/jpeg" href="/assets/img/logo-192.jpg">
     <link rel="stylesheet" href="/assets/css/app.css?v=<?= BBY_VERSION ?>">
     <script src="/assets/vendor/lucide.min.js" defer></script>
 </head>
@@ -62,7 +62,7 @@ foreach (categories_all() as $c) {
         <div class="flex items-center justify-between gap-3 p-4 lg:block">
             <a href="/admin/pesanan" class="flex items-center gap-2.5">
                 <span class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl ring-2 ring-pink-300">
-                    <img src="/assets/img/logobyla.jpeg" alt="" width="40" height="40" class="h-full w-full object-cover">
+                    <img src="/assets/img/logo-192.jpg" alt="" width="40" height="40" class="h-full w-full object-cover">
                 </span>
                 <span class="leading-none">
                     <span class="block text-sm font-black text-[#241520]">BBYLAA <span class="text-pink-700">ADMIN</span></span>

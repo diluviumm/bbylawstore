@@ -9,7 +9,7 @@ declare(strict_types=1);
         <div class="card p-6 sm:p-8">
             <div class="mb-5 text-center">
                 <span class="mx-auto mb-3 flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl ring-2 ring-pink-300">
-                    <img src="/assets/img/logobyla.jpeg" alt="Logo Bbylaa Store" width="56" height="56" class="h-full w-full object-cover">
+                    <img src="/assets/img/logo-192.jpg" alt="Logo Bbylaa Store" width="56" height="56" class="h-full w-full object-cover">
                 </span>
                 <h1 class="text-lg font-black ink">Masuk Admin</h1>
                 <p class="ink-muted mt-1 text-xs">Panel pengelolaan Bbylaa Store.</p>
