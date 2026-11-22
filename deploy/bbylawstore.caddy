@@ -1,0 +1,46 @@
+# Bbylaa Store — blok Caddy produksi.
+# Pasang: sudo cp deploy/bbylawstore.caddy /etc/caddy/naygars-sites/bbylawstore.caddy
+#         sudo caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy
+#
+# Perubahan dari versi statis lama:
+#   - root menunjuk ke public/ (bukan seluruh folder proyek)
+#   - PHP-FPM dipasang supaya /api/checkout & /admin benar-benar memproses
+#   - CSP tanpa 'unsafe-eval' dan tanpa CDN pihak ketiga (semua aset lokal)
+#   - /data tidak bisa diakses dari web (di luar public/)
+
+http://bbylawstore.naygars.site {
+	root * /srv/bbylawstore/public
+
+	encode zstd gzip
+
+	request_body {
+		max_size 2MB
+	}
+
+	# Tolak upaya path traversal ber-encoding sebelum PHP melihatnya.
+	@encoded_sep expression {http.request.uri}.contains("%2F") || {http.request.uri}.contains("%2f") || {http.request.uri}.contains("%5C") || {http.request.uri}.contains("%5c")
+	respond @encoded_sep 404
+
+	# Aset statis: cache panjang, aman karena nama file diberi ?v= saat berubah.
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+
+	# Halaman dinamis tidak boleh di-cache.
+	header {
+		-Server
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+		Cross-Origin-Opener-Policy "same-origin"
+	}
+
+	php_fastcgi unix//run/php/php8.3-fpm.sock {
+		env BBY_ENV production
+	}
+
+	file_server {
+		hide .git .env .env.local data
+	}
+}

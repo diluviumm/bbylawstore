@@ -1,0 +1,17 @@
+{
+  "name": "bbylawstore",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Bbylaa Store — storefront PHP + SQLite",
+  "scripts": {
+    "build": "tailwindcss -i ./tailwind/input.css -o ./public/assets/css/app.css --minify",
+    "watch": "tailwindcss -i ./tailwind/input.css -o ./public/assets/css/app.css --watch",
+    "test": "php tests/run.php"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.11"
+  }
+}

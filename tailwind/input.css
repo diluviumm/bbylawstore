@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Bbylaa Store — lapisan gaya.
+ *
+ * Aturan kontras: setiap warna teks punya pasangan eksplisit di tema gelap.
+ * Jangan pakai `text-x-700` tanpa varian `dark:text-x-200`; palet di bawah
+ * sudah dibatasi pada pasangan yang lolos WCAG AA (>= 4.5:1).
+ */
+
+@layer base {
+    :root {
+        --bby-bg: #fdf6f9;
+        --bby-surface: #ffffff;
+        --bby-line: #f6dbe6;
+        --bby-ink: #2a1a25;
+        --bby-muted: #6b5563;
+    }
+
+    html.dark {
+        --bby-bg: #0f0813;
+        --bby-surface: #1a1021;
+        --bby-line: #3d2340;
+        --bby-ink: #f7ecf3;
+        --bby-muted: #c9aec4;
+    }
+
+    html {
+        -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--bby-bg);
+        color: var(--bby-ink);
+        font-feature-settings: "cv11", "ss01";
+        transition: background-color .25s ease, color .25s ease;
+    }
+
+    :focus-visible {
+        outline: 3px solid #db2777;
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+            animation-duration: .001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: .001ms !important;
+        }
+    }
+}
+
+@layer components {
+    .surface {
+        @apply bg-white dark:bg-[#1a1021] border border-[#f6dbe6] dark:border-[#3d2340];
+    }
+
+    .ink        { @apply text-[#241520] dark:text-[#f7ecf3]; }
+    .ink-muted  { @apply text-[#6b5563] dark:text-[#c9aec4]; }
+
+    .card {
+        @apply surface rounded-3xl shadow-[0_10px_30px_-12px_rgba(236,72,153,.25)];
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-2xl font-bold
+               transition-all duration-200 select-none
+               disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
+    }
+
+    .btn-primary {
+        @apply btn text-white
+               bg-pink-700 bg-gradient-to-r from-pink-600 to-rose-600
+               hover:from-pink-700 hover:to-rose-700
+               shadow-lg shadow-pink-600/25 hover:shadow-pink-600/35
+               active:scale-[.97];
+    }
+
+    .btn-ghost {
+        @apply btn bg-pink-50 text-pink-800 ring-1 ring-pink-200
+               hover:bg-pink-100 hover:ring-pink-300
+               dark:bg-pink-500/10 dark:text-pink-200 dark:ring-pink-400/30
+               dark:hover:bg-pink-500/20;
+    }
+
+    .btn-quiet {
+        @apply btn bg-white text-[#4a3646] ring-1 ring-[#f0d3e0]
+               hover:bg-[#fdf2f7] dark:bg-[#241531] dark:text-[#e9d6e4]
+               dark:ring-[#4a2b50] dark:hover:bg-[#2d1a3b];
+    }
+
+    .field {
+        @apply w-full rounded-2xl px-4 py-2.5 text-sm font-medium
+               bg-white text-[#241520] placeholder-[#a8919f]
+               ring-1 ring-[#f0d3e0]
+               dark:bg-[#241531] dark:text-[#f7ecf3] dark:placeholder-[#9c7f99] dark:ring-[#4a2b50]
+               focus:outline-none focus:ring-2 focus:ring-pink-500
+               transition-shadow;
+    }
+
+    .chip {
+        @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1
+               text-[11px] font-bold ring-1 whitespace-nowrap;
+    }
+
+    .nav-pill {
+        @apply px-4 py-2 rounded-2xl text-sm font-bold whitespace-nowrap transition-all
+               bg-white text-[#5c4354] ring-1 ring-[#f0d3e0]
+               hover:bg-[#fdf2f7] hover:text-pink-700
+               dark:bg-[#241531] dark:text-[#dcc4d6] dark:ring-[#4a2b50]
+               dark:hover:bg-[#2d1a3b] dark:hover:text-pink-200;
+    }
+
+    .nav-pill-active {
+        @apply text-white ring-2 ring-pink-400
+               bg-pink-700 bg-gradient-to-r from-pink-600 to-rose-600
+               hover:from-pink-600 hover:to-rose-600 hover:text-white
+               shadow-lg shadow-pink-600/30;
+    }
+
+    .table-head {
+        @apply text-left text-[11px] uppercase tracking-wider font-bold text-[#6f5568] dark:text-[#c6a9bf];
+    }
+}
+
+@layer utilities {
+    .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: marquee 30s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+    }
+
+    .no-scrollbar { scrollbar-width: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+
+    .line-clamp-2-safe {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,1613 @@
+[
+ {
+  "id": 501,
+  "category": "handmade",
+  "category_name": "Hand Made",
+  "name": "Gantungan Kunci Akrilik Custom",
+  "subtext": "Bisa Request Foto, Karakter & Nama",
+  "description": "Gantungan kunci akrilik bening 2 sisi anti air, cocok untuk gantungan tas, kunci motor, atau gift sahabat.",
+  "features": [
+   "Akrilik Bening 2 Sisi Tebal",
+   "Custom Foto & Tulisan Bebas",
+   "Packaging Estetik Cute"
+  ],
+  "images": [],
+  "badge": "coming soon",
+  "badge_tone": "purple",
+  "accent": "purple",
+  "icon": "🔑",
+  "is_quote": 0,
+  "sort": 0,
+  "variants": [
+   {
+    "label": "Ganci 2 Sisi Bolak-Balik",
+    "price": 8000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 502,
+  "category": "handmade",
+  "category_name": "Hand Made",
+  "name": "Fotostrip Estetik (Custom Photo)",
+  "subtext": "Kertas Foto Tebal Glossy / Doff",
+  "description": "Cetak foto strip polaroid ala photobooth kekinian. Frame bisa custom warna pink pastel, putih, atau hitam.",
+  "features": [
+   "Kualitas Cetak Tajam HD",
+   "Kertas Silky / Glossy Tebal",
+   "Bisa Custom 3-4 Foto"
+  ],
+  "images": [],
+  "badge": "coming soon",
+  "badge_tone": "fuchsia",
+  "accent": "fuchsia",
+  "icon": "📸",
+  "is_quote": 0,
+  "sort": 1,
+  "variants": [
+   {
+    "label": "Paket 1 (Isi 6-8 Foto)",
+    "price": 10000,
+    "price_max": null
+   },
+   {
+    "label": "Paket 2 (Isi 15-20 Foto)",
+    "price": 30000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 1,
+  "category": "ai",
+  "category_name": "AI & Bot",
+  "name": "ChatGPT Premium (Go & Plus)",
+  "subtext": "Sharing 8 User (1 Day, 7 Day, 1 Bln)",
+  "description": "Akses ChatGPT Go & ChatGPT Plus Sharing 8 User dengan harga hemat.",
+  "features": [
+   "Pilihan Harian s/d Bulanan",
+   "Akses Cepat & Stabil",
+   "Garansi Akun Aktif"
+  ],
+  "images": [],
+  "badge": "Promo Poster",
+  "badge_tone": "emerald",
+  "accent": "emerald",
+  "icon": "GPT",
+  "is_quote": 0,
+  "sort": 2,
+  "variants": [
+   {
+    "label": "ChatGPT Go Shar 8U 1Day",
+    "price": 4500,
+    "price_max": null
+   },
+   {
+    "label": "ChatGPT Go Shar 8U 7Day",
+    "price": 10000,
+    "price_max": null
+   },
+   {
+    "label": "ChatGPT Go Shar 8U 1Bln",
+    "price": 18000,
+    "price_max": null
+   },
+   {
+    "label": "ChatGPT Plus Shar 8U 1Day",
+    "price": 5000,
+    "price_max": null
+   },
+   {
+    "label": "ChatGPT Plus Shar 8U 7Day",
+    "price": 12000,
+    "price_max": null
+   },
+   {
+    "label": "ChatGPT Plus Shar 8U 1Bln",
+    "price": 25000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 2,
+  "category": "ai",
+  "category_name": "AI & Bot",
+  "name": "Gemini Pro AI Invite",
+  "subtext": "Invite Email Pribadi (1 Bln - 1 Thn)",
+  "description": "Google Gemini Pro AI canggih untuk riset, coding, dan analisis dokumen.",
+  "features": [
+   "Invite Email Pribadi Kamu",
+   "Full Garansi Durasi",
+   "Akses Model Pro"
+  ],
+  "images": [],
+  "badge": "Termurah",
+  "badge_tone": "blue",
+  "accent": "blue",
+  "icon": "✦",
+  "is_quote": 0,
+  "sort": 3,
+  "variants": [
+   {
+    "label": "Gemini Pro AI Invite 1 Bln",
+    "price": 15000,
+    "price_max": null
+   },
+   {
+    "label": "Gemini Pro AI Invite 3 Bln",
+    "price": 20000,
+    "price_max": null
+   },
+   {
+    "label": "Gemini Pro AI Invite 1 Thn",
+    "price": 40000,
+    "price_max": null
+   },
+   {
+    "label": "Gemini Plus AI Invite 6 bln",
+    "price": 30000,
+    "price_max": null
+   },
+   {
+    "label": "Gemini Plus AI Invite 1 bln",
+    "price": 15000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 3,
+  "category": "design",
+  "category_name": "Desain",
+  "name": "Canva Pro Member & Head",
+  "subtext": "Member Bulanan, Edu 1y & Head",
+  "description": "Akses Canva Pro tanpa batas: Magic AI, background remover, template premium.",
+  "features": [
+   "Bisa Email Pribadi",
+   "Garansi 6 Bulan (Edu 1y)",
+   "Fitur Pro Terbuka"
+  ],
+  "images": [],
+  "badge": "Best Seller",
+  "badge_tone": "sky",
+  "accent": "sky",
+  "icon": "C",
+  "is_quote": 0,
+  "sort": 4,
+  "variants": [
+   {
+    "label": "Canva Member 1 Month",
+    "price": 1500,
+    "price_max": null
+   },
+   {
+    "label": "Canva Member 2 Month",
+    "price": 3000,
+    "price_max": null
+   },
+   {
+    "label": "Canva Member 3 Month",
+    "price": 4500,
+    "price_max": null
+   },
+   {
+    "label": "Canva Head 1 Bln",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Canva Edu 1y Garansi 6 Bln",
+    "price": 10000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 4,
+  "category": "design",
+  "category_name": "Editing",
+  "name": "CapCut Pro Video Editor",
+  "subtext": "Private 7 Hari, 1 Bln & Sharing",
+  "description": "Export video TikTok & Reels tanpa watermark, buka auto-caption dan filter pro.",
+  "features": [
+   "Bisa di HP & PC/Laptop",
+   "Auto Caption Indonesia",
+   "Fitur VIP Terbuka"
+  ],
+  "images": [],
+  "badge": "Favorit",
+  "badge_tone": "pink",
+  "accent": "pink",
+  "icon": "CP",
+  "is_quote": 0,
+  "sort": 5,
+  "variants": [
+   {
+    "label": "CapCut Pro 7Day Private",
+    "price": 5000,
+    "price_max": null
+   },
+   {
+    "label": "CapCut Pro 1 Bln Sharing",
+    "price": 13000,
+    "price_max": null
+   },
+   {
+    "label": "CapCut Pro 1 Bln Private",
+    "price": 25000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 5,
+  "category": "design",
+  "category_name": "Kamera",
+  "name": "Dazzcam Vintage Retro",
+  "subtext": "1 Tahun Garansi 6 Bulan",
+  "description": "Aplikasi kamera vintage analog estetis untuk foto dan video retro ala 90-an.",
+  "features": [
+   "Semua Lensa Analog Pro",
+   "Filter Vintage Lengkap",
+   "Garansi 6 Bulan"
+  ],
+  "images": [],
+  "badge": "1 Tahun",
+  "badge_tone": "amber",
+  "accent": "amber",
+  "icon": "📷",
+  "is_quote": 0,
+  "sort": 6,
+  "variants": [
+   {
+    "label": "Dazzcam 1Thn Garansi 6bln",
+    "price": 25000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 6,
+  "category": "design",
+  "category_name": "Desain",
+  "name": "Picsart Photo Studio",
+  "subtext": "Private 1 Bln & Sharing 1 Bln",
+  "description": "Edit foto kreatif dengan stiker, font VIP, remove background instan & efek AI.",
+  "features": [
+   "Akses Semua Tool VIP",
+   "Bebas Iklan",
+   "Export Resolusi Penuh"
+  ],
+  "images": [],
+  "badge": "Populer",
+  "badge_tone": "purple",
+  "accent": "purple",
+  "icon": "P",
+  "is_quote": 0,
+  "sort": 7,
+  "variants": [
+   {
+    "label": "Picsart Sharing 1 Bln",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Picsart Private 1 Bln",
+    "price": 15000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 7,
+  "category": "design",
+  "category_name": "Beauty",
+  "name": "Meitu VIP Photo Editor",
+  "subtext": "Meitu VIP & VIP+ (7 Hari)",
+  "description": "Filter kecantikan AI, retouch wajah mulus alami, dan frame aesthetic.",
+  "features": [
+   "Filter VIP Terbuka",
+   "Retouch Wajah HD",
+   "Akses Cepat"
+  ],
+  "images": [],
+  "badge": "Viral",
+  "badge_tone": "rose",
+  "accent": "rose",
+  "icon": "MT",
+  "is_quote": 0,
+  "sort": 8,
+  "variants": [
+   {
+    "label": "Meitu VIP 7Day",
+    "price": 3500,
+    "price_max": null
+   },
+   {
+    "label": "Meitu VIP+ 7Day",
+    "price": 5500,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 8,
+  "category": "design",
+  "category_name": "Video AI",
+  "name": "Wink Video Retouching",
+  "subtext": "Wink VIP & VIP+ (7 Hari & 14 Hari)",
+  "description": "Bikin video portrait jernih 4K dan perbaiki detail wajah secara instan di video.",
+  "features": [
+   "Quality Restoration 4K",
+   "Retouch Video AI",
+   "Full Garansi"
+  ],
+  "images": [],
+  "badge": "Trending",
+  "badge_tone": "emerald",
+  "accent": "emerald",
+  "icon": "W",
+  "is_quote": 0,
+  "sort": 9,
+  "variants": [
+   {
+    "label": "Wink VIP 7Day",
+    "price": 3500,
+    "price_max": null
+   },
+   {
+    "label": "Wink VIP+ 7Day",
+    "price": 5500,
+    "price_max": null
+   },
+   {
+    "label": "Wink VIP+ 14Day",
+    "price": 10000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 9,
+  "category": "design",
+  "category_name": "Restorasi",
+  "name": "Remini AI Photo Enhancer",
+  "subtext": "Web Private & Web Sharing 1 Bln",
+  "description": "Jernihkan foto buram/pecah jadi kualitas ultra HD dan buat avatar AI profesional.",
+  "features": [
+   "Unblur Foto Seketika",
+   "Kualitas High Definition",
+   "Akses Web Praktis"
+  ],
+  "images": [],
+  "badge": "Jernih HD",
+  "badge_tone": "red",
+  "accent": "red",
+  "icon": "R",
+  "is_quote": 0,
+  "sort": 10,
+  "variants": [
+   {
+    "label": "Remini Web Sharing 1 Bln",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Remini Web Private 1 Bln",
+    "price": 18000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 10,
+  "category": "design",
+  "category_name": "Fotografi",
+  "name": "Lightroom Preset & Editor",
+  "subtext": "Sharing 1 Bln & Sharing 1 Thn",
+  "description": "Koleksi grading warna pro, selective edit, dan tone curve untuk fotografer.",
+  "features": [
+   "Selective Masking Pro",
+   "Buka Semua Preset VIP",
+   "Cloud Storage"
+  ],
+  "images": [],
+  "badge": "Pro CC",
+  "badge_tone": "blue",
+  "accent": "blue",
+  "icon": "Lr",
+  "is_quote": 0,
+  "sort": 11,
+  "variants": [
+   {
+    "label": "Lightroom Sharing 1 Bln",
+    "price": 15000,
+    "price_max": null
+   },
+   {
+    "label": "Lightroom Sharing 1 Thn",
+    "price": 30000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 11,
+  "category": "design",
+  "category_name": "Filter",
+  "name": "VSCO X & POLAR",
+  "subtext": "VSCO X 1Thn & POLAR 1Thn",
+  "description": "Buka ratusan filter analog film estetik untuk feed Instagram dan Pinterest.",
+  "features": [
+   "Buka Semua Preset Film",
+   "Durasi 1 Tahun",
+   "Garansi Aktif"
+  ],
+  "images": [],
+  "badge": "Aesthetic",
+  "badge_tone": "fuchsia",
+  "accent": "fuchsia",
+  "icon": "V",
+  "is_quote": 0,
+  "sort": 12,
+  "variants": [
+   {
+    "label": "VSCO X Sharing 1 Thn",
+    "price": 25000,
+    "price_max": null
+   },
+   {
+    "label": "POLAR Sharing 1 Thn",
+    "price": 25000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 12,
+  "category": "study",
+  "category_name": "Akademik",
+  "name": "Grammarly & Quillbot",
+  "subtext": "Grammarly 1Bln & Quillbot 1Bln",
+  "description": "Parafrase otomatis anti-plagiasi dan cek tata bahasa Inggris otomatis.",
+  "features": [
+   "Parafrase Mode Lengkap",
+   "Grammar Checker Akurat",
+   "Cocok untuk Skripsi"
+  ],
+  "images": [],
+  "badge": "Parafrase",
+  "badge_tone": "emerald",
+  "accent": "emerald",
+  "icon": "G",
+  "is_quote": 0,
+  "sort": 13,
+  "variants": [
+   {
+    "label": "Grammarly Sharing 1 Bln",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Quillbot Sharing 1 Bln",
+    "price": 12000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 13,
+  "category": "study",
+  "category_name": "Office",
+  "name": "Microsoft 365 & WPS PRO",
+  "subtext": "MS365 Invite 1Bln & WPS PRO Sharing",
+  "description": "Aplikasi pengetikan resmi Word, Excel, PowerPoint & PDF Converter.",
+  "features": [
+   "Word, Excel & PPT Pro",
+   "PDF Edit & Convert",
+   "Bisa di HP / Laptop"
+  ],
+  "images": [],
+  "badge": "Office VIP",
+  "badge_tone": "amber",
+  "accent": "orange",
+  "icon": "MS",
+  "is_quote": 0,
+  "sort": 14,
+  "variants": [
+   {
+    "label": "WPS PRO Sharing 1 Bln",
+    "price": 10000,
+    "price_max": null
+   },
+   {
+    "label": "MS365 Invite 1 Bln",
+    "price": 15000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 14,
+  "category": "study",
+  "category_name": "Meeting",
+  "name": "Zoom Pro 100 Peserta",
+  "subtext": "Zoom 100P (7 Hari & 14 Hari)",
+  "description": "Meeting online tanpa batas durasi 40 menit, support recording & breakout room.",
+  "features": [
+   "Kapasitas 100 Peserta",
+   "Durasi Bebas (No Limit)",
+   "Aktivasi Kilat"
+  ],
+  "images": [],
+  "badge": "Tanpa Batas",
+  "badge_tone": "blue",
+  "accent": "blue",
+  "icon": "Z",
+  "is_quote": 0,
+  "sort": 15,
+  "variants": [
+   {
+    "label": "Zoom 100P 7Day",
+    "price": 7000,
+    "price_max": null
+   },
+   {
+    "label": "Zoom 100P 14Day",
+    "price": 14000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 15,
+  "category": "study",
+  "category_name": "Edu & Buku",
+  "name": "Scribd & Duolingo",
+  "subtext": "Scribd (Private/Shar) & Duolingo 1Bln",
+  "description": "Download ribuan dokumen/buku Scribd dan belajar bahasa tanpa jeda hati di Duolingo.",
+  "features": [
+   "Download Dokumen Scribd",
+   "Duolingo Hati Unlimited",
+   "Garansi Pemakaian"
+  ],
+  "images": [],
+  "badge": "Belajar",
+  "badge_tone": "teal",
+  "accent": "teal",
+  "icon": "S",
+  "is_quote": 0,
+  "sort": 16,
+  "variants": [
+   {
+    "label": "Duolingo Invite 1 Bln",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Scribd Sharing 1 Bln",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Scribd Private 1 Bln",
+    "price": 15000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 16,
+  "category": "utility",
+  "category_name": "VPN Aman",
+  "name": "ExpressVPN & HMA VPN Private",
+  "subtext": "Private 1 Bulan (Fast Server)",
+  "description": "Proteksi privasi internet, bypass blokir, dan server negara lengkap.",
+  "features": [
+   "Server Cepat Low Ping",
+   "Full Private 1 Bulan",
+   "Support SnK Toko"
+  ],
+  "images": [],
+  "badge": "Private",
+  "badge_tone": "rose",
+  "accent": "rose",
+  "icon": "VPN",
+  "is_quote": 0,
+  "sort": 17,
+  "variants": [
+   {
+    "label": "Vpn Express Private 1 Bln",
+    "price": 15000,
+    "price_max": null
+   },
+   {
+    "label": "HMA VPN Private 1 Bln",
+    "price": 15000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 17,
+  "category": "study",
+  "category_name": "Edu & Buku",
+  "name": "Wattpad Premium",
+  "subtext": "Bebas Iklan & Akses Cerita VIP",
+  "description": "Baca jutaan novel, fanfiction, dan web novel favorit tanpa gangguan iklan dengan koin bonus.",
+  "features": [
+   "Baca Cerita Sepuasnya",
+   "Bebas Iklan Mengganggu",
+   "Full Garansi Durasi"
+  ],
+  "images": [],
+  "badge": "Novel & Cerita",
+  "badge_tone": "orange",
+  "accent": "orange",
+  "icon": "WP",
+  "is_quote": 0,
+  "sort": 18,
+  "variants": [
+   {
+    "label": "Wattpad Sharing 1 Bln",
+    "price": 10500,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 18,
+  "category": "utility",
+  "category_name": "VPN Aman",
+  "name": "NordVPN & HMA VPN Sharing",
+  "subtext": "Koneksi Super Cepat & Aman",
+  "description": "Proteksi privasi internet, bypass blokir wilayah, server luar negeri cepat dan stabil.",
+  "features": [
+   "Bypass Sensor & Blokir",
+   "Koneksi Cepat Low Ping",
+   "Full Garansi Akun"
+  ],
+  "images": [],
+  "badge": "Fast Server",
+  "badge_tone": "blue",
+  "accent": "blue",
+  "icon": "VPN",
+  "is_quote": 0,
+  "sort": 19,
+  "variants": [
+   {
+    "label": "HMA VPN Sharing 1 Bln",
+    "price": 10500,
+    "price_max": null
+   },
+   {
+    "label": "NordVPN Sharing 1 Bln",
+    "price": 15000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 201,
+  "category": "game",
+  "category_name": "Game Online",
+  "name": "Roblox (Robux Murah & Cepat)",
+  "subtext": "Cukup Kirimkan Username Roblox",
+  "description": "Top up Robux murah legal untuk beli avatar, gamepass Blox Fruits, Brookhaven, dll.",
+  "features": [
+   "Legal & Anti Rollback",
+   "Proses 5 - 15 Menit",
+   "Hanya Butuh Username",
+   "Nominal Lainnya Tanyakan Admin"
+  ],
+  "images": [],
+  "badge": "Stock Kosong",
+  "badge_tone": "rose",
+  "accent": "rose",
+  "icon": "RBX",
+  "is_quote": 0,
+  "sort": 20,
+  "variants": [
+   {
+    "label": "80 Robux",
+    "price": 11000,
+    "price_max": null
+   },
+   {
+    "label": "160 Robux",
+    "price": 22000,
+    "price_max": null
+   },
+   {
+    "label": "240 Robux",
+    "price": 33000,
+    "price_max": null
+   },
+   {
+    "label": "320 Robux",
+    "price": 44000,
+    "price_max": null
+   },
+   {
+    "label": "400 Robux",
+    "price": 55000,
+    "price_max": null
+   },
+   {
+    "label": "480 Robux",
+    "price": 66000,
+    "price_max": null
+   },
+   {
+    "label": "560 Robux",
+    "price": 77000,
+    "price_max": null
+   },
+   {
+    "label": "640 Robux",
+    "price": 88000,
+    "price_max": null
+   },
+   {
+    "label": "720 Robux",
+    "price": 99000,
+    "price_max": null
+   },
+   {
+    "label": "800 Robux",
+    "price": 110000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 202,
+  "category": "game",
+  "category_name": "Game Online",
+  "name": "Growtopia (DL Murah)",
+  "subtext": "Diamond Lock",
+  "description": "Beli DL Growtopia terpercaya, drop via Display Box / Donation Box di world kamu.",
+  "features": [
+   "Ketik GrowID & World Name",
+   "Drop di Donation / Display Box",
+   "Stock Selalu Ready",
+   "Nominal Lainnya Tanyakan Admin"
+  ],
+  "images": [],
+  "badge": "Stock Kosong",
+  "badge_tone": "yellow",
+  "accent": "amber",
+  "icon": "GT",
+  "is_quote": 0,
+  "sort": 21,
+  "variants": [
+   {
+    "label": "1 Diamond Lock (1 DL)",
+    "price": 1500,
+    "price_max": null
+   },
+   {
+    "label": "3 Diamond Lock (3 DL)",
+    "price": 4500,
+    "price_max": null
+   },
+   {
+    "label": "5 Diamond Lock (5 DL)",
+    "price": 7500,
+    "price_max": null
+   },
+   {
+    "label": "10 Diamond Lock (10 DL)",
+    "price": 15000,
+    "price_max": null
+   },
+   {
+    "label": "15 Diamond Lock (15 DL)",
+    "price": 22500,
+    "price_max": null
+   },
+   {
+    "label": "20 Diamond Lock (20 DL)",
+    "price": 30000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 301,
+  "category": "joki",
+  "category_name": "Joki Tugas",
+  "name": "Joki Makalah & Paper Akademik",
+  "subtext": "Harga Sesuai Kesulitan & Deadline",
+  "description": "Pengerjaan makalah lengkap dengan cover, bab 1 - 4/5, dan daftar pustaka standar. Harga menyesuaikan tingkat kesulitan dan deadline tugas.",
+  "features": [
+   "Belum Termasuk Turnitin",
+   "Harga Menyesuaikan Kesulitan & Deadline",
+   "Format Rapi Siap Cetak",
+   "Revisi Free 3x (SnK Berlaku)"
+  ],
+  "images": [],
+  "badge": "Favorit Mhs",
+  "badge_tone": "emerald",
+  "accent": "emerald",
+  "icon": "📄",
+  "is_quote": 1,
+  "sort": 22,
+  "variants": [
+   {
+    "label": "Estimasi Reguler (2-3 Hari)",
+    "price": 35000,
+    "price_max": null
+   },
+   {
+    "label": "Estimasi Kilat Express (1x24 Jam)",
+    "price": 55000,
+    "price_max": null
+   },
+   {
+    "label": "Estimasi Super Kilat (< 12 Jam)",
+    "price": 75000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 302,
+  "category": "joki",
+  "category_name": "Joki Tugas",
+  "name": "Joki PPT / Slide Presentasi (Canva & Morph)",
+  "subtext": "Transisi Morph Halus & Desain Modern",
+  "description": "Pembuatan slide presentasi menarik dengan efek transisi Morph dinamis, tidak membosankan, dan dilengkapi infografis visual.",
+  "features": [
+   "Desain Canva Pro & PPT",
+   "Animasi & Transisi Morph",
+   "Bisa Custom Warna"
+  ],
+  "images": [],
+  "badge": "Aesthetic",
+  "badge_tone": "pink",
+  "accent": "pink",
+  "icon": "📊",
+  "is_quote": 1,
+  "sort": 23,
+  "variants": [
+   {
+    "label": "Paket 10 - 15 Slide (Reguler)",
+    "price": 10000,
+    "price_max": 30000
+   },
+   {
+    "label": "Paket 15 - 25 Slide (Reguler)",
+    "price": 18000,
+    "price_max": 50000
+   },
+   {
+    "label": "Paket Slide + Transisi Morph",
+    "price": 25000,
+    "price_max": 65000
+   },
+   {
+    "label": "Slide Kilat Express (1x24 Jam)",
+    "price": 30000,
+    "price_max": 80000
+   }
+  ]
+ },
+ {
+  "id": 303,
+  "category": "joki",
+  "category_name": "Joki Tugas",
+  "name": "Joki Rapihin Word / Excel / PPT dll",
+  "subtext": "Harga Menyesuaikan Kesulitan & Deadline",
+  "description": "Jasa perapihan format dokumen Word (makalah/laporan/skripsi), olah tabel & rumus Excel, serta tata letak PPT. Cepat dan rapi sesuai panduan.",
+  "features": [
+   "Rapihin Margin, Font & Paragraf",
+   "Daftar Isi & Penomoran Otomatis",
+   "Perapihan Tabel & Data Excel",
+   "Harga Sesuai Kesulitan & Deadline"
+  ],
+  "images": [],
+  "badge": "Format Rapih",
+  "badge_tone": "indigo",
+  "accent": "indigo",
+  "icon": "📑",
+  "is_quote": 1,
+  "sort": 24,
+  "variants": [
+   {
+    "label": "Rapihin Dokumen Word (Estimasi)",
+    "price": 10000,
+    "price_max": 35000
+   },
+   {
+    "label": "Rapihin Tabel & Data Excel (Estimasi)",
+    "price": 15000,
+    "price_max": 50000
+   },
+   {
+    "label": "Rapihin Format Slide PPT (Estimasi)",
+    "price": 15000,
+    "price_max": 45000
+   },
+   {
+    "label": "Paket Komplit Dokumen (Estimasi)",
+    "price": 25000,
+    "price_max": 75000
+   }
+  ]
+ },
+ {
+  "id": 304,
+  "category": "joki",
+  "category_name": "Joki Tugas",
+  "name": "Joki Project / Praktikum IT",
+  "subtext": "Harga Sesuai Kesulitan & Deadline",
+  "description": "Bantuan pengerjaan tugas praktikum IT, pembuatan program/website sederhana, debugging error, dan bisa dibuatkan sekalian dengan laporannya.",
+  "features": [
+   "Web, Python, Java, C++, PHP, SQL",
+   "Bisa Sekalian Dibuatkan Laporannya",
+   "Free Penjelasan Alur Kode",
+   "Revisi Free 3x (SnK Berlaku)"
+  ],
+  "images": [],
+  "badge": "Coding & IT",
+  "badge_tone": "purple",
+  "accent": "purple",
+  "icon": "💻",
+  "is_quote": 1,
+  "sort": 25,
+  "variants": [
+   {
+    "label": "Praktikum / Coding Saja",
+    "price": 35000,
+    "price_max": null
+   },
+   {
+    "label": "Praktikum + Laporan Lengkap",
+    "price": 60000,
+    "price_max": null
+   },
+   {
+    "label": "Project Aplikasi / Web + Laporan",
+    "price": 120000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 305,
+  "category": "joki",
+  "category_name": "Joki Tugas",
+  "name": "Jasa Cek Turnitin (No Repository)",
+  "subtext": "Segera Hadir • Cek Plagiasi Aman",
+  "description": "Layanan pengecekan tingkat plagiarisme dokumen menggunakan akun Turnitin No Repository (dokumen tidak tersimpan di database). Nantikan segera di Bbylaa Store!",
+  "features": [
+   "Akun No Repository (Aman)",
+   "Hasil Cek Lengkap PDF",
+   "Proses Cepat & Privasi Terjaga",
+   "Segera Hadir (Coming Soon)"
+  ],
+  "images": [],
+  "badge": "Coming Soon",
+  "badge_tone": "amber",
+  "accent": "amber",
+  "icon": "🔍",
+  "is_quote": 1,
+  "sort": 26,
+  "variants": [
+   {
+    "label": "Coming Soon (Belum Tersedia)",
+    "price": 0,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 401,
+  "category": "streaming",
+  "category_name": "Streaming",
+  "name": "Netflix Premium UHD 4K",
+  "subtext": "Kualitas 4K Ultra HD & Dolby Atmos",
+  "description": "Nonton film & series Netflix favorit tanpa iklan. Kualitas 4K Ultra HD full garansi durasi.",
+  "features": [
+   "Kualitas 4K UHD + HDR",
+   "Bisa di HP, TV & Laptop",
+   "Full Garansi SnK"
+  ],
+  "images": [],
+  "badge": "Best Seller",
+  "badge_tone": "rose",
+  "accent": "rose",
+  "icon": "N",
+  "is_quote": 0,
+  "sort": 27,
+  "variants": [
+   {
+    "label": "Netflix 7d2u (7 Hari 2 User)",
+    "price": 10000,
+    "price_max": null
+   },
+   {
+    "label": "Netflix 7d1u (7 Hari 1 User)",
+    "price": 13000,
+    "price_max": null
+   },
+   {
+    "label": "Netflix 1b2u (1 Bulan 2 User)",
+    "price": 20000,
+    "price_max": null
+   },
+   {
+    "label": "Netflix 1b1u (1 Bulan 1 User)",
+    "price": 35000,
+    "price_max": null
+   },
+   {
+    "label": "Netflix 1 Bln Semi Private",
+    "price": 40000,
+    "price_max": null
+   },
+   {
+    "label": "Netflix Anti Limit 1 Bln",
+    "price": 49000,
+    "price_max": null
+   },
+   {
+    "label": "Netflix 1 Bln Private (5 Profil)",
+    "price": 130000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 402,
+  "category": "streaming",
+  "category_name": "Streaming",
+  "name": "YouTube Premium Invite",
+  "subtext": "Invite Email Pribadi (1 Bulan)",
+  "description": "Nonton YouTube tanpa jeda iklan, putar video di latar belakang (background play), dan akses YouTube Music Premium.",
+  "features": [
+   "Invite Email Pribadi Kamu",
+   "Bebas Iklan & Background Play",
+   "Termasuk YouTube Music"
+  ],
+  "images": [],
+  "badge": "Bebas Iklan",
+  "badge_tone": "red",
+  "accent": "red",
+  "icon": "YT",
+  "is_quote": 0,
+  "sort": 28,
+  "variants": [
+   {
+    "label": "YouTube Invite 1 Bln",
+    "price": 8000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 403,
+  "category": "streaming",
+  "category_name": "Drama & Film",
+  "name": "Viu Premium (Viu+)",
+  "subtext": "Drama Korea, Anime & Asia Lengkap",
+  "description": "Streaming drama Korea on going & film Asia terbaru dengan subtitle Indonesia dan resolusi jernih.",
+  "features": [
+   "Nonton Bebas Iklan",
+   "Download & Nonton Offline",
+   "Garansi Akun Aktif"
+  ],
+  "images": [],
+  "badge": "Promo Spesial",
+  "badge_tone": "amber",
+  "accent": "yellow",
+  "icon": "VIU",
+  "is_quote": 0,
+  "sort": 29,
+  "variants": [
+   {
+    "label": "Viu+ 1 Bln",
+    "price": 3000,
+    "price_max": null
+   },
+   {
+    "label": "Viu+ 1 Thn Garansi (Promo)",
+    "price": 10000,
+    "price_max": null
+   },
+   {
+    "label": "Viu+ 1 Tahun Garansi 6B",
+    "price": 5000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 404,
+  "category": "streaming",
+  "category_name": "Anime & Donghua",
+  "name": "Bstation (Bilibili VIP)",
+  "subtext": "Bstation Sharing 1 Bln & 1 Thn",
+  "description": "Aplikasi streaming anime, donghua, dan komik legal terlengkap dengan kualitas 1080P hingga 4K.",
+  "features": [
+   "Kualitas Video HD/4K",
+   "Semua Anime VIP Terbuka",
+   "Subtitle Resmi Indonesia"
+  ],
+  "images": [],
+  "badge": "Anime VIP",
+  "badge_tone": "sky",
+  "accent": "sky",
+  "icon": "B",
+  "is_quote": 0,
+  "sort": 30,
+  "variants": [
+   {
+    "label": "Bstation Sharing 1 Bln 6u",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Bstation Sharing 1 Thn 6u",
+    "price": 20000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 405,
+  "category": "streaming",
+  "category_name": "Drama Series",
+  "name": "WeTV VIP",
+  "subtext": "Sharing 1 Bln & Private 1 Bln",
+  "description": "Akses episode VIP drama China dan series original Indonesia lebih awal tanpa iklan.",
+  "features": [
+   "Akses Episode VIP Lebih Awal",
+   "Bebas Iklan Mengganggu",
+   "Full Garansi Durasi"
+  ],
+  "images": [],
+  "badge": "Fast Track",
+  "badge_tone": "blue",
+  "accent": "blue",
+  "icon": "W",
+  "is_quote": 0,
+  "sort": 31,
+  "variants": [
+   {
+    "label": "WeTV Sharing 1 Bln 6u",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "WeTV Private 1 Bln",
+    "price": 28000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 406,
+  "category": "streaming",
+  "category_name": "Drama & Anime",
+  "name": "iQIYI VIP",
+  "subtext": "Standar & Premium Sharing",
+  "description": "Streaming drama Asia, anime terpopuler, dan variety show dengan audio Dolby Atmos.",
+  "features": [
+   "Kualitas 1080P/Dolby",
+   "Skip Iklan Otomatis",
+   "Subtitle Multi-Bahasa"
+  ],
+  "images": [],
+  "badge": "Standard & Prem",
+  "badge_tone": "emerald",
+  "accent": "emerald",
+  "icon": "iQ",
+  "is_quote": 0,
+  "sort": 32,
+  "variants": [
+   {
+    "label": "iQIYI Std Shar 1 Bln",
+    "price": 6000,
+    "price_max": null
+   },
+   {
+    "label": "iQIYI VIP Prem Shar 1 Bln",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "iQIYI VIP Prem Shar 1 Thn",
+    "price": 20000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 407,
+  "category": "streaming",
+  "category_name": "Film & Series",
+  "name": "Prime Video",
+  "subtext": "Sharing 1 Bln & Private 1 Bln",
+  "description": "Nonton film box office Hollywood, serial Amazon Original eksklusif, dan anime populer.",
+  "features": [
+   "Serial Amazon Original",
+   "Kualitas 4K Ultra HD",
+   "Bisa di Smart TV & HP"
+  ],
+  "images": [],
+  "badge": "Amazon Original",
+  "badge_tone": "sky",
+  "accent": "sky",
+  "icon": "PV",
+  "is_quote": 0,
+  "sort": 33,
+  "variants": [
+   {
+    "label": "Prime Video Sharing 1 Bln",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Prime Video Private 1 Bln",
+    "price": 15000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 408,
+  "category": "streaming",
+  "category_name": "Drama Asia",
+  "name": "Youku VIP",
+  "subtext": "Sharing 1 Bln & 1 Thn",
+  "description": "Koleksi drama romantis Tiongkok, wuxia, dan reality show dengan kualitas video jernih.",
+  "features": [
+   "Buka Akses VIP Youku",
+   "Nonton Tanpa Iklan",
+   "Garansi Penuh"
+  ],
+  "images": [],
+  "badge": "C-Drama",
+  "badge_tone": "indigo",
+  "accent": "indigo",
+  "icon": "YK",
+  "is_quote": 0,
+  "sort": 34,
+  "variants": [
+   {
+    "label": "Youku VIP Sharing 1 Bln 6u",
+    "price": 8000,
+    "price_max": null
+   },
+   {
+    "label": "Youku VIP Sharing 1 Thn",
+    "price": 20000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 409,
+  "category": "streaming",
+  "category_name": "Musik",
+  "name": "Spotify Premium Individual",
+  "subtext": "Bebas Skip & Download Offline",
+  "description": "Dengarkan jutaan lagu tanpa jeda iklan. Akun langsung aktif atau via upgrade email pribadi.",
+  "features": [
+   "Audio Kualitas Tinggi",
+   "Download Musik Offline",
+   "Bisa Akun Sendiri"
+  ],
+  "images": [],
+  "badge": "Musik",
+  "badge_tone": "pink",
+  "accent": "pink",
+  "icon": "S",
+  "is_quote": 0,
+  "sort": 35,
+  "variants": [
+   {
+    "label": "1 Bulan Akun Baru",
+    "price": 15000,
+    "price_max": null
+   },
+   {
+    "label": "1 Bulan Upgrade Email Pribadi",
+    "price": 23000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 410,
+  "category": "streaming",
+  "category_name": "Drama Asia",
+  "name": "MangoTV Premium (VIP & SVIP)",
+  "subtext": "VIP & SVIP Sharing 1 Bulan",
+  "description": "Aplikasi streaming drama Tiongkok populer, variety show eksklusif, dan subtitle Indonesia resmi.",
+  "features": [
+   "Akses Episode VIP & SVIP",
+   "Kualitas Video Jernih HD",
+   "Garansi Akun Aktif"
+  ],
+  "images": [],
+  "badge": "C-Drama VIP",
+  "badge_tone": "amber",
+  "accent": "yellow",
+  "icon": "MG",
+  "is_quote": 0,
+  "sort": 36,
+  "variants": [
+   {
+    "label": "MangoTV VIP Sharing 1 Bln",
+    "price": 10500,
+    "price_max": null
+   },
+   {
+    "label": "MangoTV SVIP Sharing 1 Bln",
+    "price": 15000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 411,
+  "category": "streaming",
+  "category_name": "Film & Series",
+  "name": "HBO Max Premium (Max)",
+  "subtext": "Standard & Ultimate Sharing 8 User",
+  "description": "Nonton film blockbuster Warner Bros, serial HBO Original eksklusif, DC Universe, dan kartun Cartoon Network.",
+  "features": [
+   "Serial HBO Original Eksklusif",
+   "Kualitas 4K UHD & Dolby Atmos",
+   "Full Garansi Durasi"
+  ],
+  "images": [],
+  "badge": "Box Office",
+  "badge_tone": "purple",
+  "accent": "purple",
+  "icon": "MAX",
+  "is_quote": 0,
+  "sort": 37,
+  "variants": [
+   {
+    "label": "HBO Max Std Sharing 1B 8U",
+    "price": 9500,
+    "price_max": null
+   },
+   {
+    "label": "HBO Max Ult Sharing 1B 8U",
+    "price": 13500,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 412,
+  "category": "streaming",
+  "category_name": "Drama Korea",
+  "name": "DrakorID Premium",
+  "subtext": "Sharing 1 Bulan & 1 Tahun",
+  "description": "Streaming drama Korea terlengkap, fast update on-going, subtitle bahasa Indonesia rapi tanpa iklan.",
+  "features": [
+   "Fast Update Drakor On-Going",
+   "Download Offline Sepuasnya",
+   "Bebas Iklan Menjeda"
+  ],
+  "images": [],
+  "badge": "Drakor Indo",
+  "badge_tone": "rose",
+  "accent": "rose",
+  "icon": "DK",
+  "is_quote": 0,
+  "sort": 38,
+  "variants": [
+   {
+    "label": "DrakorID Sharing 1 Bln",
+    "price": 18000,
+    "price_max": null
+   },
+   {
+    "label": "DrakorID Sharing 1 Thn",
+    "price": 30000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 413,
+  "category": "streaming",
+  "category_name": "Film & Anime",
+  "name": "Loklok Premium",
+  "subtext": "Plan Basic & Standar Sharing",
+  "description": "Aplikasi streaming film, anime, drama Korea, dan serial barat lengkap dengan subtitle multi-bahasa.",
+  "features": [
+   "Koleksi Film & Anime Lengkap",
+   "Buka Kualitas HD / Full HD",
+   "Garansi Pemakaian"
+  ],
+  "images": [],
+  "badge": "Trending App",
+  "badge_tone": "emerald",
+  "accent": "emerald",
+  "icon": "LK",
+  "is_quote": 0,
+  "sort": 39,
+  "variants": [
+   {
+    "label": "Loklok Plan Basic Sharing 1 Bln",
+    "price": 18000,
+    "price_max": null
+   },
+   {
+    "label": "Loklok Plan Standar Sharing 1 Bln",
+    "price": 25000,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 414,
+  "category": "streaming",
+  "category_name": "Film & Series",
+  "name": "Moviebox Pro",
+  "subtext": "Plan Basic & Pro Sharing 1 Bulan",
+  "description": "Nonton film bioskop box office terbaru dan serial TV Hollywood lengkap dengan subtitle Indonesia.",
+  "features": [
+   "Update Film Bioskop Kilat",
+   "Server Cepat Kualitas HD",
+   "Full Garansi Durasi"
+  ],
+  "images": [],
+  "badge": "Cinema HD",
+  "badge_tone": "blue",
+  "accent": "blue",
+  "icon": "MB",
+  "is_quote": 0,
+  "sort": 40,
+  "variants": [
+   {
+    "label": "Moviebox Plan Basic Sharing 1 Bln",
+    "price": 10000,
+    "price_max": null
+   },
+   {
+    "label": "Moviebox Plan Pro Sharing 1 Bln",
+    "price": 17500,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 415,
+  "category": "streaming",
+  "category_name": "Drama Series",
+  "name": "GagaOOLala VIP",
+  "subtext": "Sharing 1 Bulan",
+  "description": "Platform streaming resmi nomor 1 untuk serial BL, GL, dan sinema Asia indie terlengkap.",
+  "features": [
+   "Akses Semua Judul VIP",
+   "Subtitle Resmi Indonesia",
+   "Garansi Akun Aktif"
+  ],
+  "images": [],
+  "badge": "LGBTQ+ & BL",
+  "badge_tone": "fuchsia",
+  "accent": "pink",
+  "icon": "GG",
+  "is_quote": 0,
+  "sort": 41,
+  "variants": [
+   {
+    "label": "GagaOOLala Sharing 1 Bln",
+    "price": 13500,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 416,
+  "category": "streaming",
+  "category_name": "Drama Asia",
+  "name": "Viki Rakuten Pass Plus",
+  "subtext": "Plan Plus Sharing 1 Bulan",
+  "description": "Nonton drama Korea, drama China, dan variety show Asia dengan terjemahan komunitas paling akurat.",
+  "features": [
+   "Buka Akses Viki Pass Plus",
+   "Kualitas Video HD 1080p",
+   "Full Garansi Durasi"
+  ],
+  "images": [],
+  "badge": "Asian Drama",
+  "badge_tone": "cyan",
+  "accent": "cyan",
+  "icon": "VK",
+  "is_quote": 0,
+  "sort": 42,
+  "variants": [
+   {
+    "label": "Viki Plan Plus Sharing 1 Bln",
+    "price": 13500,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 417,
+  "category": "streaming",
+  "category_name": "Anime VIP",
+  "name": "Crunchyroll Premium (Mega Fan)",
+  "subtext": "Sharing 1 Bulan",
+  "description": "Koleksi anime Jepang terbesar di dunia, simulcast 1 jam setelah tayang di Jepang, bebas iklan.",
+  "features": [
+   "Simulcast Anime Terbaru",
+   "Bebas Iklan Resolusi Penuh",
+   "Full Garansi SnK"
+  ],
+  "images": [],
+  "badge": "Anime Terbesar",
+  "badge_tone": "orange",
+  "accent": "orange",
+  "icon": "CR",
+  "is_quote": 0,
+  "sort": 43,
+  "variants": [
+   {
+    "label": "Crunchyroll Sharing 1 Bln",
+    "price": 13500,
+    "price_max": null
+   }
+  ]
+ },
+ {
+  "id": 418,
+  "category": "streaming",
+  "category_name": "Streaming VIP",
+  "name": "Vidio Platinum",
+  "subtext": "Sharing & Private 1 Bulan",
+  "description": "Nonton ribuan tayangan olahraga eksklusif, Vidio Original Series, film box office, hingga drama Korea & anime.",
+  "features": [
+   "Tayangan Sports & Original Series",
+   "Tersedia Mobile, All Device & TV",
+   "Full Garansi jika memenuhi SnK"
+  ],
+  "images": [],
+  "badge": "Sports & Original",
+  "badge_tone": "rose",
+  "accent": "rose",
+  "icon": "VD",
+  "is_quote": 0,
+  "sort": 44,
+  "variants": [
+   {
+    "label": "Platinum Mobile Sharing (2U) - 1 Bln",
+    "price": 18000,
+    "price_max": null
+   },
+   {
+    "label": "Platinum Mobile Private - 1 Bln",
+    "price": 28000,
+    "price_max": null
+   },
+   {
+    "label": "Platinum All Device Sharing (2U) - 1 Bln",
+    "price": 25000,
+    "price_max": null
+   },
+   {
+    "label": "Platinum All Device Private - 1 Bln",
+    "price": 40000,
+    "price_max": null
+   },
+   {
+    "label": "Platinum Only TV - 1 Bln",
+    "price": 10000,
+    "price_max": null
+   }
+  ]
+ }
+]
