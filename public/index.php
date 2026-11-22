@@ -8,6 +8,11 @@
 
 declare(strict_types=1);
 
+// Jangan pernah menampilkan error PHP ke pengunjung; sudah dicatat ke log.
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+error_reporting(E_ALL);
+
 // Mode pengembangan: matikan cache opcache agar edit langsung terpakai.
 // (Produksi tidak memakai ini; PHP-FPM punya revalidate sendiri.)
 if (PHP_SAPI === 'cli-server') {

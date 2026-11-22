@@ -91,10 +91,27 @@ function is_https(): bool
     return strtolower(trim(explode(',', $proto)[0])) === 'https';
 }
 
+/**
+ * URL dasar untuk canonical/OG/sitemap.
+ *
+ * `Host` dikirim klien dan bisa dipalsukan; memakainya langsung membuat
+ * tautan canonical menunjuk domain penyerang. Hanya host di BBY_ALLOWED_HOSTS
+ * (dipisah koma) yang diterima; selain itu jatuh ke host kanonik.
+ */
 function base_url(): string
 {
-    $host = $_SERVER['HTTP_HOST'] ?? 'bbylawstore.naygars.site';
-    return (is_https() ? 'https://' : 'http://') . $host;
+    $allowed = array_filter(array_map('trim', explode(',', (string) env(
+        'BBY_ALLOWED_HOSTS',
+        'bbylawstore.naygars.site,www.bbylawstore.naygars.site,localhost,127.0.0.1'
+    ))));
+
+    $host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+    $host = preg_replace('/:\d+$/', '', $host) ?? '';
+
+    if ($host !== '' && in_array($host, $allowed, true)) {
+        return (is_https() ? 'https://' : 'http://') . $host;
+    }
+    return 'https://' . ($allowed[0] ?? 'bbylawstore.naygars.site');
 }
 
 function rupiah(int|float|null $n): string

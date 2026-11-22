@@ -90,7 +90,9 @@ function handle_cart_remove(): never
  */
 function handle_checkout(): never
 {
-    if (!throttle('checkout', 10, 60)) {
+    // Batas per IP, bukan per orang: pembeli di wifi kampus/kantor bisa berbagi
+    // satu IP publik. 30/menit tetap memblokir skrip, tanpa menghukum pembeli sah.
+    if (!throttle('checkout', 30, 60)) {
         json_response(['ok' => false, 'error' => 'Terlalu banyak percobaan checkout. Tunggu sebentar.'], 429);
     }
 
@@ -254,7 +256,7 @@ function wa_message(array $order): string
 
 function handle_track(): never
 {
-    if (!throttle('track', 20, 60)) {
+    if (!throttle('track', 40, 60)) {
         flash('error', 'Terlalu banyak pencarian. Tunggu sebentar.');
         redirect('/lacak');
     }
