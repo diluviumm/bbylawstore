@@ -18,7 +18,7 @@ define('BBY_ROOT', dirname(__DIR__));
 define('BBY_APP', __DIR__);
 define('BBY_DATA', BBY_ROOT . '/data');
 
-const BBY_VERSION = '2.0.0';
+const BBY_VERSION = '2.0.1';
 
 // ---------------------------------------------------------------- environment
 // .env.local menang atas .env (dipakai untuk pengembangan lokal).
