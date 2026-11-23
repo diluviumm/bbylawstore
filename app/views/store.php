@@ -166,12 +166,12 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
                 $href = '/?kategori=' . urlencode($c['id']) . ($q !== '' ? '&q=' . urlencode($q) : '');
                 ?>
                 <a href="<?= e($href) ?>"
-                   class="nav-pill <?= $activeCat === $c['id'] ? 'nav-pill-active' : '' ?> <?= $isOpen ? '' : 'opacity-60' ?>"
+                   class="nav-pill <?= $activeCat === $c['id'] ? 'nav-pill-active' : '' ?> <?= $isOpen ? '' : 'nav-pill-closed' ?>"
                    <?= $isOpen ? '' : 'title="Kategori sedang tutup"' ?>>
                     <span aria-hidden="true"><?= e($c['emoji']) ?></span>
                     <?= e($c['name']) ?>
                     <?php if (!$isOpen): ?>
-                        <span class="ml-1 rounded bg-rose-100 px-1.5 py-0.5 text-[9px] font-black text-rose-800 dark:bg-rose-500/20 dark:text-rose-200">TUTUP</span>
+                        <span class="ml-1 rounded bg-rose-100 px-1.5 py-0.5 text-[9px] font-black text-rose-900 dark:bg-rose-500/20 dark:text-rose-100">TUTUP</span>
                     <?php endif; ?>
                 </a>
             <?php endforeach; ?>
@@ -262,7 +262,7 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
                             </div>
                             <div class="flex gap-2">
                                 <a href="/produk?id=<?= (int) $p['id'] ?>"
-                                   class="btn-quiet flex-1 px-3 py-2 text-xs <?= $isOpen ? '' : 'pointer-events-none opacity-50' ?>">
+                                   class="btn-quiet flex-1 px-3 py-2 text-xs <?= $isOpen ? '' : 'btn-disabled pointer-events-none' ?>">
                                     <i data-lucide="eye" class="h-3.5 w-3.5"></i> Detail
                                 </a>
                                 <?php if ($isOpen && variant_available($firstVariant)): ?>
@@ -280,7 +280,7 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
                                     </form>
                                 <?php else: ?>
                                     <a href="/produk?id=<?= (int) $p['id'] ?>"
-                                       class="btn-quiet px-3 py-2 text-xs <?= $isOpen ? 'pointer-events-none opacity-50' : '' ?>"
+                                       class="btn-quiet px-3 py-2 text-xs <?= $isOpen ? 'btn-disabled pointer-events-none' : '' ?>"
                                        aria-label="<?= variant_available($firstVariant) ? 'Lihat detail' : 'Stok habis, lihat detail' ?>">
                                         <i data-lucide="<?= variant_available($firstVariant) ? 'eye' : 'package-x' ?>"
                                            class="h-3.5 w-3.5"></i>
