@@ -188,6 +188,14 @@ try {
             echo "User-agent: *\nDisallow: /admin\nDisallow: /keranjang\nDisallow: /pesanan\nDisallow: /lacak\n";
             break;
 
+        case $path === '/.well-known/security.txt':
+            header('Content-Type: text/plain; charset=utf-8');
+            echo "Contact: https://wa.me/6282318613826\n"
+                . "Expires: 2027-11-23T00:00:00Z\n"
+                . "Preferred-Languages: id, en\n"
+                . "Canonical: https://bbylawstore.naygars.site/.well-known/security.txt\n";
+            break;
+
         case $path === '/sitemap.xml':
             header('Content-Type: application/xml; charset=utf-8');
             echo sitemap_xml();

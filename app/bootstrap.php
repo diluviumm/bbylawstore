@@ -109,7 +109,12 @@ function base_url(): string
     $host = preg_replace('/:\d+$/', '', $host) ?? '';
 
     if ($host !== '' && in_array($host, $allowed, true)) {
-        return (is_https() ? 'https://' : 'http://') . $host;
+        // Situs produksi hanya dilayani lewat HTTPS (HSTS aktif). Caddy menerima
+        // HTTP dari edge, jadi X-Forwarded-Proto tidak selalu https; memaksa
+        // https menghindari canonical/OG/sitemap mixed-content.
+        $local = in_array($host, ['localhost', '127.0.0.1'], true);
+        $scheme = (!$local || is_https()) ? 'https' : 'http';
+        return $scheme . '://' . $host;
     }
     return 'https://' . ($allowed[0] ?? 'bbylawstore.naygars.site');
 }
