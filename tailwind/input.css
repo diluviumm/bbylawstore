@@ -37,7 +37,7 @@
     /* Background kustom (diatur admin, disimpan di riwayat). */
     body.store-bg {
         background-repeat: no-repeat;
-        background-position: center top;
+        background-position: center center;
         background-size: cover;
         background-attachment: fixed;
     }

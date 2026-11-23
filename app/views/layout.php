@@ -37,7 +37,7 @@ $flashes = take_flashes();
     <link rel="stylesheet" href="/assets/css/app.css?v=<?= BBY_VERSION ?>">
     <script src="/assets/vendor/lucide.min.js" defer></script>
 </head>
-<body class="min-h-screen flex flex-col antialiased"
+<body class="store-bg min-h-screen flex flex-col antialiased"
       style="background-image: <?= e(background_css()) ?>;">
 
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100]
