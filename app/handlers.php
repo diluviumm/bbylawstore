@@ -179,6 +179,16 @@ function handle_checkout(): never
         $errors['cart'] = 'Keranjang kosong atau semua item sudah tidak tersedia.';
     }
 
+    // Kategori bisa ditutup admin setelah item masuk keranjang: tolak checkout.
+    foreach ($state['lines'] as $l) {
+        $p = product_by_id((int) $l['product_id']);
+        $cat = $p ? (category_map()[$p['category_id']] ?? null) : null;
+        if (!$p || !$cat || (int) $cat['is_open'] !== 1) {
+            $errors['cart'] = 'Ada layanan di keranjang yang sudah ditutup. Hapus lalu lanjut lagi.';
+            break;
+        }
+    }
+
     // Data akun game wajib untuk produk game.
     $needsGameId = false;
     foreach ($state['lines'] as $l) {
@@ -514,11 +524,6 @@ function handle_admin_settings(): never
     $admin = require_admin();
     $fields = ['store_name', 'store_tagline', 'admin_whatsapp', 'wa_channel_url', 'testi_url', 'marquee_text', 'store_closed_msg'];
 
-    $theme = post_str('default_theme', 10);
-    if (in_array($theme, ['light', 'dark'], true)) {
-        setting_set('default_theme', $theme);
-    }
-
     foreach ($fields as $f) {
         $v = post_str($f, 400);
         if ($f === 'admin_whatsapp') {
@@ -535,6 +540,100 @@ function handle_admin_settings(): never
     audit('settings.update', implode(',', $fields), $admin['username']);
     flash('ok', 'Pengaturan disimpan.');
     redirect('/admin/pengaturan');
+}
+
+
+// ------------------------------------------------------------- background toko
+function handle_admin_background_upload(): never
+{
+    $admin = require_admin();
+    $file = $_FILES['bg_file'] ?? null;
+
+    if (!is_array($file) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK
+        || !is_uploaded_file((string) ($file['tmp_name'] ?? ''))) {
+        flash('error', 'Pilih file gambar terlebih dahulu.');
+        redirect('/admin/background');
+    }
+    if ((int) ($file['size'] ?? 0) > 5 * 1024 * 1024) {
+        flash('error', 'Ukuran gambar maksimal 5 MB.');
+        redirect('/admin/background');
+    }
+
+    $tmp = (string) $file['tmp_name'];
+    $info = @getimagesize($tmp);
+    $mime = is_array($info) ? (string) ($info['mime'] ?? '') : '';
+    $ext = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'][$mime] ?? '';
+    if ($ext === '') {
+        flash('error', 'Format harus JPG, PNG, atau WebP.');
+        redirect('/admin/background');
+    }
+
+    $dir = backgrounds_dir();
+    if (!is_dir($dir) && !mkdir($dir, 0775, true)) {
+        flash('error', 'Folder background tidak bisa dibuat.');
+        redirect('/admin/background');
+    }
+    $name = 'bg-' . date('Ymd-His') . '-' . bin2hex(random_bytes(4)) . '.' . $ext;
+    if (!move_uploaded_file($tmp, $dir . '/' . $name)) {
+        flash('error', 'Gagal menyimpan gambar.');
+        redirect('/admin/background');
+    }
+
+    $label = post_str('bg_label', 80);
+    if ($label === '') {
+        $label = basename((string) ($file['name'] ?? $name));
+    }
+    db()->prepare(
+        'INSERT INTO backgrounds (filename, original_name, mime, size, created_at, is_active)
+         VALUES (?, ?, ?, ?, ?, 0)'
+    )->execute([$name, $label, $mime, (int) $file['size'], now()]);
+
+    audit('background.upload', $label, $admin['username']);
+    flash('ok', 'Background tersimpan di riwayat. Klik "Pakai" untuk mengaktifkannya.');
+    redirect('/admin/background');
+}
+
+function handle_admin_background_activate(): never
+{
+    $admin = require_admin();
+    $id = post_int('background_id');
+    $st = db()->prepare('SELECT filename, original_name FROM backgrounds WHERE id = ?');
+    $st->execute([$id]);
+    $row = $st->fetch();
+    if (!$row) {
+        flash('error', 'Background tidak ditemukan.');
+        redirect('/admin/background');
+    }
+    db()->exec('UPDATE backgrounds SET is_active = 0');
+    db()->prepare('UPDATE backgrounds SET is_active = 1 WHERE id = ?')->execute([$id]);
+    audit('background.activate', (string) $row['original_name'], $admin['username']);
+    flash('ok', 'Background aktif diperbarui.');
+    redirect('/admin/background');
+}
+
+function handle_admin_background_delete(): never
+{
+    $admin = require_admin();
+    $id = post_int('background_id');
+    $st = db()->prepare('SELECT filename, original_name, is_active FROM backgrounds WHERE id = ?');
+    $st->execute([$id]);
+    $row = $st->fetch();
+    if (!$row) {
+        flash('error', 'Background tidak ditemukan.');
+        redirect('/admin/background');
+    }
+    if ((int) $row['is_active'] === 1) {
+        flash('error', 'Background yang sedang dipakai tidak bisa dihapus. Aktifkan yang lain dulu.');
+        redirect('/admin/background');
+    }
+    $file = backgrounds_dir() . '/' . basename((string) $row['filename']);
+    if (is_file($file)) {
+        @unlink($file);
+    }
+    db()->prepare('DELETE FROM backgrounds WHERE id = ?')->execute([$id]);
+    audit('background.delete', (string) $row['original_name'], $admin['username']);
+    flash('ok', 'Background dihapus dari riwayat.');
+    redirect('/admin/background');
 }
 
 function handle_admin_account(): never

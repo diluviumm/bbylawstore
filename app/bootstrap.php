@@ -18,7 +18,7 @@ define('BBY_ROOT', dirname(__DIR__));
 define('BBY_APP', __DIR__);
 define('BBY_DATA', BBY_ROOT . '/data');
 
-const BBY_VERSION = '2.0.4';
+const BBY_VERSION = '2.1.0';
 
 // ---------------------------------------------------------------- environment
 // .env.local menang atas .env (dipakai untuk pengembangan lokal).
@@ -168,6 +168,36 @@ function setting_set(string $key, string $value): void
          ON CONFLICT(key) DO UPDATE SET value = excluded.value'
     );
     $st->execute([$key, $value]);
+}
+
+// ---------------------------------------------------------------- background
+function backgrounds_dir(): string
+{
+    return BBY_ROOT . '/public/assets/img/backgrounds';
+}
+
+function backgrounds_all(): array
+{
+    return db()->query('SELECT * FROM backgrounds ORDER BY is_active DESC, id DESC')->fetchAll();
+}
+
+function active_background(): ?array
+{
+    $row = db()->query('SELECT * FROM backgrounds WHERE is_active = 1 ORDER BY id DESC LIMIT 1')->fetch();
+    return $row === false ? null : $row;
+}
+
+/** Nilai CSS background-image: overlay gelap di atas gambar aktif. */
+function background_css(): string
+{
+    $bg = active_background();
+    $file = (string) ($bg['filename'] ?? 'bby-default.jpeg');
+    if (!preg_match('/^[A-Za-z0-9._-]+$/', $file)) {
+        $file = 'bby-default.jpeg';
+    }
+    $path = '/assets/img/backgrounds/' . rawurlencode($file);
+    return 'radial-gradient(circle at 50% 0%, rgba(236,72,153,0.18), transparent 55%),'
+        . 'linear-gradient(rgba(10,5,14,0.84), rgba(10,5,14,0.90)), url(\'' . $path . '\')';
 }
 
 // ------------------------------------------------------------------- security

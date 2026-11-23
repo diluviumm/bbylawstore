@@ -11,15 +11,8 @@
  */
 
 @layer base {
-    :root {
-        --bby-bg: #fdf6f9;
-        --bby-surface: #ffffff;
-        --bby-line: #f6dbe6;
-        --bby-ink: #2a1a25;
-        --bby-muted: #6b5563;
-    }
-
-    html.dark {
+    /* Tema gelap permanen. Tidak ada lagi variabel terang. */
+    :root, html.dark {
         --bby-bg: #0f0813;
         --bby-surface: #1a1021;
         --bby-line: #3d2340;
@@ -30,31 +23,23 @@
     html {
         -webkit-text-size-adjust: 100%;
         scroll-behavior: smooth;
-        color-scheme: light;
+        color-scheme: dark;
         /* Menu navigasi & tabel sengaja bisa digeser ke samping. Batasi agar
            tidak ikut menggeser seluruh dokumen (17px di viewport 390). */
         overflow-x: clip;
     }
-    html.dark { color-scheme: dark; }
-
     body {
         background-color: var(--bby-bg);
         color: var(--bby-ink);
         font-feature-settings: "cv11", "ss01";
     }
 
-    /*
-     * Transisi tema: dulu hanya <body> yang berubah 250ms sementara kartu,
-     * border, dan teks langsung berganti — hasilnya terlihat 'setengah jadi'
-     * dan aneh. Sekarang semua permukaan berubah bersamaan, hanya saat tombol
-     * ditekan (kelas theme-switching dipasang JS lalu dilepas), sehingga
-     * navigation/reload tetap instan tanpa kedip.
-     */
-    html.theme-switching *,
-    html.theme-switching *::before,
-    html.theme-switching *::after {
-        transition: background-color .18s ease, border-color .18s ease,
-                    color .18s ease, fill .18s ease, stroke .18s ease !important;
+    /* Background kustom (diatur admin, disimpan di riwayat). */
+    body.store-bg {
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+        background-attachment: fixed;
     }
 
     :focus-visible {

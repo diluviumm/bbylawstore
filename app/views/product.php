@@ -24,13 +24,6 @@ foreach ($product['variants'] as $v) {
             <i data-lucide="arrow-left" class="h-4 w-4"></i> Kembali ke katalog
         </a>
         <div class="flex items-center gap-1.5">
-            <button type="button" data-theme-toggle
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-white text-[#5c4354] ring-1 ring-[#f0d3e0]
-                           hover:bg-[#fdf2f7] dark:bg-[#241531] dark:text-[#e9d6e4] dark:ring-[#4a2b50] dark:hover:bg-[#2d1a3b]"
-                    aria-label="Ganti tema terang atau gelap">
-                <i data-lucide="sun" class="h-4 w-4 dark:hidden"></i>
-                <i data-lucide="moon" class="hidden h-4 w-4 dark:block"></i>
-            </button>
             <button type="button" data-cart-open
                     aria-label="Buka keranjang belanja"
                     class="relative inline-flex items-center gap-1.5 rounded-2xl bg-pink-50 px-3 py-2 text-xs font-bold text-pink-800

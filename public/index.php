@@ -115,6 +115,15 @@ try {
             case '/admin/akun':
                 handle_admin_account();
                 break;
+            case '/admin/background/upload':
+                handle_admin_background_upload();
+                break;
+            case '/admin/background/aktif':
+                handle_admin_background_activate();
+                break;
+            case '/admin/background/hapus':
+                handle_admin_background_delete();
+                break;
             default:
                 http_response_code(404);
                 echo layout('errors/404', ['title' => 'Halaman tidak ditemukan', 'theme' => theme_from_request()]);
@@ -181,6 +190,10 @@ try {
 
         case $path === '/admin/akun':
             render_admin_account();
+            break;
+
+        case $path === '/admin/background':
+            render_admin_backgrounds();
             break;
 
         case $path === '/robots.txt':

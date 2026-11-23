@@ -15,7 +15,6 @@ $settings = [
     ['key' => 'store_closed_msg', 'label' => 'Pesan saat tutup',     'type' => 'text',   'hint' => 'Ditampilkan pada kategori yang ditutup.'],
 ];
 
-$themeNow = setting('default_theme', 'light');
 ?>
 <div class="grid grid-cols-1 gap-4 xl:grid-cols-3">
 
@@ -33,20 +32,6 @@ $themeNow = setting('default_theme', 'light');
                     <p class="mt-0.5 text-[10px] text-[#6f5568] dark:text-[#c6a9bf]"><?= e($s['hint']) ?></p>
                 </div>
             <?php endforeach; ?>
-            <fieldset>
-                <legend class="mb-1 block text-[11px] font-bold text-[#6b5563] dark:text-[#c9aec4]">Tema bawaan untuk pengunjung baru</legend>
-                <div class="flex gap-2">
-                    <?php foreach (['light' => 'Terang', 'dark' => 'Gelap'] as $val => $lbl): ?>
-                        <label class="flex cursor-pointer items-center gap-1.5 rounded-xl border-2 px-3 py-2 text-xs font-bold transition-colors
-                                      border-[#f0d3e0] dark:border-[#4a2b50] text-[#5c4354] dark:text-[#dcc4d6] has-[:checked]:border-pink-600 has-[:checked]:bg-pink-50 dark:has-[:checked]:bg-pink-500/10 has-[:checked]:text-pink-800 dark:has-[:checked]:text-pink-200">
-                            <input type="radio" name="default_theme" value="<?= $val ?>" class="sr-only" <?= $themeNow === $val ? 'checked' : '' ?>>
-                            <?= $lbl ?>
-                        </label>
-                    <?php endforeach; ?>
-                </div>
-                <p class="mt-0.5 text-[10px] text-[#6f5568] dark:text-[#c6a9bf]">Pengunjung tetap bisa mengganti sendiri lewat tombol di header.</p>
-            </fieldset>
-
             <button type="submit" class="btn-primary mt-1 px-4 py-2 text-xs">
                 <i data-lucide="save" class="h-3.5 w-3.5"></i> Simpan pengaturan
             </button>

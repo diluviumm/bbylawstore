@@ -8,12 +8,13 @@ $title = $title ?? 'Admin';
 $nav = $nav ?? '';
 $admin = $admin ?? ['username' => ''];
 $flashes = take_flashes();
-$theme = $theme ?? 'light';
+$theme = 'dark';
 
 $navItems = [
     ['key' => 'orders',   'href' => '/admin/pesanan',  'icon' => 'receipt-text', 'label' => 'Pesanan'],
     ['key' => 'products', 'href' => '/admin/produk',   'icon' => 'package',     'label' => 'Produk & Stok'],
-    ['key' => 'settings', 'href' => '/admin/pengaturan', 'icon' => 'settings',  'label' => 'Pengaturan'],
+    ['key' => 'settings',   'href' => '/admin/pengaturan', 'icon' => 'settings',  'label' => 'Pengaturan'],
+    ['key' => 'background', 'href' => '/admin/background', 'icon' => 'image', 'label' => 'Background'],
     ['key' => 'account',  'href' => '/admin/akun',     'icon' => 'user-round',  'label' => 'Akun'],
 ];
 
@@ -26,13 +27,13 @@ foreach (categories_all() as $c) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="id" class="<?= $theme === 'dark' ? 'dark' : '' ?>">
+<html lang="id" class="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($title) ?> — Admin Bbylaa Store</title>
     <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="<?= $theme === 'dark' ? '#0f0813' : '#fdf6f9' ?>">
+    <meta name="theme-color" content="#0f0813">
     <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
     <link rel="icon" type="image/jpeg" href="/assets/img/logo-192.jpg">
     <link rel="stylesheet" href="/assets/css/app.css?v=<?= BBY_VERSION ?>">
@@ -106,16 +107,6 @@ foreach (categories_all() as $c) {
         <header class="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[#f6dbe6] dark:border-[#3d2340] bg-[#fdf6f9]/90 dark:bg-[#140b1a]/90 px-4 py-3 backdrop-blur">
             <h1 class="text-base font-black text-[#241520] dark:text-[#f7ecf3] sm:text-lg"><?= e($title) ?></h1>
             <div class="flex items-center gap-2">
-                <button type="button" data-theme-toggle
-                        aria-label="<?= $theme === 'dark' ? 'Aktifkan tema terang' : 'Aktifkan tema gelap' ?>"
-                        aria-pressed="<?= $theme === 'dark' ? 'true' : 'false' ?>"
-                        title="<?= $theme === 'dark' ? 'Aktifkan tema terang' : 'Aktifkan tema gelap' ?>"
-                        class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-[#1a1021]
-                               text-[#5c4354] dark:text-[#dcc4d6] ring-1 ring-[#f0d3e0] dark:ring-[#4a2b50]
-                               hover:bg-pink-50 dark:hover:bg-pink-500/10">
-                    <i data-lucide="sun" class="h-4 w-4 dark:hidden"></i>
-                    <i data-lucide="moon" class="hidden h-4 w-4 dark:block"></i>
-                </button>
                 <a href="/" target="_blank" rel="noopener"
                    class="hidden items-center gap-1.5 rounded-full bg-white dark:bg-[#1a1021] px-3 py-1.5 text-[11px] font-bold text-[#5c4354] dark:text-[#dcc4d6] ring-1 ring-[#f0d3e0] dark:ring-[#4a2b50] hover:bg-pink-50 dark:hover:bg-pink-500/10 sm:inline-flex">
                     <i data-lucide="external-link" class="h-3.5 w-3.5"></i> Lihat toko

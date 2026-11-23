@@ -116,6 +116,16 @@ CREATE TABLE IF NOT EXISTS throttle (
     count        INTEGER NOT NULL DEFAULT 0,
     window_start INTEGER NOT NULL DEFAULT 0
 );
+
+CREATE TABLE IF NOT EXISTS backgrounds (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    filename      TEXT NOT NULL UNIQUE,
+    original_name TEXT NOT NULL DEFAULT '',
+    mime          TEXT NOT NULL DEFAULT '',
+    size          INTEGER NOT NULL DEFAULT 0,
+    created_at    TEXT NOT NULL,
+    is_active     INTEGER NOT NULL DEFAULT 0
+);
 SQL);
 
 // --------------------------------------------------------------------- katalog
@@ -220,14 +230,26 @@ $defaults = [
     'marquee_text'     => 'welcome to bbylaa store ~ Happy Shopping, Trusted 100% ~ Proses Cepat & Full Garansi SnK',
     'store_closed_msg' => 'Layanan ini sedang tutup. Silakan cek kategori lain atau hubungi admin.',
     'payments'         => 'QRIS,DANA / E-Wallet,Transfer Bank',
-    'default_theme'    => 'light',
 ];
+$pdo->exec("DELETE FROM settings WHERE key = 'default_theme'");
 
 $setStmt = $pdo->prepare(
     'INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO NOTHING'
 );
 foreach ($defaults as $k => $v) {
     $setStmt->execute([$k, $v]);
+}
+
+// ------------------------------------------------------------------ background
+$bgFile = BBY_ROOT . '/public/assets/img/backgrounds/bby-default.jpeg';
+if (is_file($bgFile)) {
+    $pdo->prepare(
+        'INSERT OR IGNORE INTO backgrounds (filename, original_name, mime, size, created_at, is_active)
+         VALUES (?, ?, ?, ?, ?, 1)'
+    )->execute(['bby-default.jpeg', 'bg.jpeg', 'image/jpeg', (int) filesize($bgFile), now()]);
+}
+if (!(int) $pdo->query('SELECT COUNT(*) FROM backgrounds WHERE is_active = 1')->fetchColumn()) {
+    $pdo->exec('UPDATE backgrounds SET is_active = 1 WHERE id = (SELECT MIN(id) FROM backgrounds)');
 }
 
 // ------------------------------------------------------------------ admin awal

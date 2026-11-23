@@ -2,9 +2,8 @@
 /**
  * Layout publik. $content diisi oleh layout().
  *
- * Tema: kelas `dark` dipasang di <html> SEBELUM paint oleh inline script
- * kecil (mencegah kedip), dan pilihan disimpan di cookie `bby_theme` supaya
- * server bisa merender kelas awal tanpa menunggu JS.
+ * Tema: gelap permanen. Latar halaman diatur admin lewat /admin/background
+ * dan disimpan di riwayat; tidak ada lagi pilihan tema terang.
  */
 
 declare(strict_types=1);
@@ -12,20 +11,20 @@ declare(strict_types=1);
 $storeName = setting('store_name', 'Bbylaa Store');
 $title = $title ?? $storeName;
 $desc  = $desc ?? 'Bbylaa Store — APK premium, joki tugas, top up game, dan produk handmade. Proses cepat, full garansi.';
-$theme = $theme ?? 'light';
+$theme = 'dark';
 $canonical = $canonical ?? (base_url() . ($_SERVER['REQUEST_URI'] ?? '/'));
 $adminWhatsapp = setting('admin_whatsapp', '6282318613826');
 $flashes = take_flashes();
 ?>
 <!DOCTYPE html>
-<html lang="id" class="<?= $theme === 'dark' ? 'dark' : '' ?>">
+<html lang="id" class="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title><?= e($title) ?> — <?= e($storeName) ?></title>
     <meta name="description" content="<?= e($desc) ?>">
     <link rel="canonical" href="<?= e($canonical) ?>">
-    <meta name="theme-color" content="<?= $theme === 'dark' ? '#0f0813' : '#fdf6f9' ?>">
+    <meta name="theme-color" content="#0f0813">
     <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
 
     <meta property="og:type" content="website">
@@ -38,7 +37,8 @@ $flashes = take_flashes();
     <link rel="stylesheet" href="/assets/css/app.css?v=<?= BBY_VERSION ?>">
     <script src="/assets/vendor/lucide.min.js" defer></script>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased"
+      style="background-image: <?= e(background_css()) ?>;">
 
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100]
                        focus:rounded-xl focus:bg-pink-600 focus:px-4 focus:py-2 focus:text-white focus:font-bold">

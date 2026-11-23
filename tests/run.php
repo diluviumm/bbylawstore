@@ -11,6 +11,13 @@ declare(strict_types=1);
 putenv('BBY_DB=' . sys_get_temp_dir() . '/bbylaa-test-' . getmypid() . '.sqlite');
 require dirname(__DIR__) . '/app/bootstrap.php';
 
+db()->exec("CREATE TABLE IF NOT EXISTS backgrounds (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, filename TEXT NOT NULL UNIQUE,
+    original_name TEXT NOT NULL DEFAULT '', mime TEXT NOT NULL DEFAULT '',
+    size INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 0
+)");
+
 $fail = 0;
 $pass = 0;
 
@@ -75,6 +82,20 @@ foreach (['baru', 'diproses', 'selesai', 'batal'] as $s) {
     t("status {$s}", isset(ORDER_STATUSES[$s]));
 }
 t('status asing ditolak', !isset(ORDER_STATUSES['hapus']));
+
+echo "\n[tema & background]\n";
+t('tema selalu gelap', theme_from_request() === 'dark');
+$css = background_css();
+t('background memakai overlay gelap', str_contains($css, 'linear-gradient(rgba(10,5,14,0.84)'));
+t('background memakai file lokal', str_contains($css, '/assets/img/backgrounds/'));
+t('nama file latar aman', background_css() === $css);
+
+echo "\n[schema background]\n";
+$cols = db()->query('PRAGMA table_info(backgrounds)')->fetchAll();
+$names = array_column($cols, 'name');
+foreach (['filename', 'original_name', 'mime', 'size', 'created_at', 'is_active'] as $col) {
+    t("kolom {$col}", in_array($col, $names, true));
+}
 
 // bersihkan db uji
 @unlink(sys_get_temp_dir() . '/bbylaa-test-' . getmypid() . '.sqlite');

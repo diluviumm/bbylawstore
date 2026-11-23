@@ -19,9 +19,18 @@ function render_store(): void
     foreach ($cats as $c) {
         $openMap[$c['id']] = (int) $c['is_open'] === 1;
     }
+    if ($cat !== '' && !($openMap[$cat] ?? false)) {
+        http_response_code(404);
+        echo layout('errors/404', ['title' => 'Kategori tidak tersedia', 'theme' => 'dark']);
+        return;
+    }
 
     $filtered = [];
     foreach ($products as $p) {
+        // Kategori tutup tidak boleh bisa dibuka/dilihat sama sekali.
+        if (!($openMap[$p['category_id']] ?? false)) {
+            continue;
+        }
         if ($cat !== '' && $p['category_id'] !== $cat) {
             continue;
         }
@@ -59,6 +68,11 @@ function render_product(int $id): void
     }
     $cat = category_map()[$product['category_id']] ?? null;
     $isOpen = $cat && (int) $cat['is_open'] === 1;
+    if (!$isOpen) {
+        http_response_code(404);
+        echo layout('errors/404', ['title' => 'Layanan tidak tersedia', 'theme' => 'dark']);
+        return;
+    }
 
     echo layout('product', [
         'title'    => $product['name'],
@@ -154,14 +168,21 @@ function render_order_result(): void
 
 function theme_from_request(): string
 {
-    $c = $_COOKIE['bby_theme'] ?? '';
-    if ($c === 'dark' || $c === 'light') {
-        return $c;
-    }
-    return setting('default_theme', 'light') === 'dark' ? 'dark' : 'light';
+    // Tema gelap permanen: tidak ada lagi tema terang di situs ini.
+    return 'dark';
 }
 
 // -------------------------------------------------------------------- admin
+function render_admin_backgrounds(): void
+{
+    echo admin_layout('admin/backgrounds', [
+        'title' => 'Background Toko',
+        'nav'   => 'background',
+        'bgs'   => backgrounds_all(),
+        'theme' => 'dark',
+    ]);
+}
+
 function render_admin_login(): void
 {
     if (admin_user()) {

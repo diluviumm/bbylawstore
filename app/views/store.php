@@ -78,15 +78,6 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
                 <span>Testimoni</span>
             </a>
 
-            <button type="button" data-theme-toggle
-                    class="inline-flex h-9 w-9 items-center justify-center rounded-2xl
-                           bg-white text-[#5c4354] ring-1 ring-[#f0d3e0] transition-colors
-                           hover:bg-[#fdf2f7] dark:bg-[#241531] dark:text-[#e9d6e4] dark:ring-[#4a2b50] dark:hover:bg-[#2d1a3b] sm:h-10 sm:w-10"
-                    aria-label="Ganti tema terang atau gelap">
-                <i data-lucide="sun" class="h-4 w-4 dark:hidden"></i>
-                <i data-lucide="moon" class="hidden h-4 w-4 dark:block"></i>
-            </button>
-
             <button type="button" data-cart-open
                     aria-label="Buka keranjang belanja"
                     class="relative inline-flex items-center gap-1.5 rounded-2xl
@@ -165,15 +156,19 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
                 $isOpen = (int) $c['is_open'] === 1;
                 $href = '/?kategori=' . urlencode($c['id']) . ($q !== '' ? '&q=' . urlencode($q) : '');
                 ?>
-                <a href="<?= e($href) ?>"
-                   class="nav-pill <?= $activeCat === $c['id'] ? 'nav-pill-active' : '' ?> <?= $isOpen ? '' : 'nav-pill-closed' ?>"
-                   <?= $isOpen ? '' : 'title="Kategori sedang tutup"' ?>>
-                    <span aria-hidden="true"><?= e($c['emoji']) ?></span>
-                    <?= e($c['name']) ?>
-                    <?php if (!$isOpen): ?>
+                <?php if ($isOpen): ?>
+                    <a href="<?= e($href) ?>"
+                       class="nav-pill <?= $activeCat === $c['id'] ? 'nav-pill-active' : '' ?>">
+                        <span aria-hidden="true"><?= e($c['emoji']) ?></span>
+                        <?= e($c['name']) ?>
+                    </a>
+                <?php else: ?>
+                    <span class="nav-pill nav-pill-closed" aria-disabled="true" title="Kategori sedang tutup">
+                        <span aria-hidden="true"><?= e($c['emoji']) ?></span>
+                        <?= e($c['name']) ?>
                         <span class="ml-1 rounded bg-rose-100 px-1.5 py-0.5 text-[9px] font-black text-rose-900 dark:bg-rose-500/20 dark:text-rose-100">TUTUP</span>
-                    <?php endif; ?>
-                </a>
+                    </span>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
 
