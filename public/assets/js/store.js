@@ -71,12 +71,26 @@
         document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
             btn.setAttribute('aria-pressed', html.classList.contains('dark') ? 'true' : 'false');
             btn.addEventListener('click', function () {
+                // Transisi serentak: aktifkan aturan CSS hanya selama pergantian.
+                html.classList.add('theme-switching');
                 var dark = html.classList.toggle('dark');
                 document.cookie = 'bby_theme=' + (dark ? 'dark' : 'light') + ';path=/;max-age=31536000;SameSite=Lax';
                 var metaTheme = document.querySelector('meta[name="theme-color"]');
                 if (metaTheme) metaTheme.setAttribute('content', dark ? '#0f0813' : '#fdf6f9');
-                btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+
+                // Semua tombol tema di halaman (header + fallback) ikut sinkron.
+                document.querySelectorAll('[data-theme-toggle]').forEach(function (other) {
+                    other.setAttribute('aria-pressed', dark ? 'true' : 'false');
+                    var label = dark ? 'Aktifkan tema terang' : 'Aktifkan tema gelap';
+                    other.setAttribute('aria-label', label);
+                    other.setAttribute('title', label);
+                });
+
                 refreshIcons();
+                clearTimeout(html._themeTimer);
+                html._themeTimer = setTimeout(function () {
+                    html.classList.remove('theme-switching');
+                }, 220);
             });
         });
     }

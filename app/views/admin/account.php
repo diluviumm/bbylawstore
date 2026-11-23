@@ -7,23 +7,23 @@ declare(strict_types=1);
 ?>
 <div class="max-w-lg">
     <div class="card p-4 sm:p-5">
-        <h2 class="text-sm font-black text-[#241520]">Ganti password</h2>
-        <p class="mb-3 text-[11px] text-[#6b5563]">
+        <h2 class="text-sm font-black text-[#241520] dark:text-[#f7ecf3]">Ganti password</h2>
+        <p class="mb-3 text-[11px] text-[#6b5563] dark:text-[#c9aec4]">
             Masuk sebagai <strong><?= e($admin['username']) ?></strong>. Minimal 10 karakter.
         </p>
 
         <form action="/admin/akun" method="post" class="space-y-2.5" autocomplete="off">
             <?= csrf_field() ?>
             <div>
-                <label for="cur" class="mb-1 block text-[11px] font-bold text-[#6b5563]">Password saat ini</label>
+                <label for="cur" class="mb-1 block text-[11px] font-bold text-[#6b5563] dark:text-[#c9aec4]">Password saat ini</label>
                 <input id="cur" name="current" type="password" required autocomplete="current-password" class="field py-2 text-sm">
             </div>
             <div>
-                <label for="new" class="mb-1 block text-[11px] font-bold text-[#6b5563]">Password baru</label>
+                <label for="new" class="mb-1 block text-[11px] font-bold text-[#6b5563] dark:text-[#c9aec4]">Password baru</label>
                 <input id="new" name="new" type="password" required minlength="10" autocomplete="new-password" class="field py-2 text-sm">
             </div>
             <div>
-                <label for="conf" class="mb-1 block text-[11px] font-bold text-[#6b5563]">Ulangi password baru</label>
+                <label for="conf" class="mb-1 block text-[11px] font-bold text-[#6b5563] dark:text-[#c9aec4]">Ulangi password baru</label>
                 <input id="conf" name="confirm" type="password" required minlength="10" autocomplete="new-password" class="field py-2 text-sm">
             </div>
             <button type="submit" class="btn-primary w-full py-2 text-xs">

@@ -30,13 +30,31 @@
     html {
         -webkit-text-size-adjust: 100%;
         scroll-behavior: smooth;
+        color-scheme: light;
+        /* Menu navigasi & tabel sengaja bisa digeser ke samping. Batasi agar
+           tidak ikut menggeser seluruh dokumen (17px di viewport 390). */
+        overflow-x: clip;
     }
+    html.dark { color-scheme: dark; }
 
     body {
         background-color: var(--bby-bg);
         color: var(--bby-ink);
         font-feature-settings: "cv11", "ss01";
-        transition: background-color .25s ease, color .25s ease;
+    }
+
+    /*
+     * Transisi tema: dulu hanya <body> yang berubah 250ms sementara kartu,
+     * border, dan teks langsung berganti — hasilnya terlihat 'setengah jadi'
+     * dan aneh. Sekarang semua permukaan berubah bersamaan, hanya saat tombol
+     * ditekan (kelas theme-switching dipasang JS lalu dilepas), sehingga
+     * navigation/reload tetap instan tanpa kedip.
+     */
+    html.theme-switching *,
+    html.theme-switching *::before,
+    html.theme-switching *::after {
+        transition: background-color .18s ease, border-color .18s ease,
+                    color .18s ease, fill .18s ease, stroke .18s ease !important;
     }
 
     :focus-visible {

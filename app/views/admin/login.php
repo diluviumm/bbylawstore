@@ -4,7 +4,17 @@
  */
 declare(strict_types=1);
 ?>
-<main id="main" class="flex min-h-screen items-center justify-center px-4 py-10">
+<main id="main" class="relative flex min-h-screen items-center justify-center px-4 py-10">
+    <button type="button" data-theme-toggle
+            aria-label="<?= ($theme ?? 'light') === 'dark' ? 'Aktifkan tema terang' : 'Aktifkan tema gelap' ?>"
+            aria-pressed="<?= ($theme ?? 'light') === 'dark' ? 'true' : 'false' ?>"
+            title="<?= ($theme ?? 'light') === 'dark' ? 'Aktifkan tema terang' : 'Aktifkan tema gelap' ?>"
+            class="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-2xl
+                   bg-white text-[#5c4354] ring-1 ring-[#f0d3e0] hover:bg-pink-50
+                   dark:bg-[#241531] dark:text-[#e9d6e4] dark:ring-[#4a2b50] dark:hover:bg-[#2d1a3b]">
+        <i data-lucide="sun" class="h-4 w-4 dark:hidden"></i>
+        <i data-lucide="moon" class="hidden h-4 w-4 dark:block"></i>
+    </button>
     <div class="w-full max-w-sm">
         <div class="card p-6 sm:p-8">
             <div class="mb-5 text-center">
@@ -39,7 +49,7 @@ declare(strict_types=1);
         </div>
 
         <p class="mt-4 text-center text-[11px] ink-muted">
-            <a href="/" class="font-bold text-pink-700 underline dark:text-pink-300">← Kembali ke toko</a>
+            <a href="/" class="font-bold text-pink-700 dark:text-pink-300 underline dark:text-pink-300">← Kembali ke toko</a>
         </p>
     </div>
 </main>

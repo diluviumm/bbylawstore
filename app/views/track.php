@@ -59,7 +59,7 @@ $statusLabels = ORDER_STATUSES;
                         $done = $order_index !== false && $idx <= $order_index; ?>
                         <li class="flex flex-1 flex-col items-center gap-1 text-center">
                             <span class="flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-black
-                                         <?= $done ? 'bg-emerald-600 text-white' : 'bg-[#f3e3ec] text-[#8a7086] dark:bg-[#2a1735] dark:text-[#b79bb0]' ?>">
+                                         <?= $done ? 'bg-emerald-600 text-white' : 'bg-[#f3e3ec] text-[#6f5568] dark:bg-[#2a1735] dark:text-[#c6a9bf]' ?>">
                                 <?= $idx + 1 ?>
                             </span>
                             <span class="text-[10px] font-bold <?= $done ? 'text-emerald-700 dark:text-emerald-300' : 'ink-muted' ?>"><?= e($label) ?></span>

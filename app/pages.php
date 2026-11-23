@@ -237,7 +237,7 @@ function render_admin_orders(): void
         'stats'        => admin_stats(),
         'status'       => $status,
         'q'            => $q,
-        'theme'        => 'light',
+        'theme' => theme_from_request(),
         'nav'          => 'orders',
     ]);
 }
@@ -251,7 +251,7 @@ function render_admin_order_detail(int $id): void
     $order = $st->fetch();
     if (!$order) {
         http_response_code(404);
-        echo layout('errors/404', ['title' => 'Pesanan tidak ditemukan', 'theme' => 'light']);
+        echo layout('errors/404', ['title' => 'Pesanan tidak ditemukan', 'theme' => theme_from_request()]);
         return;
     }
     $st = $pdo->prepare('SELECT * FROM order_items WHERE order_id = ? ORDER BY id');
@@ -263,7 +263,7 @@ function render_admin_order_detail(int $id): void
         'desc'  => 'Detail pesanan.',
         'admin' => $admin,
         'order' => $order,
-        'theme' => 'light',
+        'theme' => theme_from_request(),
         'nav'   => 'orders',
     ]);
 }
@@ -281,7 +281,7 @@ function render_admin_products(): void
         'products' => products_admin(),
         'cats'     => categories_all(),
         'edit'     => $edit,
-        'theme'    => 'light',
+        'theme' => theme_from_request(),
         'nav'      => 'products',
     ]);
 }
@@ -294,7 +294,7 @@ function render_admin_settings(): void
         'desc'   => 'Pengaturan toko Bbylaa Store.',
         'admin'  => $admin,
         'cats'   => categories_all(),
-        'theme'  => 'light',
+        'theme' => theme_from_request(),
         'nav'    => 'settings',
     ]);
 }
@@ -306,7 +306,7 @@ function render_admin_account(): void
         'title' => 'Akun Admin',
         'desc'  => 'Ganti password admin.',
         'admin' => $admin,
-        'theme' => 'light',
+        'theme' => theme_from_request(),
         'nav'   => 'account',
     ]);
 }
