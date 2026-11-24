@@ -86,10 +86,9 @@
         document.querySelectorAll('[data-cart-total]').forEach(function (n) {
             n.textContent = rupiah(cart.total);
         });
-        var btn = document.getElementById('checkout-btn');
-        if (btn) btn.disabled = cart.lines.length === 0 || cart.busy;
-        var label = document.querySelector('[data-checkout-label]');
-        if (label) label.textContent = cart.busy ? 'Menyimpan…' : 'Buat Pesanan';
+        document.querySelectorAll('[data-cart-checkout]').forEach(function (btn) {
+            btn.disabled = cart.lines.length === 0 || cart.busy;
+        });
         paintGameField();
     }
 
@@ -131,6 +130,13 @@
             qtyWrap.appendChild(minus);
             qtyWrap.appendChild(qty);
             qtyWrap.appendChild(plus);
+
+            var edit = el('button', 'p-1.5 text-pink-700 hover:text-pink-900 dark:text-pink-300 dark:hover:text-pink-100');
+            edit.type = 'button';
+            edit.setAttribute('aria-label', 'Edit data ' + line.name);
+            edit.appendChild(icon('pencil', 'h-3.5 w-3.5'));
+            edit.addEventListener('click', function () { openLineForm(line); });
+            right.appendChild(edit);
 
             var del = el('button', 'p-1.5 text-rose-600 hover:text-rose-800 dark:text-rose-400 dark:hover:text-rose-300');
             del.type = 'button';
@@ -255,6 +261,8 @@
         if (!m) return;
         checkoutState.mode = mode;
         checkoutState.variantId = payload.variantId || 0;
+        var submitLabel = m.querySelector('[data-cm-submit-label]');
+        if (submitLabel) submitLabel.textContent = mode === 'line' ? 'Simpan data produk' : 'Checkout via WhatsApp';
 
         var form = document.getElementById('checkout-modal-form');
         var main = m.querySelector('[data-cm-main]');
@@ -268,6 +276,16 @@
         });
         var variantInput = m.querySelector('[data-cm-variant-id]');
         if (variantInput) variantInput.value = String(checkoutState.variantId);
+        ['name','phone','game_id','payment','note'].forEach(function (key) {
+            var field = form && form.elements ? form.elements[key] : null;
+            if (!field || !payload.form) return;
+            if (field.length && !field.value) {
+                var radios = Array.prototype.slice.call(field);
+                radios.forEach(function (r) { r.checked = r.value === payload.form[key]; });
+            } else {
+                field.value = payload.form[key] || '';
+            }
+        });
         m.querySelectorAll('[data-pay-label]').forEach(function (lab) {
             var checked = !!lab.querySelector('input:checked');
             lab.classList.toggle('pay-active', checked);
@@ -350,6 +368,77 @@
         if (res.wa) window.open(res.wa, '_blank', 'noopener');
     }
 
+    /** Buka modal checkout untuk mengedit data satu baris keranjang. */
+    function openLineForm(line) {
+        var p = productById(line.product_id);
+        openCheckoutModal('line', {
+            variantId: line.variant_id,
+            name: line.name + ' — ' + line.variant_label,
+            variantLabel: line.qty + '×',
+            priceText: rupiah(line.subtotal),
+            form: line.form || {},
+            game: line.category_id === 'game',
+            gameLabel: line.product_id === 201 ? 'Username Roblox' : (line.product_id === 202 ? 'Tulis Growid & World Name' : 'ID Game / Username'),
+            gamePlaceholder: line.product_id === 201 ? 'Contoh: Username @bbylawstore' : (line.product_id === 202 ? 'Contoh: Growid  : bbylastore, World : bbylaworld' : 'Contoh: username')
+        });
+    }
+
+    function productById(id) {
+        return (cart.lines || []).filter(function (l) { return Number(l.product_id) === Number(id); })[0] || null;
+    }
+
+    // -------------------------------------------------------- detail pop-up
+    function productModal() { return document.getElementById('product-modal'); }
+
+    function openProductModal(id) {
+        var m = productModal();
+        if (!m) { window.location.href = '/produk?id=' + encodeURIComponent(id); return; }
+        var body = m.querySelector('[data-pd-body]');
+        if (body) body.innerHTML = '<p class="text-xs text-pink-200/70">Memuat detail…</p>';
+        m.classList.remove('hidden');
+        m.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        m.querySelectorAll('[data-pd-close]').forEach(function (b) {
+            b.onclick = function (ev) { ev.preventDefault(); closeProductModal(); };
+        });
+        refreshIcons();
+        fetch('/produk?id=' + encodeURIComponent(id) + '&fragment=1', { credentials:'same-origin' })
+            .then(function (r) { return r.text(); })
+            .then(function (html) {
+                if (body) {
+                    body.innerHTML = html;
+                    var sel = body.querySelector('[data-detail-form] select');
+                    var price = body.querySelector('[data-detail-price]');
+                    if (sel && price) {
+                        sel.addEventListener('change', function () {
+                            var opt = sel.options[sel.selectedIndex];
+                            price.textContent = opt.getAttribute('data-price') || '';
+                        });
+                    }
+                    var form = body.querySelector('[data-detail-form]');
+                    if (form) {
+                        form.addEventListener('submit', function (ev) {
+                            if (!window.addToCart) return;
+                            ev.preventDefault();
+                            window.addToCart(Number(sel.value), '').then(function () {
+                                closeProductModal();
+                            });
+                        });
+                    }
+                }
+                refreshIcons();
+            })
+            .catch(function () { if (body) body.innerHTML = '<p class="text-sm text-rose-200">Gagal memuat detail.</p>'; });
+    }
+
+    function closeProductModal() {
+        var m = productModal();
+        if (!m) return;
+        m.classList.add('hidden');
+        m.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
     function initCheckoutModal() {
         var m = modal();
         if (!m) return;
@@ -383,6 +472,9 @@
                 url = '/api/checkout/direct';
                 data.variant_id = checkoutState.variantId;
                 data.qty = 1;
+            } else if (checkoutState.mode === 'line') {
+                url = '/api/cart/form';
+                data.variant_id = checkoutState.variantId;
             }
             m.querySelectorAll('[data-cm-error]').forEach(function (slot) {
                 slot.classList.add('hidden'); slot.textContent = '';
@@ -398,6 +490,11 @@
                         });
                     }
                     toast(res.error || 'Checkout gagal.', true);
+                    return;
+                }
+                if (checkoutState.mode === 'line') {
+                    closeCheckoutModal();
+                    toast(res.message || 'Data produk tersimpan.');
                     return;
                 }
                 if (checkoutState.mode === 'cart') {
@@ -455,11 +552,19 @@
             });
         });
 
+        document.querySelectorAll('[data-product-card] h3 a').forEach(function (a) {
+            a.addEventListener('click', function (ev) {
+                ev.preventDefault();
+                var card = a.closest('[data-product-card]');
+                if (card) openProductModal(card.getAttribute('data-product-card'));
+            });
+        });
+
         // Klik area kosong kartu membuka detail, tanpa mengganggu kontrol di dalamnya.
         document.querySelectorAll('[data-detail-url]').forEach(function (card) {
             card.addEventListener('click', function (ev) {
                 if (ev.target.closest('a, button, select, input, textarea, form, label')) return;
-                window.location.href = card.getAttribute('data-detail-url');
+                openProductModal(card.getAttribute('data-product-card'));
             });
         });
 

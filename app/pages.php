@@ -85,6 +85,23 @@ function render_product(int $id): void
     ]);
 }
 
+function render_product_fragment(): void
+{
+    $product = product_by_id((int) ($_GET['id'] ?? 0));
+    if (!$product) {
+        http_response_code(404);
+        echo '<p class="text-sm text-rose-200">Produk tidak ditemukan.</p>';
+        return;
+    }
+    $cat = category_map()[$product['category_id']] ?? null;
+    if (!$cat || (int) $cat['is_open'] !== 1) {
+        http_response_code(404);
+        echo '<p class="text-sm text-rose-200">Layanan sedang tutup.</p>';
+        return;
+    }
+    echo view('product-detail-fragment', ['product' => $product]);
+}
+
 function render_cart(): void
 {
     // Endpoint state keranjang untuk JS (dipakai setelah setiap mutasi).
@@ -103,6 +120,7 @@ function render_cart(): void
                 'qty'           => $l['qty'],
                 'subtotal'      => $l['subtotal'],
                 'stock'         => $l['stock'],
+                'form'          => $l['form'] ?? [],
                 'icon'          => $l['icon'],
                 'grad'          => accent_classes($l['accent'])['grad'],
             ], $state['lines']),

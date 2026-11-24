@@ -121,6 +121,25 @@ function handle_cart_remove(): never
     json_response(['ok' => true, 'count' => $state['count'], 'total' => $state['total']]);
 }
 
+/** Simpan data checkout untuk SATU produk di keranjang (bukan buat pesanan). */
+function handle_cart_form_save(): never
+{
+    $vid = post_int('variant_id');
+    $state = single_variant_state($vid, 1);
+    if (!$state) {
+        json_response(['ok' => false, 'error' => 'Produk tidak ditemukan.'], 404);
+    }
+    cart_form_set($vid, [
+        'name'    => post_str('name', 80),
+        'phone'   => post_str('phone', 30),
+        'game_id' => post_str('game_id', 120),
+        'payment' => post_str('payment', 40),
+        'note'    => post_str('note', 400),
+    ]);
+    audit('cart.form.save', 'varian ' . $vid, 'pembeli');
+    json_response(['ok' => true, 'message' => 'Data produk tersimpan.']);
+}
+
 /** Jalur tanpa JavaScript: hapus item lalu kembali ke halaman asal. */
 function handle_cart_remove_form(): never
 {
@@ -170,6 +189,20 @@ function place_order(array $state, string $name, string $phone, string $note, st
     }
     if ($note !== '') {
         $noteParts[] = $note;
+    }
+    // Gabungkan data khusus tiap produk (tersimpan per varian di sesi).
+    foreach ($state['lines'] as $l) {
+        $f = $l['form'] ?? [];
+        $bits = [];
+        if (($f['game_id'] ?? '') !== '') {
+            $bits[] = 'Data Game ' . $l['name'] . ': ' . $f['game_id'];
+        }
+        if (($f['note'] ?? '') !== '') {
+            $bits[] = 'Catatan ' . $l['name'] . ': ' . $f['note'];
+        }
+        if ($bits) {
+            $noteParts[] = implode(' | ', $bits);
+        }
     }
     $finalNote = implode(' | ', $noteParts);
 
@@ -327,10 +360,12 @@ function handle_checkout(): never
         $p = product_by_id((int) $l['product_id']);
         if ($p && $p['category_id'] === 'game') {
             $needsGameId = true;
+            $saved = $l['form'] ?? [];
+            if (mb_strlen((string) ($saved['game_id'] ?? '')) < 3 && mb_strlen($gameId) < 3) {
+                $errors['game_id'] = 'Data game wajib diisi untuk setiap produk top up di keranjang.';
+                break;
+            }
         }
-    }
-    if ($needsGameId && mb_strlen($gameId) < 3) {
-        $errors['game_id'] = 'ID game / username wajib diisi untuk top up.';
     }
     if ($errors) {
         checkout_respond(['ok' => false, 'error' => reset($errors), 'errors' => $errors], 422);

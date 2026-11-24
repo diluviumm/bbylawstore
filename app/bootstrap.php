@@ -18,7 +18,7 @@ define('BBY_ROOT', dirname(__DIR__));
 define('BBY_APP', __DIR__);
 define('BBY_DATA', BBY_ROOT . '/data');
 
-const BBY_VERSION = '2.2.1';
+const BBY_VERSION = '2.3.0';
 
 // ---------------------------------------------------------------- environment
 // .env.local menang atas .env (dipakai untuk pengembangan lokal).
@@ -516,6 +516,46 @@ function game_field_info(array $cartLines): array
  *
  * Struktur: [variant_id => qty]
  */
+// -------------------------------------------------- data form per produk
+/**
+ * Form checkout setiap varian disimpan terpisah di sesi. Jadi kalau pembeli
+ * memasukkan banyak produk, data game/catatan tiap produk tidak tertukar.
+ */
+function cart_forms_get(): array
+{
+    start_session();
+    $forms = $_SESSION['cart_forms'] ?? [];
+    return is_array($forms) ? $forms : [];
+}
+
+function cart_form_get(int $variantId): array
+{
+    $forms = cart_forms_get();
+    $row = $forms[$variantId] ?? [];
+    return is_array($row) ? $row : [];
+}
+
+function cart_form_set(int $variantId, array $data): void
+{
+    start_session();
+    if (!isset($_SESSION['cart_forms']) || !is_array($_SESSION['cart_forms'])) {
+        $_SESSION['cart_forms'] = [];
+    }
+    $_SESSION['cart_forms'][$variantId] = [
+        'name'    => (string) ($data['name'] ?? ''),
+        'phone'   => (string) ($data['phone'] ?? ''),
+        'game_id' => (string) ($data['game_id'] ?? ''),
+        'payment' => (string) ($data['payment'] ?? ''),
+        'note'    => (string) ($data['note'] ?? ''),
+    ];
+}
+
+function cart_form_remove(int $variantId): void
+{
+    start_session();
+    unset($_SESSION['cart_forms'][$variantId]);
+}
+
 function cart_get(): array
 {
     start_session();
@@ -541,6 +581,7 @@ function cart_remove(int $variantId): array
 {
     $cart = cart_get();
     unset($cart[$variantId]);
+    cart_form_remove($variantId);
     cart_set($cart);
     return cart_lines();
 }
@@ -560,7 +601,7 @@ function cart_set_qty(int $variantId, int $qty): array
 function cart_clear(): void
 {
     start_session();
-    unset($_SESSION['cart'], $_SESSION['cart_token']);
+    unset($_SESSION['cart'], $_SESSION['cart_token'], $_SESSION['cart_forms']);
 }
 
 /**
@@ -625,6 +666,7 @@ function cart_lines(): array
             'icon'          => $product['icon'],
             'accent'        => $product['accent'],
             'stock'         => $variant['stock'],
+            'form'          => cart_form_get($vid),
         ];
         $count += $qty;
         $total += $variant['price'] * $qty;

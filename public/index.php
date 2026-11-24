@@ -85,6 +85,9 @@ try {
             case '/keranjang/hapus':
                 handle_cart_remove_form();
                 break;
+            case '/api/cart/form':
+                handle_cart_form_save();
+                break;
             case '/api/checkout':
                 handle_checkout();
                 break;
@@ -168,6 +171,10 @@ try {
 
         case $path === '/produk':
             $id = (int) ($_GET['id'] ?? 0);
+            if (($_GET['fragment'] ?? '') === '1') {
+                render_product_fragment();
+                break;
+            }
             render_product($id);
             break;
 

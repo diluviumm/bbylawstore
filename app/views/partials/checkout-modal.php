@@ -87,7 +87,7 @@ $paymentLabels = ['QRIS' => 'QRIS', 'DANA / E-Wallet' => 'E-Wallet', 'Transfer B
                     <p class="hidden rounded-xl bg-rose-500/15 px-3 py-2 text-[11px] font-semibold text-rose-100" data-cm-error="cart"></p>
 
                     <button type="submit" class="btn-primary w-full py-3 text-xs">
-                        <i data-lucide="send" class="h-4 w-4"></i> Checkout via WhatsApp
+                        <i data-lucide="send" class="h-4 w-4"></i> <span data-cm-submit-label>Checkout via WhatsApp</span>
                     </button>
                     <p class="text-center text-[10px] text-pink-200/60">Data pesanan tercatat di sistem sebelum pesan WhatsApp dikirim.</p>
                 </form>

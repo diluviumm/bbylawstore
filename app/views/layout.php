@@ -62,6 +62,7 @@ $flashes = take_flashes();
 
 <?= $content ?>
 <?php require BBY_APP . '/views/partials/checkout-modal.php'; ?>
+<?php require BBY_APP . '/views/partials/product-modal.php'; ?>
 
 <footer class="mt-auto border-t border-[#f6dbe6] dark:border-[#3d2340] bg-white/70 dark:bg-[#140b1a]/80 backdrop-blur">
     <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-xs sm:flex-row sm:px-6 lg:px-8">
