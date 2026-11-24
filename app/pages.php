@@ -96,6 +96,8 @@ function render_cart(): void
             'total' => $state['total'],
             'lines' => array_map(static fn(array $l): array => [
                 'variant_id'    => $l['variant_id'],
+                'product_id'    => $l['product_id'],
+                'category_id'   => $l['category_id'],
                 'name'          => $l['name'],
                 'variant_label' => $l['variant_label'],
                 'qty'           => $l['qty'],
@@ -129,12 +131,15 @@ function render_checkout(): void
             $hasGame = true;
         }
     }
+    $gameInfo = game_field_info($cart['lines']);
     echo layout('checkout', [
-        'title'   => 'Checkout',
-        'desc'    => 'Konfirmasi data pemesan dan selesaikan pesanan.',
-        'cart'    => $cart,
-        'hasGame' => $hasGame,
-        'theme'   => theme_from_request(),
+        'title'          => 'Checkout',
+        'desc'           => 'Konfirmasi data pemesan dan selesaikan pesanan.',
+        'cart'           => $cart,
+        'hasGame'        => $hasGame,
+        'gameLabel'      => $gameInfo['label'],
+        'gamePlaceholder'=> $gameInfo['placeholder'],
+        'theme'          => theme_from_request(),
     ]);
 }
 

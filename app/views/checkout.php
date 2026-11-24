@@ -6,6 +6,7 @@
  *
  * @var array $cart
  * @var bool $hasGame
+ * @var string $gameLabel, $gamePlaceholder
  */
 declare(strict_types=1);
 
@@ -55,9 +56,9 @@ $flashes = take_flashes();
 
             <?php if ($hasGame): ?>
                 <div>
-                    <label for="ck-game" class="ink mb-1 block text-xs font-bold">ID Game / Username <span class="text-rose-700 dark:text-rose-300" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+                    <label for="ck-game" data-game-label class="ink mb-1 block text-xs font-bold"><?= e($gameLabel) ?> <span class="text-rose-700 dark:text-rose-300" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
                     <input id="ck-game" name="game_id" type="text" maxlength="120"
-                           class="field py-2.5 text-sm" placeholder="Contoh: 12345678 (2024) / GrowID: Byla">
+                           data-game-input class="field py-2.5 text-sm" placeholder="<?= e($gamePlaceholder) ?>">
                 </div>
             <?php endif; ?>
 

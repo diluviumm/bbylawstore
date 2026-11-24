@@ -97,6 +97,16 @@ foreach (['filename', 'original_name', 'mime', 'size', 'created_at', 'is_active'
     t("kolom {$col}", in_array($col, $names, true));
 }
 
+echo "\n[game field]\n";
+t('label default', game_field_info([])['label'] === 'ID Game / Username');
+t('label roblox', game_field_info([['product_id' => 201]])['label'] === 'Username Roblox');
+t('label growtopia', game_field_info([['product_id' => 202]])['label'] === 'Tulis Growid & World Name');
+t('placeholder roblox', str_contains(game_field_info([['product_id' => 201]])['placeholder'], '@bbylawstore'));
+t('placeholder growtopia', str_contains(game_field_info([['product_id' => 202]])['placeholder'], 'Growid'));
+
+echo "\n[background url]\n";
+t('url latar lokal', str_starts_with(background_url(), '/assets/img/backgrounds/'));
+
 // bersihkan db uji
 @unlink(sys_get_temp_dir() . '/bbylaa-test-' . getmypid() . '.sqlite');
 

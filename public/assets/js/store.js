@@ -90,6 +90,7 @@
         if (btn) btn.disabled = cart.lines.length === 0 || cart.busy;
         var label = document.querySelector('[data-checkout-label]');
         if (label) label.textContent = cart.busy ? 'Menyimpan…' : 'Buat Pesanan';
+        paintGameField();
     }
 
     function paintLines() {
@@ -307,9 +308,73 @@
         });
     }
 
+    // -------------------------------------------------- varian & beli langsung
+    function variantPrice(option) {
+        if (!option) return '';
+        var p = Number(option.getAttribute('data-price') || 0);
+        var max = option.getAttribute('data-price-max');
+        return max ? rupiah(p) + ' – ' + rupiah(Number(max)) : rupiah(p);
+    }
+
+    function initVariants() {
+        document.querySelectorAll('[data-variant-select]').forEach(function (select) {
+            var card = select.closest('[data-product-card]');
+            if (!card) return;
+            var label = card.querySelector('[data-price-display]');
+            var hidden = card.querySelectorAll('[data-card-variant]');
+            select.addEventListener('change', function () {
+                var opt = select.options[select.selectedIndex];
+                if (label) label.textContent = variantPrice(opt);
+                hidden.forEach(function (h) { h.value = select.value; });
+            });
+        });
+
+        document.querySelectorAll('[data-buy-now]').forEach(function (form) {
+            form.addEventListener('submit', function (ev) {
+                if (!window.bbyCart) return; // tanpa JS: form biasa menangani
+                ev.preventDefault();
+                var input = form.querySelector('[name="variant_id"]');
+                var name = form.querySelector('button[type="submit"]');
+                if (!input) return;
+                var id = Number(input.value);
+                if (!id) return;
+                var addToCartFn = window.addToCart;
+                if (typeof addToCartFn !== 'function') { form.submit(); return; }
+                addToCartFn(id, name ? (name.getAttribute('aria-label') || '') : '').then(function () {
+                    window.location.href = '/checkout';
+                });
+            });
+        });
+    }
+
+    // Label & placeholder game mengikuti produk di keranjang (Roblox vs Growtopia).
+    function paintGameField() {
+        var label = document.querySelector('[data-game-label]');
+        var input = document.querySelector('[data-game-input]');
+        var field = document.querySelector('[data-game-field]');
+        if (!label || !input) return;
+        var ids = (cart.lines || []).map(function (l) { return Number(l.product_id); });
+        var needs = ids.indexOf(201) !== -1 || ids.indexOf(202) !== -1
+            || (cart.lines || []).some(function (l) { return l.category_id === 'game'; });
+        if (field) field.hidden = !needs;
+        var text = 'ID Game / Username';
+        var placeholder = 'Contoh: 12345678 / GrowID: Byla';
+        if (ids.indexOf(201) !== -1) {
+            text = 'Username Roblox';
+            placeholder = 'Contoh: Username @bbylawstore';
+        } else if (ids.indexOf(202) !== -1) {
+            text = 'Tulis Growid & World Name';
+            placeholder = 'Contoh: Growid  : bbylastore, World : bbylaworld';
+        }
+        label.textContent = text;
+        input.placeholder = placeholder;
+    }
+
     // ------------------------------------------------------------------- boot
     document.addEventListener('DOMContentLoaded', function () {
         seedFromDom();
+        initVariants();
+        paintGameField();
         initCheckout();
 
         document.querySelectorAll('[data-cart-open]').forEach(function (b) {
@@ -327,8 +392,10 @@
             form.addEventListener('submit', function (ev) {
                 if (!window.bbyCart) return; // tanpa JS tidak sampai ke sini
                 ev.preventDefault();
-                var b = form.querySelector('[data-buy]');
-                addToCart(Number(b.dataset.buy), b.dataset.buyName || '');
+                var input = form.querySelector('[name="variant_id"]');
+                var btn = form.querySelector('button[type="submit"]');
+                if (!input) return;
+                addToCart(Number(input.value), btn ? (btn.getAttribute('aria-label') || '') : '');
             });
         });
 

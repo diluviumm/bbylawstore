@@ -38,7 +38,7 @@ $flashes = take_flashes();
     <script src="/assets/vendor/lucide.min.js" defer></script>
 </head>
 <body class="store-bg min-h-screen flex flex-col antialiased"
-      style="background-image: <?= e(background_css()) ?>;">
+      style="--bby-bg-url: url('<?= e(background_url()) ?>'); background-image: <?= e(background_css()) ?>;">
 
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100]
                        focus:rounded-xl focus:bg-pink-600 focus:px-4 focus:py-2 focus:text-white focus:font-bold">
@@ -78,9 +78,6 @@ $flashes = take_flashes();
             <a href="https://wa.me/<?= e($adminWhatsapp) ?>" target="_blank" rel="noopener noreferrer"
                class="btn-quiet px-3 py-1.5 text-[11px]">
                 <i data-lucide="message-circle" class="h-3.5 w-3.5"></i> Chat Admin
-            </a>
-            <a href="/admin/login" class="btn-quiet px-3 py-1.5 text-[11px]">
-                <i data-lucide="lock" class="h-3.5 w-3.5"></i> Admin
             </a>
         </nav>
     </div>

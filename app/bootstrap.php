@@ -18,7 +18,7 @@ define('BBY_ROOT', dirname(__DIR__));
 define('BBY_APP', __DIR__);
 define('BBY_DATA', BBY_ROOT . '/data');
 
-const BBY_VERSION = '2.1.1';
+const BBY_VERSION = '2.2.0';
 
 // ---------------------------------------------------------------- environment
 // .env.local menang atas .env (dipakai untuk pengembangan lokal).
@@ -187,15 +187,21 @@ function active_background(): ?array
     return $row === false ? null : $row;
 }
 
-/** Nilai CSS background-image: overlay gelap di atas gambar aktif. */
-function background_css(): string
+/** URL aman dari berkas background aktif (dipakai juga oleh kartu produk). */
+function background_url(): string
 {
     $bg = active_background();
     $file = (string) ($bg['filename'] ?? 'bby-default.jpeg');
     if (!preg_match('/^[A-Za-z0-9._-]+$/', $file)) {
         $file = 'bby-default.jpeg';
     }
-    $path = '/assets/img/backgrounds/' . rawurlencode($file);
+    return '/assets/img/backgrounds/' . rawurlencode($file);
+}
+
+/** Nilai CSS background-image: overlay gelap di atas gambar aktif. */
+function background_css(): string
+{
+    $path = background_url();
     return 'radial-gradient(circle at 50% 0%, rgba(236,72,153,0.18), transparent 55%),'
         . 'linear-gradient(rgba(10,5,14,0.84), rgba(10,5,14,0.90)), url(\'' . $path . '\')';
 }
@@ -485,6 +491,21 @@ function variant_of(array $product, int $variantId): ?array
 function variant_available(array $variant): bool
 {
     return $variant['stock'] === null || $variant['stock'] > 0;
+}
+
+/**
+ * Label dan placeholder field data game mengikuti produk di keranjang.
+ */
+function game_field_info(array $cartLines): array
+{
+    $ids = array_column($cartLines, 'product_id');
+    if (in_array(201, $ids, true)) {
+        return ['label' => 'Username Roblox', 'placeholder' => 'Contoh: Username @bbylawstore'];
+    }
+    if (in_array(202, $ids, true)) {
+        return ['label' => 'Tulis Growid & World Name', 'placeholder' => 'Contoh: Growid  : bbylastore, World : bbylaworld'];
+    }
+    return ['label' => 'ID Game / Username', 'placeholder' => 'Contoh: 12345678 / GrowID: Byla'];
 }
 
 // ---------------------------------------------------------------- keranjang

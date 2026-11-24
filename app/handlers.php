@@ -103,7 +103,7 @@ function handle_cart_add_form(): never
 
     cart_add($vid, $qty);
     flash('ok', $product['name'] . ' ditambahkan ke keranjang.');
-    redirect('/keranjang');
+    redirect(post_str('direct', 4) === '1' ? '/checkout' : '/keranjang');
 }
 
 function handle_cart_set(): never

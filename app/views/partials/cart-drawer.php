@@ -20,6 +20,9 @@ foreach ($cartState['lines'] as $l) {
         $hasGame = true;
     }
 }
+$gameInfo = game_field_info($cartState['lines']);
+$gameLabel = $gameInfo['label'];
+$gamePlaceholder = $gameInfo['placeholder'];
 ?>
 
 <noscript>
@@ -81,14 +84,12 @@ foreach ($cartState['lines'] as $l) {
                         </div>
                     </div>
 
-                    <?php if ($hasGame): ?>
-                        <div>
-                            <label for="co-game" class="ink mb-1 block text-[11px] font-bold">ID Game / Username <span class="text-rose-700 dark:text-rose-300" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+                        <div data-game-field <?= $hasGame ? '' : 'hidden' ?>>
+                            <label for="co-game" data-game-label class="ink mb-1 block text-[11px] font-bold"><?= e($gameLabel) ?> <span class="text-rose-700 dark:text-rose-300" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
                             <input id="co-game" name="game_id" type="text" maxlength="120"
-                                   class="field py-2 text-xs" placeholder="Contoh: 12345678 (2024) / GrowID: Byla">
+                                   data-game-input class="field py-2 text-xs" placeholder="<?= e($gamePlaceholder) ?>">
                             <p class="mt-1 hidden text-[10px] font-semibold text-rose-700 dark:text-rose-300" data-error="game_id"></p>
                         </div>
-                    <?php endif; ?>
 
                     <fieldset>
                         <legend class="ink mb-1 block text-[11px] font-bold">Metode Pembayaran</legend>

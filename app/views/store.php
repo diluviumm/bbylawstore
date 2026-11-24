@@ -192,96 +192,114 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
             <?php foreach ($products as $p):
                 $isOpen = $openMap[$p['category_id']] ?? false;
                 $accent = accent_classes($p['accent']);
-                $firstVariant = $p['variants'][0];
-                $minPrice = min(array_column($p['variants'], 'price'));
+                $available = array_values(array_filter($p['variants'], 'variant_available'));
+                $first = $available[0] ?? $p['variants'][0];
+                $buyLabel = $p['category_id'] === 'game' ? 'Top Up' : ($p['category_id'] === 'handmade' ? 'Custom' : 'Beli');
+                $packLabel = $p['category_id'] === 'game' ? 'Pilih Nominal Top Up:' : ($p['category_id'] === 'handmade' ? 'Pilih Paket Custom:' : 'Pilih Paket / Durasi:');
+                $priceText = static fn(array $v): string => $v['price_max'] !== null
+                    ? rupiah($v['price']) . ' – ' . rupiah($v['price_max']) : rupiah($v['price']);
                 ?>
-                <article class="card flex flex-col p-4 transition-transform duration-200 <?= $isOpen ? 'hover:-translate-y-1' : '' ?> sm:p-5">
-                    <div class="mb-2 flex items-start justify-between gap-1.5 sm:mb-3">
-                        <span class="chip bg-pink-50 text-pink-800 ring-pink-200 dark:bg-pink-500/15 dark:text-pink-200 dark:ring-pink-400/30 truncate">
+                <article class="card store-card flex flex-col p-4 transition-transform duration-200 <?= $isOpen ? 'hover:-translate-y-1' : '' ?> sm:p-5"
+                         data-product-card="<?= (int) $p['id'] ?>">
+                    <div class="relative z-10 mb-2 flex items-start justify-between gap-1.5 sm:mb-3">
+                        <span class="chip bg-pink-950/85 text-pink-200 ring-pink-500/40 truncate">
                             <?= e($p['category_name']) ?>
                         </span>
                         <?php if (!$isOpen): ?>
-                            <span class="chip bg-rose-100 text-rose-800 ring-rose-200 dark:bg-rose-500/20 dark:text-rose-200 dark:ring-rose-400/40">
-                                Tutup
-                            </span>
+                            <span class="chip bg-rose-500/20 text-rose-100 ring-rose-400/40">Tutup</span>
                         <?php elseif ($p['badge'] !== ''): ?>
-                            <span class="chip <?= badge_classes($p['badge_tone']) ?> truncate">
-                                <?= e($p['badge']) ?>
-                            </span>
+                            <span class="chip <?= badge_classes($p['badge_tone']) ?> truncate"><?= e($p['badge']) ?></span>
                         <?php endif; ?>
                     </div>
 
-                    <div class="mb-3 flex items-start gap-2.5 sm:gap-3">
+                    <div class="relative z-10 mb-3 flex items-start gap-2.5 sm:gap-3">
                         <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr <?= e($accent['grad']) ?>
-                                     text-xs font-black text-white shadow-md sm:h-12 sm:w-12 sm:text-base">
+                                     text-xs font-black text-white shadow-md ring-1 ring-white/30 sm:h-12 sm:w-12 sm:text-base">
                             <?= e($p['icon']) ?>
                         </span>
                         <div class="min-w-0">
-                            <h3 class="line-clamp-2-safe text-sm font-extrabold leading-tight ink sm:text-base">
-                                <a href="/produk?id=<?= (int) $p['id'] ?>" class="hover:text-pink-700 dark:hover:text-pink-300">
-                                    <?= e($p['name']) ?>
-                                </a>
+                            <h3 class="line-clamp-2-safe text-sm font-extrabold leading-tight text-white drop-shadow sm:text-base">
+                                <?= e($p['name']) ?>
                             </h3>
-                            <p class="mt-0.5 truncate text-[10.5px] font-semibold <?= e($accent['text']) ?> dark:text-pink-300 sm:text-[11.5px]">
+                            <p class="mt-0.5 truncate text-[10.5px] font-semibold text-pink-300 sm:text-[11.5px]">
                                 <?= e($p['subtext']) ?>
                             </p>
                         </div>
                     </div>
 
                     <?php if ($p['features']): ?>
-                        <ul class="mb-3 space-y-1 text-[11px] font-medium ink-muted sm:text-xs">
+                        <ul class="relative z-10 mb-3 space-y-1 text-[11px] font-medium text-slate-200 sm:text-xs">
                             <?php foreach (array_slice($p['features'], 0, 3) as $feat): ?>
                                 <li class="flex items-start gap-1.5">
-                                    <i data-lucide="check-circle-2" class="mt-[1px] h-3.5 w-3.5 shrink-0 text-emerald-700 dark:text-emerald-300"></i>
+                                    <i data-lucide="check-circle-2" class="mt-[1px] h-3.5 w-3.5 shrink-0 text-emerald-300"></i>
                                     <span class="line-clamp-1"><?= e($feat) ?></span>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
 
-                    <div class="mt-auto border-t border-[#f6dbe6] pt-3 dark:border-[#3d2340]">
+                    <div class="relative z-10 mt-auto border-t border-pink-500/20 pt-3">
                         <?php if ($p['is_quote']): ?>
-                            <div class="mb-2 flex items-center justify-between rounded-2xl bg-pink-50/70 px-2.5 py-2 text-[11px] dark:bg-pink-500/10">
-                                <span class="ink-muted font-medium">Biaya pengerjaan</span>
-                                <span class="font-bold text-pink-800 dark:text-pink-200">Sesuai kesepakatan</span>
+                            <div class="mb-2 flex items-center justify-between rounded-2xl bg-pink-950/40 px-2.5 py-2 text-[11px] ring-1 ring-pink-500/25">
+                                <span class="text-slate-300 font-medium">Biaya pengerjaan</span>
+                                <span class="font-bold text-pink-200">Sesuai Kesepakatan</span>
                             </div>
                             <a href="https://wa.me/<?= e($adminWa) ?>?text=<?= rawurlencode('Halo Admin Bbylaa Store, saya mau konsultasi tugas: ' . $p['name']) ?>"
                                target="_blank" rel="noopener noreferrer"
                                class="btn-primary w-full py-2.5 text-xs">
                                 <i data-lucide="message-circle" class="h-4 w-4"></i> Konsultasi &amp; Order
                             </a>
+                        <?php elseif (!$available): ?>
+                            <p class="py-2 text-center text-xs font-bold text-rose-200">Stok habis</p>
                         <?php else: ?>
-                            <div class="mb-2">
-                                <span class="ink-muted block text-[9.5px] font-extrabold uppercase tracking-wide">Mulai dari</span>
-                                <span class="text-base font-black <?= e($accent['text']) ?> dark:text-pink-300"><?= rupiah($minPrice) ?></span>
-                            </div>
-                            <div class="flex gap-2">
-                                <a href="/produk?id=<?= (int) $p['id'] ?>"
-                                   class="btn-quiet flex-1 px-3 py-2 text-xs <?= $isOpen ? '' : 'btn-disabled pointer-events-none' ?>">
-                                    <i data-lucide="eye" class="h-3.5 w-3.5"></i> Detail
-                                </a>
-                                <?php if ($isOpen && variant_available($firstVariant)): ?>
+                            <label class="mb-1 block text-[10px] font-bold text-pink-200/80 sm:text-[11px]"
+                                   for="variant-<?= (int) $p['id'] ?>"><?= e($packLabel) ?></label>
+                            <select id="variant-<?= (int) $p['id'] ?>" data-variant-select
+                                    class="field py-1.5 pr-2 text-[11px] sm:py-2 sm:text-xs"
+                                    <?= $isOpen ? '' : 'disabled' ?>
+                                    aria-label="Pilih paket <?= e($p['name']) ?>">
+                                <?php foreach ($p['variants'] as $v): ?>
+                                    <option value="<?= (int) $v['id'] ?>"
+                                            data-price="<?= (int) $v['price'] ?>"
+                                            data-price-max="<?= $v['price_max'] === null ? '' : (int) $v['price_max'] ?>"
+                                            <?= variant_available($v) ? '' : 'disabled' ?>
+                                            <?= $v['id'] === $first['id'] ? 'selected' : '' ?>>
+                                        <?= e($v['label']) ?> — <?= e($priceText($v)) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+
+                            <div class="mt-3 flex items-end justify-between gap-2">
+                                <div class="min-w-0 pr-1">
+                                    <span class="block text-[9px] font-extrabold uppercase tracking-wide text-slate-300">Harga</span>
+                                    <span class="block break-words text-sm font-black text-pink-300 sm:text-base"
+                                          data-price-display><?= e($priceText($first)) ?></span>
+                                </div>
+                                <div class="flex shrink-0 items-center gap-1.5">
                                     <form action="/keranjang/tambah" method="post" data-buy-form>
                                         <?= csrf_field() ?>
-                                        <input type="hidden" name="variant_id" value="<?= (int) $firstVariant['id'] ?>">
+                                        <input type="hidden" name="variant_id" value="<?= (int) $first['id'] ?>" data-card-variant>
                                         <input type="hidden" name="qty" value="1">
                                         <button type="submit"
-                                                data-buy="<?= (int) $firstVariant['id'] ?>"
-                                                data-buy-name="<?= e($p['name']) ?>"
-                                                class="btn-primary px-3 py-2 text-xs"
+                                                class="flex h-9 w-9 items-center justify-center rounded-2xl bg-pink-950/70 text-pink-200 ring-1 ring-pink-500/40 transition hover:bg-pink-900/90 disabled:cursor-not-allowed disabled:opacity-50 sm:h-10 sm:w-10"
+                                                <?= $isOpen ? '' : 'disabled' ?>
                                                 aria-label="Tambah <?= e($p['name']) ?> ke keranjang">
-                                            <i data-lucide="plus" class="h-3.5 w-3.5"></i> Beli
+                                            <i data-lucide="shopping-cart" class="h-4 w-4"></i>
                                         </button>
                                     </form>
-                                <?php else: ?>
-                                    <a href="/produk?id=<?= (int) $p['id'] ?>"
-                                       class="btn-quiet px-3 py-2 text-xs <?= $isOpen ? 'btn-disabled pointer-events-none' : '' ?>"
-                                       aria-label="<?= variant_available($firstVariant) ? 'Lihat detail' : 'Stok habis, lihat detail' ?>">
-                                        <i data-lucide="<?= variant_available($firstVariant) ? 'eye' : 'package-x' ?>"
-                                           class="h-3.5 w-3.5"></i>
-                                        <?= variant_available($firstVariant) ? 'Detail' : 'Habis' ?>
-                                    </a>
-                                <?php endif; ?>
+                                    <form action="/keranjang/tambah" method="post" data-buy-now>
+                                        <?= csrf_field() ?>
+                                        <input type="hidden" name="variant_id" value="<?= (int) $first['id'] ?>" data-card-variant>
+                                        <input type="hidden" name="qty" value="1">
+                                        <input type="hidden" name="direct" value="1">
+                                        <button type="submit"
+                                                class="btn-primary px-3 py-2 text-[11px] sm:px-3.5 sm:text-xs"
+                                                <?= $isOpen ? '' : 'disabled' ?>
+                                                aria-label="<?= e($buyLabel) ?> <?= e($p['name']) ?>">
+                                            <i data-lucide="zap" class="h-3.5 w-3.5"></i> <?= e($buyLabel) ?>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         <?php endif; ?>
                     </div>
