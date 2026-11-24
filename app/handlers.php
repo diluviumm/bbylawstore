@@ -121,6 +121,16 @@ function handle_cart_remove(): never
     json_response(['ok' => true, 'count' => $state['count'], 'total' => $state['total']]);
 }
 
+/** Jalur tanpa JavaScript: hapus item lalu kembali ke halaman asal. */
+function handle_cart_remove_form(): never
+{
+    $vid = post_int('variant_id');
+    $back = post_str('back', 12);
+    cart_remove($vid);
+    flash('ok', 'Item dihapus dari keranjang.');
+    redirect($back === 'checkout' ? '/checkout' : '/keranjang');
+}
+
 // ------------------------------------------------------------------- checkout
 
 /**
@@ -146,65 +156,14 @@ function checkout_respond(array $data, int $status = 200): never
  * WhatsApp. Harga, stok, dan status kategori divalidasi ulang dari server —
  * bukan dari apa pun yang dikirim browser.
  */
-function handle_checkout(): never
+/**
+ * Simpan pesanan dari state baris yang sudah divalidasi server.
+ * Dipakai checkout keranjang dan checkout modal per produk.
+ *
+ * @return array{ok:true,code:string,total:int,redirect:string,wa:string}
+ */
+function place_order(array $state, string $name, string $phone, string $note, string $payment, string $gameId): array
 {
-    // Batas per IP, bukan per orang: pembeli di wifi kampus/kantor bisa berbagi
-    // satu IP publik. 30/menit tetap memblokir skrip, tanpa menghukum pembeli sah.
-    if (!throttle('checkout', 30, 60)) {
-        checkout_respond(['ok' => false, 'error' => 'Terlalu banyak percobaan checkout. Tunggu sebentar.'], 429);
-    }
-
-    $name  = post_str('name', 80);
-    $phoneRaw = post_str('phone', 30);
-    $note  = post_str('note', 400);
-    $payment = post_str('payment', 40);
-    $gameId  = post_str('game_id', 120);
-
-    $errors = [];
-    if (mb_strlen($name) < 2) {
-        $errors['name'] = 'Nama minimal 2 karakter.';
-    }
-    $phone = normalize_phone($phoneRaw);
-    if ($phone === null) {
-        $errors['phone'] = 'Nomor WhatsApp tidak valid (contoh: 0821xxxxxxxx).';
-    }
-
-    $allowedPayments = array_filter(array_map('trim', explode(',', (string) setting('payments', 'QRIS,DANA / E-Wallet,Transfer Bank'))));
-    if ($payment !== '' && !in_array($payment, $allowedPayments, true)) {
-        $payment = $allowedPayments ? reset($allowedPayments) : '';
-    }
-
-    $state = cart_lines();
-    if (!$state['lines']) {
-        $errors['cart'] = 'Keranjang kosong atau semua item sudah tidak tersedia.';
-    }
-
-    // Kategori bisa ditutup admin setelah item masuk keranjang: tolak checkout.
-    foreach ($state['lines'] as $l) {
-        $p = product_by_id((int) $l['product_id']);
-        $cat = $p ? (category_map()[$p['category_id']] ?? null) : null;
-        if (!$p || !$cat || (int) $cat['is_open'] !== 1) {
-            $errors['cart'] = 'Ada layanan di keranjang yang sudah ditutup. Hapus lalu lanjut lagi.';
-            break;
-        }
-    }
-
-    // Data akun game wajib untuk produk game.
-    $needsGameId = false;
-    foreach ($state['lines'] as $l) {
-        $p = product_by_id((int) $l['product_id']);
-        if ($p && $p['category_id'] === 'game') {
-            $needsGameId = true;
-        }
-    }
-    if ($needsGameId && mb_strlen($gameId) < 3) {
-        $errors['game_id'] = 'ID game / username wajib diisi untuk top up.';
-    }
-
-    if ($errors) {
-        checkout_respond(['ok' => false, 'error' => reset($errors), 'errors' => $errors], 422);
-    }
-
     $noteParts = [];
     if ($gameId !== '') {
         $noteParts[] = 'Data Game: ' . $gameId;
@@ -218,7 +177,6 @@ function handle_checkout(): never
     $pdo->beginTransaction();
     try {
         $code = order_code();
-        // Pastikan kode unik (retry maksimal 5x).
         for ($i = 0; $i < 5; $i++) {
             $exists = $pdo->prepare('SELECT 1 FROM orders WHERE code = ?');
             $exists->execute([$code]);
@@ -248,7 +206,6 @@ function handle_checkout(): never
                 $l['unit_price'], $l['price_max'], $l['qty'], $l['subtotal'], $l['category_name'],
             ]);
 
-            // Potong stok HANYA untuk varian yang memang berstok terbatas.
             if ($l['stock'] !== null) {
                 $dec = $pdo->prepare(
                     'UPDATE variants SET stock = stock - ?, sold = sold + ?
@@ -271,21 +228,161 @@ function handle_checkout(): never
         checkout_respond(['ok' => false, 'error' => 'Pesanan gagal disimpan. Coba lagi atau hubungi admin.'], 500);
     }
 
-    cart_clear();
     audit('order.create', $code . ' • ' . rupiah($state['total']) . ' • ' . $state['count'] . ' item', $name);
 
-    // Pesan WhatsApp mengikuti data yang BARU disimpan, bukan input browser.
     $order = order_find($code);
     $waText = wa_message($order);
 
-    checkout_respond([
+    return [
         'ok'       => true,
         'code'     => $code,
         'total'    => $state['total'],
         'redirect' => '/pesanan?kode=' . urlencode($code),
         'wa'       => 'https://wa.me/' . wa_number((string) setting('admin_whatsapp', '6282318613826'))
                       . '?text=' . rawurlencode($waText),
-    ]);
+    ];
+}
+
+/**
+ * Baris keranjang untuk SATU varian (dipakai checkout modal produk).
+ * Semua harga/status/stok tetap diverifikasi dari database.
+ */
+function single_variant_state(int $variantId, int $qty = 1): ?array
+{
+    $qty = max(1, min(20, $qty));
+    foreach (products_all() as $p) {
+        $v = variant_of($p, $variantId);
+        if (!$v) {
+            continue;
+        }
+        $cat = category_map()[$p['category_id']] ?? null;
+        if (!$cat || (int) $cat['is_open'] !== 1 || !variant_available($v)) {
+            return null;
+        }
+        if ($v['stock'] !== null && $qty > (int) $v['stock']) {
+            return null;
+        }
+        $subtotal = (int) $v['price'] * $qty;
+        return [
+            'lines' => [[
+                'product_id'    => $p['id'],
+                'name'          => $p['name'],
+                'category_id'   => $p['category_id'],
+                'category_name' => $p['category_name'],
+                'variant_id'    => $v['id'],
+                'variant_label' => $v['label'],
+                'unit_price'    => (int) $v['price'],
+                'price_max'     => $v['price_max'],
+                'qty'           => $qty,
+                'subtotal'      => $subtotal,
+                'stock'         => $v['stock'],
+            ]],
+            'count' => $qty,
+            'total' => $subtotal,
+        ];
+    }
+    return null;
+}
+
+function handle_checkout(): never
+{
+    if (!throttle('checkout', 30, 60)) {
+        checkout_respond(['ok' => false, 'error' => 'Terlalu banyak percobaan checkout. Tunggu sebentar.'], 429);
+    }
+
+    $name  = post_str('name', 80);
+    $phoneRaw = post_str('phone', 30);
+    $note  = post_str('note', 400);
+    $payment = post_str('payment', 40);
+    $gameId  = post_str('game_id', 120);
+
+    $errors = [];
+    if (mb_strlen($name) < 2) {
+        $errors['name'] = 'Nama minimal 2 karakter.';
+    }
+    $phone = normalize_phone($phoneRaw);
+    if ($phone === null) {
+        $errors['phone'] = 'Nomor WhatsApp tidak valid (contoh: 0821xxxxxxxx).';
+    }
+
+    $allowedPayments = array_filter(array_map('trim', explode(',', (string) setting('payments', 'QRIS,DANA / E-Wallet,Transfer Bank'))));
+    if ($payment !== '' && !in_array($payment, $allowedPayments, true)) {
+        $payment = $allowedPayments ? reset($allowedPayments) : '';
+    }
+
+    $state = cart_lines();
+    if (!$state['lines']) {
+        $errors['cart'] = 'Keranjang kosong atau semua item sudah tidak tersedia.';
+    }
+    foreach ($state['lines'] as $l) {
+        $p = product_by_id((int) $l['product_id']);
+        $cat = $p ? (category_map()[$p['category_id']] ?? null) : null;
+        if (!$p || !$cat || (int) $cat['is_open'] !== 1) {
+            $errors['cart'] = 'Ada layanan di keranjang yang sudah ditutup. Hapus lalu lanjut lagi.';
+            break;
+        }
+    }
+    $needsGameId = false;
+    foreach ($state['lines'] as $l) {
+        $p = product_by_id((int) $l['product_id']);
+        if ($p && $p['category_id'] === 'game') {
+            $needsGameId = true;
+        }
+    }
+    if ($needsGameId && mb_strlen($gameId) < 3) {
+        $errors['game_id'] = 'ID game / username wajib diisi untuk top up.';
+    }
+    if ($errors) {
+        checkout_respond(['ok' => false, 'error' => reset($errors), 'errors' => $errors], 422);
+    }
+
+    $result = place_order($state, $name, $phone, $note, $payment, $gameId);
+    cart_clear();
+    checkout_respond($result);
+}
+
+/** Checkout modal per produk: tidak menyentuh keranjang. */
+function handle_checkout_direct(): never
+{
+    if (!throttle('checkout', 30, 60)) {
+        checkout_respond(['ok' => false, 'error' => 'Terlalu banyak percobaan checkout. Tunggu sebentar.'], 429);
+    }
+
+    $name  = post_str('name', 80);
+    $phoneRaw = post_str('phone', 30);
+    $note  = post_str('note', 400);
+    $payment = post_str('payment', 40);
+    $gameId  = post_str('game_id', 120);
+    $variantId = post_int('variant_id');
+    $qty = post_int('qty', 1);
+
+    $errors = [];
+    if (mb_strlen($name) < 2) {
+        $errors['name'] = 'Nama minimal 2 karakter.';
+    }
+    $phone = normalize_phone($phoneRaw);
+    if ($phone === null) {
+        $errors['phone'] = 'Nomor WhatsApp tidak valid (contoh: 0821xxxxxxxx).';
+    }
+    $allowedPayments = array_filter(array_map('trim', explode(',', (string) setting('payments', 'QRIS,DANA / E-Wallet,Transfer Bank'))));
+    if ($payment !== '' && !in_array($payment, $allowedPayments, true)) {
+        $payment = $allowedPayments ? reset($allowedPayments) : '';
+    }
+
+    $state = single_variant_state($variantId, $qty);
+    if (!$state) {
+        $errors['cart'] = 'Produk tidak tersedia atau kategori sedang tutup.';
+    } else {
+        $p = product_by_id((int) $state['lines'][0]['product_id']);
+        if ($p && $p['category_id'] === 'game' && mb_strlen($gameId) < 3) {
+            $errors['game_id'] = 'ID game / username wajib diisi untuk top up.';
+        }
+    }
+    if ($errors) {
+        checkout_respond(['ok' => false, 'error' => reset($errors), 'errors' => $errors], 422);
+    }
+
+    checkout_respond(place_order($state, $name, $phone, $note, $payment, $gameId));
 }
 
 function wa_message(array $order): string

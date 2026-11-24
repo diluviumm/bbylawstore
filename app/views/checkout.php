@@ -99,7 +99,18 @@ $flashes = take_flashes();
                             <p class="text-xs font-bold ink"><?= e($l['name']) ?></p>
                             <p class="ink-muted text-[11px]"><?= e($l['variant_label']) ?> • <?= (int) $l['qty'] ?>x</p>
                         </div>
-                        <span class="shrink-0 text-xs font-black ink"><?= rupiah((int) $l['subtotal']) ?></span>
+                        <div class="flex shrink-0 flex-col items-end gap-1.5">
+                            <span class="text-xs font-black ink"><?= rupiah((int) $l['subtotal']) ?></span>
+                            <form action="/keranjang/hapus" method="post">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="variant_id" value="<?= (int) $l['variant_id'] ?>">
+                                <input type="hidden" name="back" value="checkout">
+                                <button type="submit" class="inline-flex items-center gap-1 rounded-lg px-1.5 py-1 text-[10px] font-bold text-rose-700 hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-500/10"
+                                        aria-label="Hapus <?= e($l['name']) ?> dari pesanan">
+                                    <i data-lucide="trash-2" class="h-3 w-3"></i> Hapus
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 <?php endforeach; ?>
             </ul>

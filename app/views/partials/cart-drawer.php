@@ -64,74 +64,43 @@ $gamePlaceholder = $gameInfo['placeholder'];
                     <p class="ink-muted mt-0.5 text-xs">Pilih layanan di katalog lalu tekan tombol Beli.</p>
                 </div>
 
-                <ul class="space-y-2.5" data-cart-lines></ul>
+                <ul class="space-y-2.5" data-cart-lines>
+                    <?php foreach ($cartState['lines'] as $l): ?>
+                        <li class="flex items-center justify-between gap-3 rounded-2xl border border-pink-500/20 p-3">
+                            <div class="min-w-0">
+                                <p class="truncate text-xs font-bold ink"><?= e($l['name']) ?></p>
+                                <p class="truncate text-[10px] font-semibold text-pink-600 dark:text-pink-300"><?= e($l['variant_label']) ?> • <?= (int) $l['qty'] ?>x</p>
+                                <p class="mt-0.5 text-[11px] font-black ink"><?= rupiah((int) $l['subtotal']) ?></p>
+                            </div>
+                            <form action="/keranjang/hapus" method="post">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="variant_id" value="<?= (int) $l['variant_id'] ?>">
+                                <button type="submit" class="rounded-lg p-1.5 text-rose-600 hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-500/10"
+                                        aria-label="Hapus <?= e($l['name']) ?> dari keranjang">
+                                    <i data-lucide="trash-2" class="h-4 w-4"></i>
+                                </button>
+                            </form>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
 
-            <form id="checkout-form" class="border-t border-[#f6dbe6] p-4 dark:border-[#3d2340] sm:p-5" novalidate>
-                <div class="space-y-2.5">
-                    <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                        <div>
-                            <label for="co-name" class="ink mb-1 block text-[11px] font-bold">Nama <span class="text-rose-700 dark:text-rose-300" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
-                            <input id="co-name" name="name" type="text" required autocomplete="name" maxlength="80"
-                                   class="field py-2 text-xs" placeholder="Nama kamu">
-                            <p class="mt-1 hidden text-[10px] font-semibold text-rose-700 dark:text-rose-300" data-error="name"></p>
-                        </div>
-                        <div>
-                            <label for="co-phone" class="ink mb-1 block text-[11px] font-bold">No. WhatsApp <span class="text-rose-700 dark:text-rose-300" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
-                            <input id="co-phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" maxlength="20"
-                                   class="field py-2 text-xs" placeholder="08xxxxxxxxxx">
-                            <p class="mt-1 hidden text-[10px] font-semibold text-rose-700 dark:text-rose-300" data-error="phone"></p>
-                        </div>
-                    </div>
-
-                        <div data-game-field <?= $hasGame ? '' : 'hidden' ?>>
-                            <label for="co-game" data-game-label class="ink mb-1 block text-[11px] font-bold"><?= e($gameLabel) ?> <span class="text-rose-700 dark:text-rose-300" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
-                            <input id="co-game" name="game_id" type="text" maxlength="120"
-                                   data-game-input class="field py-2 text-xs" placeholder="<?= e($gamePlaceholder) ?>">
-                            <p class="mt-1 hidden text-[10px] font-semibold text-rose-700 dark:text-rose-300" data-error="game_id"></p>
-                        </div>
-
-                    <fieldset>
-                        <legend class="ink mb-1 block text-[11px] font-bold">Metode Pembayaran</legend>
-                        <div class="grid grid-cols-3 gap-1.5">
-                            <?php foreach ($payments as $i => $pay): ?>
-                                <label class="flex cursor-pointer items-center justify-center rounded-xl border-2 px-2 py-2 text-[11px] font-bold transition-colors
-                                              border-[#f0d3e0] text-[#5c4354] hover:border-pink-300
-                                              dark:border-[#4a2b50] dark:text-[#dcc4d6] dark:hover:border-pink-400/50
-                                              has-[:checked]:border-pink-600 has-[:checked]:bg-pink-50 has-[:checked]:text-pink-800
-                                              dark:has-[:checked]:border-pink-400 dark:has-[:checked]:bg-pink-500/15 dark:has-[:checked]:text-pink-200">
-                                    <input type="radio" name="payment" value="<?= e($pay) ?>" class="sr-only" <?= $i === 0 ? 'checked' : '' ?>>
-                                    <span class="truncate"><?= e($paymentLabels[$pay] ?? $pay) ?></span>
-                                </label>
-                            <?php endforeach; ?>
-                        </div>
-                    </fieldset>
-
-                    <div>
-                        <label for="co-note" class="ink mb-1 block text-[11px] font-bold">Catatan (opsional)</label>
-                        <textarea id="co-note" name="note" rows="2" maxlength="400"
-                                  class="field py-2 text-xs" placeholder="Keterangan tambahan untuk admin"></textarea>
-                    </div>
-                </div>
-
-                <div class="mt-3.5 flex items-center justify-between gap-3 border-t border-[#f6dbe6] pt-3 dark:border-[#3d2340]">
+            <div class="border-t border-[#f6dbe6] p-4 dark:border-[#3d2340] sm:p-5">
+                <div class="mb-3 flex items-center justify-between gap-3">
                     <div>
                         <span class="ink-muted block text-[10px] font-bold uppercase">Total</span>
-                        <span class="text-base font-black text-pink-700 dark:text-pink-300" data-cart-total><?= rupiah((int) $cartState['total']) ?></span>
+                        <span class="text-lg font-black text-pink-700 dark:text-pink-300" data-cart-total><?= rupiah((int) $cartState['total']) ?></span>
                     </div>
-                    <button type="submit" id="checkout-btn" class="btn-primary px-4 py-2.5 text-xs"
-                            aria-label="Buat pesanan dan lanjut ke WhatsApp" <?= $cartState['lines'] ? '' : 'disabled' ?>>
-                        <i data-lucide="send" class="h-3.5 w-3.5"></i>
-                        <span data-checkout-label>Buat Pesanan</span>
+                    <button type="button" data-cart-checkout
+                            class="btn-primary px-4 py-2.5 text-xs"
+                            aria-label="Lanjut checkout" <?= $cartState['lines'] ? '' : 'disabled' ?>>
+                        <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i> Checkout
                     </button>
                 </div>
-
-                <p class="ink-muted mt-2.5 text-center text-[10px] leading-relaxed">
-                    Pesanan tersimpan otomatis di sistem toko, lalu kamu diarahkan ke WhatsApp admin
-                    untuk instruksi pembayaran.
+                <p class="ink-muted text-center text-[10px] leading-relaxed">
+                    Pembelian diproses lewat pop-up — halaman katalog tetap terbuka.
                 </p>
-                <p class="mt-1.5 hidden rounded-xl bg-rose-50 px-3 py-2 text-[11px] font-semibold text-rose-800 dark:bg-rose-500/15 dark:text-rose-200" data-error="cart"></p>
-            </form>
+            </div>
         </div>
     </div>
 </div>

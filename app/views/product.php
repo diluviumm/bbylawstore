@@ -161,7 +161,7 @@ foreach ($product['variants'] as $v) {
                         <a href="https://wa.me/<?= e($adminWa) ?>?text=<?= rawurlencode('Halo Admin Bbylaa Store, saya mau tanya produk: ' . $product['name']) ?>"
                            target="_blank" rel="noopener noreferrer"
                            class="btn-quiet w-full py-2.5 text-xs">
-                            <i data-lucide="message-circle" class="h-3.5 w-3.5"></i> Tanya admin dulu
+                            <i data-lucide="message-circle" class="h-3.5 w-3.5"></i> Tanya CS dulu
                         </a>
                     </form>
                 <?php endif; ?>

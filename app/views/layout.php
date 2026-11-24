@@ -61,6 +61,7 @@ $flashes = take_flashes();
 <?php endif; ?>
 
 <?= $content ?>
+<?php require BBY_APP . '/views/partials/checkout-modal.php'; ?>
 
 <footer class="mt-auto border-t border-[#f6dbe6] dark:border-[#3d2340] bg-white/70 dark:bg-[#140b1a]/80 backdrop-blur">
     <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-xs sm:flex-row sm:px-6 lg:px-8">
@@ -77,7 +78,7 @@ $flashes = take_flashes();
             </a>
             <a href="https://wa.me/<?= e($adminWhatsapp) ?>" target="_blank" rel="noopener noreferrer"
                class="btn-quiet px-3 py-1.5 text-[11px]">
-                <i data-lucide="message-circle" class="h-3.5 w-3.5"></i> Chat Admin
+                <i data-lucide="message-circle" class="h-3.5 w-3.5"></i> Chat CS
             </a>
         </nav>
     </div>

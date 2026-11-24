@@ -82,8 +82,14 @@ try {
             case '/api/cart/remove':
                 handle_cart_remove();
                 break;
+            case '/keranjang/hapus':
+                handle_cart_remove_form();
+                break;
             case '/api/checkout':
                 handle_checkout();
+                break;
+            case '/api/checkout/direct':
+                handle_checkout_direct();
                 break;
             case '/lacak':
                 handle_track();

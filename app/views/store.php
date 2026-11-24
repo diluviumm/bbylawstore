@@ -198,9 +198,24 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
                 $packLabel = $p['category_id'] === 'game' ? 'Pilih Nominal Top Up:' : ($p['category_id'] === 'handmade' ? 'Pilih Paket Custom:' : 'Pilih Paket / Durasi:');
                 $priceText = static fn(array $v): string => $v['price_max'] !== null
                     ? rupiah($v['price']) . ' – ' . rupiah($v['price_max']) : rupiah($v['price']);
+                $g = game_field_info([['product_id' => (int) $p['id'], 'category_id' => $p['category_id']]]);
+                $notePlaceholder = $p['category_id'] === 'joki'
+                    ? 'Tulis judul tugas, jumlah halaman & deadline'
+                    : ($p['category_id'] === 'handmade'
+                        ? 'Keterangan custom ganci/fotostrip atau kirim via WA'
+                        : 'Contoh: email invite pribadi / catatan khusus');
                 ?>
-                <article class="card store-card flex flex-col p-4 transition-transform duration-200 <?= $isOpen ? 'hover:-translate-y-1' : '' ?> sm:p-5"
-                         data-product-card="<?= (int) $p['id'] ?>">
+                <article class="card store-card relative flex flex-col p-4 transition-transform duration-200 <?= $isOpen ? 'hover:-translate-y-1' : '' ?> sm:p-5"
+                         data-product-card="<?= (int) $p['id'] ?>"
+                         data-detail-url="/produk?id=<?= (int) $p['id'] ?>"
+                         data-product-name="<?= e($p['name']) ?>"
+                         data-product-variant="<?= e($first['label']) ?>"
+                         data-product-price="<?= e($priceText($first)) ?>"
+                         data-product-category="<?= e($p['category_id']) ?>"
+                         data-product-joki="<?= $p['is_quote'] ? '1' : '0' ?>"
+                         data-game-label="<?= e($g['label']) ?>"
+                         data-game-placeholder="<?= e($g['placeholder']) ?>"
+                         data-note-placeholder="<?= e($notePlaceholder) ?>">
                     <div class="relative z-10 mb-2 flex items-start justify-between gap-1.5 sm:mb-3">
                         <span class="chip bg-pink-950/85 text-pink-200 ring-pink-500/40 truncate">
                             <?= e($p['category_name']) ?>
@@ -219,7 +234,9 @@ $marquee = setting('marquee_text', 'welcome to bbylaa store ~ Happy Shopping, Tr
                         </span>
                         <div class="min-w-0">
                             <h3 class="line-clamp-2-safe text-sm font-extrabold leading-tight text-white drop-shadow sm:text-base">
-                                <?= e($p['name']) ?>
+                                <a href="/produk?id=<?= (int) $p['id'] ?>" class="hover:text-pink-300" aria-label="Lihat detail <?= e($p['name']) ?>">
+                                    <?= e($p['name']) ?>
+                                </a>
                             </h3>
                             <p class="mt-0.5 truncate text-[10.5px] font-semibold text-pink-300 sm:text-[11.5px]">
                                 <?= e($p['subtext']) ?>
